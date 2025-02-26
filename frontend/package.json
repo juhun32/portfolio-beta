@@ -18,6 +18,8 @@
 		"autoprefixer": "^10.4.20",
 		"bits-ui": "^0.22.0",
 		"clsx": "^2.1.1",
+		"cmdk-sv": "^0.0.18",
+		"lucide-svelte": "^0.476.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"tailwind-merge": "^3.0.2",
@@ -27,7 +29,6 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"lucide-svelte": "^0.475.0",
 		"mode-watcher": "^0.5.1"
 	}
 }

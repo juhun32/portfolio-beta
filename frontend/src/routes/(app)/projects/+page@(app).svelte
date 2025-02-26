@@ -14,9 +14,9 @@
     <!-- <Menu /> -->
     <div class="border-t">
         <div class="bg-background">
-            <div class="flex justify-center px-4 py-6 lg:px-8">
+            <div class="h-full flex justify-center px-4 py-6 lg:px-8">
                 <Sidebar class="hidden lg:block" playlists={[]} />
-                <div class="w-3/4 col-span-3 lg:col-span-4">
+                <div class="w-3/5 col-span-3 lg:col-span-4">
                     <div class="h-full px-4 py-6 lg:px-8">
                         <Tabs.Root value="music" class="h-full space-y-6">
                             <div class="space-between flex items-center">

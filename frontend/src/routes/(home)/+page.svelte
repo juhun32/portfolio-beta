@@ -6,7 +6,6 @@
         Juhun Park <span class="text-violet-500">Software Engineer</span>
     </h1>
     <p class="text-base sm:text-xl text-center w-3/4 sm:w-1/2">
-        Track applications, discover new opportunities, and jumpstart your
-        career.
+        Description
     </p>
 </div>
