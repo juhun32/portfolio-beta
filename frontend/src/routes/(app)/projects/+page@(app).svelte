@@ -12,12 +12,12 @@
 </div>
 <div class="hidden md:block">
     <!-- <Menu /> -->
-    <div class="border-t">
-        <div class="bg-background">
+    <div class="flex justify-center items-center border-y border-dashed border-stone-300 dark:border-stone-800">
+        <div class="bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800">
             <div class="flex justify-center">
                 <Sidebar class="hidden lg:block" playlists={[]} />
                 <div class="w-full col-span-3 lg:col-span-4">
-                    <div class="px-4 py-6 lg:px-8">
+                    <div class="px-4 p-8">
                         <Tabs.Root value="music" class="space-y-6">
                             <div class="space-between flex items-center">
                                 <Tabs.List>
