@@ -9,8 +9,8 @@
 	export { className as class };
 </script>
 
-<div class={cn("w-1/5", className)}>
-	<div class="h-full space-y-4 py-6 px-4 lg:px-8">
+<div class={cn("w-1/4", className)}>
+	<div class="space-y-4 py-6 pl-4 lg:pl-8">
 		<div class="px-3 py-2">
 			<h2 class="mb-2 px-4 text-lg font-semibold tracking-tight">Discover</h2>
 			<div class="space-y-1">

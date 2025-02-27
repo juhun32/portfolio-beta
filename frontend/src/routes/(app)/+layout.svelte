@@ -18,7 +18,7 @@
     <header class="bg-background z-50">
         <div class="mx-auto flex items-center justify-between p-4 lg:px-6">
             <a
-                href="/"
+                href="/home"
                 aria-label="Home"
                 class="group hover:opacity-80 transition-all"
             >
