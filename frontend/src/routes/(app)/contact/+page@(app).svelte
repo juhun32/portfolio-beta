@@ -16,7 +16,11 @@
         <div class="bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800">
             <div class="flex justify-center">
                 <Sidebar class="hidden lg:block" />
-                
+                <div class="w-full col-span-3 lg:col-span-4">
+                    <div class="px-4 p-8">
+                        Email
+                    </div>
+                </div>
             </div>
         </div>
     </div>
