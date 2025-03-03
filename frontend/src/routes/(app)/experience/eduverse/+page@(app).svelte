@@ -11,27 +11,20 @@
         <Tabs.List>
             <Tabs.Trigger value="about" class="relative">About</Tabs.Trigger>
             <Tabs.Trigger value="details">Details</Tabs.Trigger>
-            <Tabs.Trigger value="live" disabled>Live</Tabs.Trigger>
+            <!-- <Tabs.Trigger value="live" disabled>Live</Tabs.Trigger> -->
         </Tabs.List>
-        <div class="ml-auto mr-4">
-            <Button>Add about</Button>
-        </div>
+        <!-- <div class="ml-auto mr-4"> -->
+            <!-- <Button>Add about</Button> -->
+        <!-- </div> -->
     </div>
     <Tabs.Content value="about" class="border-none pr-4 outline-none">
         <div class="flex items-center justify-between">
             <div class="space-y-1">
                 <h2 class="text-2xl font-semibold tracking-tight">Eduverse</h2>
                 <p class="text-muted-foreground text-sm">
-                    Top picks for you. Updated daily.
+                    Software Engineer Intern
                 </p>
             </div>
-        </div>
-        <Separator class="my-4" />
-        <div class="mt-6 space-y-1">
-            <h2 class="text-2xl font-semibold tracking-tight">Made for You</h2>
-            <p class="text-muted-foreground text-sm">
-                Your personal playlists. Updated daily.
-            </p>
         </div>
         <Separator class="my-4" />
     </Tabs.Content>
@@ -42,10 +35,32 @@
         <div class="flex items-center justify-between">
             <div class="space-y-1">
                 <h2 class="text-2xl font-semibold tracking-tight">
-                    New Episodes
+                    Details
                 </h2>
                 <p class="text-muted-foreground text-sm">
-                    Your favorite podcasts. Updated daily.
+                    - Implemented an ML-based recommendation algorithm using
+                    Python and Django suggesting user connections, personalized
+                    posts.
+                </p>
+                <p class="text-muted-foreground text-sm">
+                    - Developed search endpoint using Django ORM, PostgreSQL to
+                    query profiles and posts with filters for names, skills,
+                    post types.
+                </p>
+                <p class="text-muted-foreground text-sm">
+                    - Collaborated on API testing, debugging using Postman and
+                    Git, ensuring profile post-related functionality achieved
+                    98% accuracy.
+                </p>
+                <p class="text-muted-foreground text-sm">
+                    - Implemented backend features, search features with
+                    seamless React integration for frontend functionality,
+                    deployed using Firebase.
+                </p>
+                <p class="text-muted-foreground text-sm">
+                    - Worked as a team of 6 to develop and deploy scalable
+                    backend services, ensuring high availability and
+                    performance.
                 </p>
             </div>
         </div>
