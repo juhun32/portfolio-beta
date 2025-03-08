@@ -11,19 +11,16 @@
         <Tabs.List>
             <Tabs.Trigger value="about" class="relative">About</Tabs.Trigger>
             <Tabs.Trigger value="details">Details</Tabs.Trigger>
-            <!-- <Tabs.Trigger value="live" disabled>Live</Tabs.Trigger> -->
         </Tabs.List>
-        <!-- <div class="ml-auto mr-4"> -->
-            <!-- <Button>Add about</Button> -->
-        <!-- </div> -->
     </div>
     <Tabs.Content value="about" class="border-none pr-4 outline-none">
-        <div class="flex items-center justify-between">
-            <div class="space-y-1">
+        <div class="w-full flex items-center justify-between">
+            <div class="w-full space-y-1">
                 <h2 class="text-2xl font-semibold tracking-tight">Eduverse</h2>
-                <p class="text-muted-foreground text-sm">
-                    Software Engineer Intern
-                </p>
+                <div class="w-full flex items-center justify-between">
+                    <p class="text-sm">Software Engineer Intern</p>
+                    <p class="text-sm">December 2024 - Present</p>
+                </div>
             </div>
         </div>
         <Separator class="my-4" />
@@ -34,9 +31,7 @@
     >
         <div class="flex items-center justify-between">
             <div class="space-y-1">
-                <h2 class="text-2xl font-semibold tracking-tight">
-                    Details
-                </h2>
+                <h2 class="text-2xl font-semibold tracking-tight">Details</h2>
                 <p class="text-muted-foreground text-sm">
                     - Implemented an ML-based recommendation algorithm using
                     Python and Django suggesting user connections, personalized

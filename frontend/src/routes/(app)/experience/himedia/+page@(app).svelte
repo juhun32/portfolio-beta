@@ -11,59 +11,19 @@
         <Tabs.List>
             <Tabs.Trigger value="about" class="relative">About</Tabs.Trigger>
             <Tabs.Trigger value="details">Details</Tabs.Trigger>
-            <Tabs.Trigger value="live" disabled>Live</Tabs.Trigger>
         </Tabs.List>
-        <div class="ml-auto mr-4">
-            <Button>Add about</Button>
-        </div>
     </div>
     <Tabs.Content value="about" class="border-none pr-4 outline-none">
-        <div class="flex items-center justify-between">
-            <div class="space-y-1">
+        <div class="w-full flex items-center justify-between">
+            <div class="w-full space-y-1">
                 <h2 class="text-2xl font-semibold tracking-tight">Himedia</h2>
-                <p class="text-muted-foreground text-sm">
-                    Top picks for you. Updated daily.
-                </p>
+                <div class="w-full flex items-center justify-between">
+                    <p class="text-sm">Software Engineer Apprentice</p>
+                    <p class="text-sm">January 2023 - April 2023</p>
+                </div>
             </div>
         </div>
         <Separator class="my-4" />
-        <div class="relative">
-            <!-- <ScrollArea orientation="both"> -->
-            <div class="flex space-x-4 pb-4">
-                <!-- {#each listenNowAlbums as album}
-												<AlbumArtwork
-													{album}
-													class="w-[250px]"
-													aspectRatio="portrait"
-													width={250}
-													height={330}
-												/>
-											{/each} -->
-            </div>
-            <!-- </ScrollArea> -->
-        </div>
-        <div class="mt-6 space-y-1">
-            <h2 class="text-2xl font-semibold tracking-tight">Made for You</h2>
-            <p class="text-muted-foreground text-sm">
-                Your personal playlists. Updated daily.
-            </p>
-        </div>
-        <Separator class="my-4" />
-        <div class="relative">
-            <!-- <ScrollArea orientation="both"> -->
-            <div class="flex space-x-4 pb-4">
-                <!-- {#each madeForYouAlbums as album}
-												<AlbumArtwork
-													{album}
-													class="w-[150px]"
-													aspectRatio="square"
-													width={150}
-													height={150}
-												/>
-											{/each} -->
-            </div>
-            <!-- </ScrollArea> -->
-        </div>
     </Tabs.Content>
     <Tabs.Content
         value="details"
@@ -71,15 +31,18 @@
     >
         <div class="flex items-center justify-between">
             <div class="space-y-1">
-                <h2 class="text-2xl font-semibold tracking-tight">
-                    New Episodes
-                </h2>
+                <h2 class="text-2xl font-semibold tracking-tight">Details</h2>
                 <p class="text-muted-foreground text-sm">
-                    Your favorite podcasts. Updated daily.
+                    - Developed skills in web development techniques and REST API using Bootstrap, HTML/CSS, JavaScript, and Oracle DBMS.
+                </p>
+                <p class="text-muted-foreground text-sm">
+                    - Focused on backend development skills; object-oriented programming, data structures and algorithms, unit testing, and debugging. 
+                </p>
+                <p class="text-muted-foreground text-sm">
+                    - Led a team of 4 and improved workflow efficiency by reducing 30% of development time by utilizing Git, Github and Notion.
                 </p>
             </div>
         </div>
         <Separator class="my-4" />
-        <!-- <PodcastEmptyPlaceholder /> -->
     </Tabs.Content>
 </Tabs.Root>
