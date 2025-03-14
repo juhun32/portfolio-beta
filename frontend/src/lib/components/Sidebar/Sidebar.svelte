@@ -50,7 +50,7 @@
         </div>
 
         <h2 class="px-4 text-lg font-semibold tracking-tight">Projects</h2>
-        <div class="space-y-1">
+        <div class="min-h-[300px] space-y-1">
             <Button
                 variant={isActive("/projects/copium") ? "default" : "ghost"}
                 class="w-full justify-start"

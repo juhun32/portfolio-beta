@@ -33,13 +33,18 @@
             <div class="space-y-1">
                 <h2 class="text-2xl font-semibold tracking-tight">Details</h2>
                 <p class="text-muted-foreground text-sm">
-                    - Developed skills in web development techniques and REST API using Bootstrap, HTML/CSS, JavaScript, and Oracle DBMS.
+                    - Developed skills in web development techniques and REST
+                    API using Bootstrap, HTML/CSS, JavaScript, and Oracle DBMS.
                 </p>
                 <p class="text-muted-foreground text-sm">
-                    - Focused on backend development skills; object-oriented programming, data structures and algorithms, unit testing, and debugging. 
+                    - Focused on backend development skills; object-oriented
+                    programming, data structures and algorithms, unit testing,
+                    and debugging.
                 </p>
                 <p class="text-muted-foreground text-sm">
-                    - Led a team of 4 and improved workflow efficiency by reducing 30% of development time by utilizing Git, Github and Notion.
+                    - Led a team of 4 and improved workflow efficiency by
+                    reducing 30% of development time by utilizing Git, Github
+                    and Notion.
                 </p>
             </div>
         </div>
