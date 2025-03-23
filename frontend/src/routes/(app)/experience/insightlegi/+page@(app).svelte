@@ -76,7 +76,7 @@
         </div>
         <Separator class="my-4" />
         <div class="">
-            <ul class="space-y-3 list-[] pl-5">
+            <ul class="space-y-3 list-disc pl-5">
                 <li class="text-md">
                     Created data visualization dashboards for 15+ states, 30+
                     charts using Chart.js and React-Query while maintaining
