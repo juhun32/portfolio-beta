@@ -9,16 +9,14 @@
     // components
     import { Separator } from "$lib/components/ui/separator";
     import { Button } from "$lib/components/ui/button/index.js";
-    import Combobox from "$lib/components/Combobox/Combobox.svelte";
     import Sidebar from "$lib/components/Sidebar/Sidebar.svelte";
 
     // images
-    import Profile from "./images/profile.png";
+    import Profile from "$lib/assets/profile.png";
 
     // icons
     import Avatar from "$lib/components/svg/Avatar/Avatar.svelte";
     import Github from "$lib/components/svg/Github/Github.svelte";
-    import LinkedIn from "$lib/components/svg/Linkedin/Linkedin.svelte";
     import { CornerUpRight } from "lucide-svelte";
     import { Moon } from "lucide-svelte";
     import { SunMedium } from "lucide-svelte";
@@ -32,7 +30,7 @@
     import Linkedin from "$lib/components/svg/Linkedin/Linkedin.svelte";
 
     // changing text for the main page
-    let texts = ["Software Engineer", "Racing Enthusiast", "College Student"];
+    let texts = ["Software Engineer", "Racing Enthusiast", "College Student", "Machine Learning Enthusiast", "Full-stack Developer", ];
     let index = 0;
     let currentText = $state(texts[index]);
     let interval: number;
