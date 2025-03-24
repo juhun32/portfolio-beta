@@ -1,7 +1,41 @@
 <script lang="ts">
     import { Button } from "$lib/components/ui/button/index.js";
     import { Separator } from "$lib/components/ui/separator/index.js";
+    import * as Table from "$lib/components/ui/table/index.js";
+    import * as Card from "$lib/components/ui/card/index.js";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
+    import thumb from "$lib/assets/thumb_ftrace.png";
+
+    import { MoveUpRight } from "lucide-svelte";
+
+    const card = [
+        {
+            title: "InsightLegi",
+            description: "",
+            link: "https://copium.dev",
+            github: "https://github.com/copium-dev/copium",
+            table: [
+                {
+                    tech: "React",
+                    purpose: "Frontend Development",
+                    results:
+                        "Responsive and user friendly design. Easy to use and navigate.",
+                },
+                {
+                    tech: "Flask & PostgreSQL",
+                    purpose: "REST API",
+                    results:
+                        "Front-facing REST API for authentication and data analytics.",
+                },
+                {
+                    tech: "Docker & GCP",
+                    purpose: "Deployment",
+                    results:
+                        "Containerized and scalable deployment.",
+                },
+            ],
+        },
+    ];
 </script>
 
 <Tabs.Root value="about" class="space-y-6 mx-4">
@@ -13,50 +47,82 @@
     </div>
     <Tabs.Content value="about" class="border-none pr-4 outline-none">
         <div class="w-full flex items-center justify-between">
-            <div class="w-full space-y-1">
+            <div class="w-full flex items-center justify-between">
                 <h2 class="text-2xl font-semibold tracking-tight">ftrace</h2>
-                <div class="w-full flex items-center justify-between">
-                    <p class="text-sm">Software Engineer Intern</p>
-                    <p class="text-sm">December 2024 - Present</p>
-                </div>
             </div>
+            <Button
+                href=""
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm m-0"
+            >
+                Visit Website
+                <MoveUpRight class="w-4 h-4 ml-2" />
+            </Button>
         </div>
         <Separator class="my-4" />
+        <div class="flex flex-col gap-8">
+            <p>
+                A comprehensive F1 driver statistics system, featuring real-time
+                data retrieval and data visualization, driver standings and
+                championship points from OpenF1 APIs. Features informative page
+                where one can learn more about motor racing and F1.
+            </p>
+            <div class="flex items-center justify-start">
+                <img
+                    src={thumb}
+                    alt="copium.dev"
+                    class="w-1/2 border rounded-lg"
+                />
+            </div>
+        </div>
     </Tabs.Content>
     <Tabs.Content
         value="details"
         class="flex-col border-none p-0 data-[state=active]:flex"
     >
         <div class="flex items-center justify-between">
-            <div class="space-y-1">
-                <h2 class="text-2xl font-semibold tracking-tight">Details</h2>
-                <p class="text-muted-foreground text-sm">
-                    - Implemented an ML-based recommendation algorithm using
-                    Python and Django suggesting user connections, personalized
-                    posts.
-                </p>
-                <p class="text-muted-foreground text-sm">
-                    - Developed search endpoint using Django ORM, PostgreSQL to
-                    query profiles and posts with filters for names, skills,
-                    post types.
-                </p>
-                <p class="text-muted-foreground text-sm">
-                    - Collaborated on API testing, debugging using Postman and
-                    Git, ensuring profile post-related functionality achieved
-                    98% accuracy.
-                </p>
-                <p class="text-muted-foreground text-sm">
-                    - Implemented backend features, search features with
-                    seamless React integration for frontend functionality,
-                    deployed using Firebase.
-                </p>
-                <p class="text-muted-foreground text-sm">
-                    - Worked as a team of 6 to develop and deploy scalable
-                    backend services, ensuring high availability and
-                    performance.
-                </p>
-            </div>
+            <Tabs.Root value={card[0].title} class="w-full">
+                {#each card as card}
+                    <Tabs.Content value={card.title} class="mt-4">
+                        <Card.Root class="w-full">
+                            <Card.Content>
+                                {#if card.table}
+                                    <Table.Root class="text-xs sm:text-sm">
+                                        <Table.Header>
+                                            <Table.Row>
+                                                <Table.Head class="sm:w-1/4"
+                                                    >Tech</Table.Head
+                                                >
+                                                <Table.Head class="sm:w-1/4"
+                                                    >Purpose</Table.Head
+                                                >
+                                                <Table.Head>Results</Table.Head>
+                                            </Table.Row>
+                                        </Table.Header>
+                                        <Table.Body>
+                                            {#each card.table as feature, j (j)}
+                                                <Table.Row>
+                                                    <Table.Cell
+                                                        class="font-medium"
+                                                        >{feature.tech}</Table.Cell
+                                                    >
+                                                    <Table.Cell
+                                                        >{feature.purpose}</Table.Cell
+                                                    >
+                                                    <Table.Cell
+                                                        >{feature.results}</Table.Cell
+                                                    >
+                                                </Table.Row>
+                                            {/each}
+                                        </Table.Body>
+                                    </Table.Root>
+                                {/if}
+                            </Card.Content>
+                        </Card.Root>
+                    </Tabs.Content>
+                {/each}
+            </Tabs.Root>
         </div>
-        <Separator class="my-4" />
     </Tabs.Content>
 </Tabs.Root>

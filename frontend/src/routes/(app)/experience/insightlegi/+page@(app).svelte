@@ -8,47 +8,20 @@
 
     const card = [
         {
-            title: "copium.dev",
-            description: "Tech internship management platform with real-time search, data analytics, and live postings.\
-            Backend infrastructure scalable to millions with microservices and message queues.",
-            date: "Jan 2025 - Present",
+            title: "InsightLegi",
+            description: "",
             link: "https://copium.dev",
             github: "https://github.com/copium-dev/copium",
             table: [
                 {
-                    tech: "SvelteKit & Vercel",
+                    tech: "React & Tailwind",
                     purpose: "Frontend Development",
-                    results: "Responsive, beautiful, and accessible design with SSR for performance."
+                    results: "Data visualization dashboards, responsive design web application."
                 },
                 {
-                    tech: "Algolia",
-                    purpose: "Search Engine",
-                    results: "Real-time search and filtering on internship postings or user's tracked applications.",
-                },
-                {
-                    tech: "Go & Firestore",
-                    purpose: "REST API & Storage",
-                    results: "Front-facing REST API for authentication, Algolia searching, and data analytics.",
-                },
-                {
-                    tech: "Cloud Pub/Sub",
-                    purpose: "Messaging Service",
-                    results: "Decoupled and fault-tolerant Algolia indexing and BigQuery analytics with a strong consistency model."
-                },
-                {
-                    tech: "BigQuery & CQRS",
-                    purpose: "Real-time Analytics",
-                    results: "Personalized insights by tracking monthly trends, leveraging a denormalized schema and CQRS for fast queries."
-                },
-                {
-                    tech: "Docker & GCP & Nginx",
-                    purpose: "Deployment",
-                    results: "Containerized, scalable, and fault-tolerant deployment across VM instances and serverless functions.",
-                },
-                {
-                    tech: "Python",
-                    purpose: "Data Scraping",
-                    results: "Scheduled tech internship posting scraping for focused and fresh data.",
+                    tech: "Go",
+                    purpose: "REST API",
+                    results: "Front-facing REST API for authentication",
                 },
             ],
         }
@@ -70,7 +43,7 @@
                 </h2>
                 <div class="w-full flex items-center justify-between">
                     <p class="text-sm">Software Engineer Intern</p>
-                    <p class="text-sm">December 2024 - Feburary 2025</p>
+                    <p class="text-sm">January 2024 - March 2025</p>
                 </div>
             </div>
         </div>
@@ -103,22 +76,15 @@
                 {#each card as card}
                     <Tabs.Content value={card.title} class="mt-4">
                         <Card.Root class="w-full">
-                            <Card.Header>
-                                <Card.Title>{card.title}</Card.Title>
-                                <Card.Description>{card.description}</Card.Description>
-                                <Card.Description>
-                                    <!-- <Badge>{card.date}</Badge> -->
-                                </Card.Description>
-                            </Card.Header>
                             <Card.Content>
                                 {#if card.table}
                                     <Table.Root class="text-xs sm:text-sm">
                                         <Table.Header>
                                             <Table.Row>
-                                                <Table.Head class="sm:w-[150px]"
+                                                <Table.Head class="sm:w-1/4"
                                                     >Tech</Table.Head
                                                 >
-                                                <Table.Head class="sm:w-[200px]"
+                                                <Table.Head class="sm:w-1/4"
                                                     >Purpose</Table.Head
                                                 >
                                                 <Table.Head>Results</Table.Head>
@@ -142,40 +108,10 @@
                                     </Table.Root>
                                 {/if}
                             </Card.Content>
-                            <Card.Footer>
-                                <div class="flex flex-row gap-4">
-                                    <!-- if no link, only show GitHub with default variant. otherwise, GitHub is outline and Visit is default -->
-                                    {#if card.link}
-                                        <a
-                                            href={card.link}
-                                            target="_blank"
-                                            class={buttonVariants({ variant: "default" })}
-                                        >
-                                            Visit
-                                        </a>
-                                        <a
-                                            href={card.github}
-                                            target="_blank"
-                                            class={buttonVariants({ variant: "outline" })}
-                                        >
-                                            GitHub
-                                        </a>
-                                    {:else}
-                                    <a
-                                        href={card.github}
-                                        target="_blank"
-                                        class={buttonVariants({ variant: "default" })}
-                                    >
-                                        GitHub
-                                    </a>
-                                    {/if}
-                                </div>
-                            </Card.Footer>
                         </Card.Root>
                     </Tabs.Content>
                 {/each}
             </Tabs.Root>
         </div>
-        <Separator class="my-4" />
     </Tabs.Content>
 </Tabs.Root>
