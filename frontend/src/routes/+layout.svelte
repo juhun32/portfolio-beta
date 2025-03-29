@@ -149,7 +149,7 @@
                         <Phone class="h-4 w-4" /><a href="tel:+12029244546"
                             >Phone</a
                         >
-                        <Separator orientation="vertical" class="h-4 mx-2" />
+                        <Separator orientation="vertical" class="h-4 md:mx-2" />
                         <a href="tel:+12029244546">(202) 924 - 4546</a>
                     </div>
                     <div class="flex items-center gap-2 text-sm md:text-base">
@@ -157,7 +157,7 @@
                             href="https://www.linkedin.com/in/juhun-park/"
                             >LinkedIn</a
                         >
-                        <Separator orientation="vertical" class="h-4 mx-2" />
+                        <Separator orientation="vertical" class="h-4 md:mx-2" />
                         <a href="https://www.linkedin.com/in/juhun-park/"
                             >linkedin.com/in/juhun-park/</a
                         >
@@ -168,7 +168,7 @@
                         <Mails class="h-4 w-4" /><a
                             href="mailto:juhunpark32@gmail.com">Email</a
                         >
-                        <Separator orientation="vertical" class="h-4 mx-2" />
+                        <Separator orientation="vertical" class="h-4 md:mx-2" />
                         <a href="mailto:juhunpark32@gmail.com"
                             >juhunpark32@gmail.com</a
                         >
@@ -177,7 +177,7 @@
                         <Github className="h-4 w-4" /><a
                             href="https://www.github.com/juhun32">GitHub</a
                         >
-                        <Separator orientation="vertical" class="h-4 mx-2" />
+                        <Separator orientation="vertical" class="h-4 md:mx-2" />
                         <a href="https://www.github.com/juhun32"
                             >github.com/juhun32</a
                         >
