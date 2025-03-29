@@ -30,7 +30,13 @@
     import Linkedin from "$lib/components/svg/Linkedin/Linkedin.svelte";
 
     // changing text for the main page
-    let texts = ["Software Engineer", "Racing Enthusiast", "College Student", "Machine Learning Enthusiast", "Full-stack Developer", ];
+    let texts = [
+        "Software Engineer",
+        "Racing Enthusiast",
+        "College Student",
+        "Machine Learning Enthusiast",
+        "Full-stack Developer",
+    ];
     let index = 0;
     let currentText = $state(texts[index]);
     let interval: number;
@@ -62,9 +68,9 @@
                     class="group flex items-center hover:opacity-80 transition-all"
                 >
                     <div
-                        class="ml-8 rounded-lg border border-stone-950 overflow-hidden dark:bg-white"
+                        class="ml-8 rounded-full border border-stone-950 overflow-hidden dark:bg-white"
                     >
-                        <Avatar className="h-7" />
+                        <Avatar className="h-6" />
                     </div>
                     <p
                         class="ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground h-10 px-3 py-2 text-md sm:text-lg"
@@ -189,10 +195,11 @@
         >
             <div class="px-4 flex justify-between items-center">
                 <div class="flex flex-col">
-                <h2 class="text-lg font-semibold tracking-tight">Resume</h2>
-                <p class="text-sm text-muted-foreground">
-                    Last updated: March 1, 2025
-                </p></div>
+                    <h2 class="text-lg font-semibold tracking-tight">Resume</h2>
+                    <p class="text-sm text-muted-foreground">
+                        Last updated: March 1, 2025
+                    </p>
+                </div>
                 <a
                     href="/resume"
                     class="flex items-center gap-2 text-lg font-semibold tracking-tight"
@@ -206,24 +213,21 @@
     </div>
 
     <main class="bg-background overflow-auto">
-        <div class="hidden md:block">
+        <!-- <div class="hidden md:block">
             <div
                 class="flex justify-center items-center border-b border-dashed border-stone-300 dark:border-stone-800"
             >
                 <div
                     class="bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
-                >
-                    <div class="flex justify-center">
-                        <Sidebar class="hidden lg:block" />
-                        <div class="w-full col-span-3 lg:col-span-4">
-                            <div class="px-4 p-8">
-                                {@render children()}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                > -->
+                    <!-- <div class="flex justify-center"> -->
+                        <!-- <div class="px-4 p-8"> -->
+                            {@render children()}
+                        <!-- </div> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+            <!-- </div> -->
+        <!-- </div> -->
     </main>
 
     <footer class="flex justify-center">
