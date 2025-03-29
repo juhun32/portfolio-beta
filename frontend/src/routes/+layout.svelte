@@ -1,5 +1,6 @@
 <script lang="ts">
     import "../app.css";
+    import { injectAnalytics } from '@vercel/analytics/sveltekit'
     let { children } = $props();
 
     // mode watcher
@@ -9,7 +10,6 @@
     // components
     import { Separator } from "$lib/components/ui/separator";
     import { Button } from "$lib/components/ui/button/index.js";
-    import Sidebar from "$lib/components/Sidebar/Sidebar.svelte";
 
     // images
     import Profile from "$lib/assets/profile.png";
