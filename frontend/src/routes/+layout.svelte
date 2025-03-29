@@ -213,21 +213,7 @@
     </div>
 
     <main class="bg-background overflow-auto">
-        <!-- <div class="hidden md:block">
-            <div
-                class="flex justify-center items-center border-b border-dashed border-stone-300 dark:border-stone-800"
-            >
-                <div
-                    class="bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
-                > -->
-                    <!-- <div class="flex justify-center"> -->
-                        <!-- <div class="px-4 p-8"> -->
-                            {@render children()}
-                        <!-- </div> -->
-                    <!-- </div> -->
-                <!-- </div> -->
-            <!-- </div> -->
-        <!-- </div> -->
+        {@render children()}
     </main>
 
     <footer class="flex justify-center">

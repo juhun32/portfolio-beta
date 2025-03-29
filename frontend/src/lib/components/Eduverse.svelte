@@ -36,25 +36,18 @@
     ];
 </script>
 
-<div class="hidden md:block">
-    <div
-        class="flex justify-center items-center border-b border-dashed border-stone-300 dark:border-stone-800"
-    >
-        <div
-            class="bg-background w-3/4 p-8 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
-        >
-            <Tabs.Root value="about" class="space-y-6 mx-4">
-                <div class="space-between flex items-center">
+            <Tabs.Root value="about" class="space-y-6 space-x-4 p-8 border-b border-dashed border-stone-300 dark:border-stone-800">
+                <!-- <div class="space-between flex items-center px-4">
                     <Tabs.List>
                         <Tabs.Trigger value="about" class="relative"
                             >About</Tabs.Trigger
                         >
                         <Tabs.Trigger value="details">Details</Tabs.Trigger>
                     </Tabs.List>
-                </div>
+                </div> -->
                 <Tabs.Content
                     value="about"
-                    class="border-none pr-4 outline-none"
+                    class="border-none pr-4 outline-none px-4"
                 >
                     <div class="w-full flex items-center justify-between">
                         <div class="w-full space-y-1">
@@ -64,16 +57,16 @@
                             <div
                                 class="w-full flex items-center justify-between"
                             >
-                                <p class="text-sm">Software Engineer Intern</p>
-                                <p class="text-sm">
+                                <p class="text-md">Software Engineer Intern</p>
+                                <p class="text-md">
                                     December 2024 - Feburary 2025
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <Separator class="my-4" />
-                    <div class="">
-                        <ul class="space-y-3 list-disc pl-5">
+                    <!-- <Separator class="my-4" /> -->
+                    <div class="flex gap-8 justify-between mt-4 border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg">
+                        <ul class="space-y-3 list-disc marker:text-yellow-900/80 marker:dark:text-yellow-700/80 pl-5">
                             <li class="text-md">
                                 Streamlined user auth with JWT, developed user
                                 model with profile metadata using Django,
@@ -154,6 +147,3 @@
                     </div>
                 </Tabs.Content>
             </Tabs.Root>
-        </div>
-    </div>
-</div>
