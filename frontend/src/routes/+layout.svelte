@@ -201,11 +201,11 @@
                     </p>
                 </div>
                 <a
-                    href="/resume"
+                    href="https://github.com/juhun32/resume"
                     class="flex items-center gap-2 text-lg font-semibold tracking-tight"
                 >
                     <Button variant="default" class="gap-2"
-                        ><Download class="h-4 w-4" />Download Resume</Button
+                        ><Download class="h-4 w-4" />Resume</Button
                     >
                 </a>
             </div>
