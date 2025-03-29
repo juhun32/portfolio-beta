@@ -98,7 +98,7 @@
 
     <div class="flex flex-col justify-center gap-4 items-center">
         <div
-            class="w-3/4 sm:w-4/5 p-8 grid grid-cols-[1fr_2fr] items-center py-8 md:py-10 lg:py-12 border-x border-dashed border-stone-300 dark:border-stone-800"
+            class="w-3/4 sm:w-4/5 md:p-8 flex flex-col md:grid md:grid-cols-[1fr_2fr] items-center py-8 md:py-10 lg:py-12 border-x border-dashed border-stone-300 dark:border-stone-800"
         >
             <div class="flex justify-center items-start gap-1">
                 <div class="flex flex-col items-baseline">
@@ -116,7 +116,7 @@
                     class="h-[280px] w-[210px] aspect-[3/4] object-cover p-1 border rounded-xl overflow-hidden"
                 />
             </div>
-            <div class="flex flex-col items-start pr-8 gap-3">
+            <div class="flex flex-col items-start px-8 gap-3 py-8 md:py-0">
                 <h1
                     class="flex items-baseline gap-2 text-2xl sm:text-4xl font-bold"
                 >
@@ -143,16 +143,16 @@
         <div
             class="p-8 bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
         >
-            <div class="px-4 space-x-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="md:px-4 md:space-x-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="space-y-4">
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 text-sm md:text-base">
                         <Phone class="h-4 w-4" /><a href="tel:+12029244546"
                             >Phone</a
                         >
                         <Separator orientation="vertical" class="h-4 mx-2" />
                         <a href="tel:+12029244546">(202) 924 - 4546</a>
                     </div>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 text-sm md:text-base">
                         <Linkedin className="h-4 w-4" /><a
                             href="https://www.linkedin.com/in/juhun-park/"
                             >LinkedIn</a
@@ -164,7 +164,7 @@
                     </div>
                 </div>
                 <div class="space-y-4">
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 text-sm md:text-base">
                         <Mails class="h-4 w-4" /><a
                             href="mailto:juhunpark32@gmail.com">Email</a
                         >
@@ -173,7 +173,7 @@
                             >juhunpark32@gmail.com</a
                         >
                     </div>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 text-sm md:text-base">
                         <Github className="h-4 w-4" /><a
                             href="https://www.github.com/juhun32">GitHub</a
                         >
@@ -193,10 +193,10 @@
         <div
             class="p-8 bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
         >
-            <div class="px-4 flex justify-between items-center">
-                <div class="flex flex-col">
+            <div class="md:px-4 flex flex-col md:flex-row justify-between md:items-center gap-2">
+                <div class="flex md:flex-col items-baseline gap-2">
                     <h2 class="text-lg font-semibold tracking-tight">Resume</h2>
-                    <p class="text-sm text-muted-foreground">
+                    <p class="text-xs md:text-sm text-muted-foreground">
                         Last updated: March 1, 2025
                     </p>
                 </div>
@@ -220,7 +220,7 @@
         <div
             class="w-3/4 sm:w-4/5 px-8 py-5 border-x border-dashed border-stone-300 dark:border-stone-800"
         >
-            <p class="px-4 text-sm text-muted-foreground">
+            <p class="md:px-4 text-xs md:text-sm text-muted-foreground">
                 Built by Juhun Park <a
                     href="https://github.com/juhun32/portfolio"
                     class="hover:text-red-500 hover:underline decoration-red-500"
