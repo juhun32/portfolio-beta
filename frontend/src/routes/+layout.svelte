@@ -98,9 +98,9 @@
 
     <div class="flex flex-col justify-center gap-4 items-center">
         <div
-            class="w-3/4 sm:w-4/5 md:p-8 flex flex-col md:grid md:grid-cols-[1fr_2fr] items-center py-8 md:py-10 lg:py-12 border-x border-dashed border-stone-300 dark:border-stone-800"
+            class="w-3/4 sm:w-4/5 md:p-8 flex flex-col md:grid md:grid-cols-[1fr_2fr] items-center py-4 md:py-8 md:py-10 lg:py-12 border-x border-dashed border-stone-300 dark:border-stone-800"
         >
-            <div class="flex justify-center items-start gap-1">
+            <div class="flex justify-center items-start gap-1 p-4 md:p-8">
                 <div class="flex flex-col items-baseline">
                     <CornerUpRight class="w-3 text-stone-400" />
                     <p
@@ -116,7 +116,7 @@
                     class="h-[280px] w-[210px] aspect-[3/4] object-cover p-1 border rounded-xl overflow-hidden"
                 />
             </div>
-            <div class="flex flex-col items-start px-8 gap-3 py-8 md:py-0">
+            <div class="flex flex-col items-start px-4 md:px-8 gap-2 py-4 md:py-8 md:py-0">
                 <h1
                     class="flex items-baseline gap-2 text-2xl sm:text-4xl font-bold"
                 >
@@ -127,7 +127,7 @@
                         class="text-2xl sm:text-4xl font-bold text-yellow-900/80 dark:text-yellow-700/80"
                         in:fade={{ duration: 500 }}>{currentText}</span
                     >{/key}
-                <p class="text-base sm:text-xl">
+                <p class="text-sm sm:text-xl">
                     Hello! I am currently a student of George Mason University,
                     studying computer science and artificial intelligence. I am
                     interested in machine learning application in healthcare
@@ -141,7 +141,7 @@
         class="flex justify-center items-center border-y border-dashed border-stone-300 dark:border-stone-800"
     >
         <div
-            class="p-8 bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
+            class="p-4 md:p-8 bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
         >
             <div class="md:px-4 md:space-x-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="space-y-4">
@@ -159,7 +159,7 @@
                         >
                         <Separator orientation="vertical" class="h-4 mx-2" />
                         <a href="https://www.linkedin.com/in/juhun-park/"
-                            >https://www.linkedin.com/in/juhun-park/</a
+                            >linkedin.com/in/juhun-park/</a
                         >
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                         >
                         <Separator orientation="vertical" class="h-4 mx-2" />
                         <a href="https://www.github.com/juhun32"
-                            >https://www.github.com/juhun32</a
+                            >github.com/juhun32</a
                         >
                     </div>
                 </div>
@@ -191,7 +191,7 @@
         class="flex justify-center items-center border-b border-dashed border-stone-300 dark:border-stone-800"
     >
         <div
-            class="p-8 bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
+            class="p-4 md:p-8 bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
         >
             <div class="md:px-4 flex flex-col md:flex-row justify-between md:items-center gap-2">
                 <div class="flex md:flex-col items-baseline gap-2">
@@ -218,7 +218,7 @@
 
     <footer class="flex justify-center">
         <div
-            class="w-3/4 sm:w-4/5 px-8 py-5 border-x border-dashed border-stone-300 dark:border-stone-800"
+            class="w-3/4 sm:w-4/5 px-4 md:px-8 py-5 border-x border-dashed border-stone-300 dark:border-stone-800"
         >
             <p class="md:px-4 text-xs md:text-sm text-muted-foreground">
                 Built by Juhun Park <a
