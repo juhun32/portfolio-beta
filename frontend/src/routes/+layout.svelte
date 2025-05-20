@@ -1,6 +1,6 @@
 <script lang="ts">
     import "../app.css";
-    import { injectAnalytics } from '@vercel/analytics/sveltekit'
+    import { injectAnalytics } from "@vercel/analytics/sveltekit";
     let { children } = $props();
 
     // mode watcher
@@ -13,6 +13,7 @@
 
     // images
     import Profile from "$lib/assets/profile.png";
+    import logo from "$lib/assets/logo.png";
 
     // icons
     import Avatar from "$lib/components/svg/Avatar/Avatar.svelte";
@@ -34,8 +35,7 @@
         "Software Engineer",
         "Racing Enthusiast",
         "College Student",
-        "Machine Learning Enthusiast",
-        "Full-stack Developer",
+        "AI&ML Enthusiast",
     ];
     let index = 0;
     let currentText = $state(texts[index]);
@@ -73,7 +73,7 @@
                         <Avatar className="h-6" />
                     </div>
                     <p
-                        class="ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground h-10 px-3 py-2 text-md sm:text-lg"
+                        class="ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground h-10 px-3 py-2 text-base sm:text-lg"
                     >
                         Juhun Park
                     </p>
@@ -98,25 +98,27 @@
 
     <div class="flex flex-col justify-center gap-4 items-center">
         <div
-            class="w-3/4 sm:w-4/5 md:p-8 flex flex-col md:grid md:grid-cols-[1fr_2fr] items-center py-4 md:py-8 md:py-10 lg:py-12 border-x border-dashed border-stone-300 dark:border-stone-800"
+            class="w-3/4 sm:w-4/5 lg:p-8 flex flex-col lg:grid lg:grid-cols-[3fr_4fr] items-center py-4 md:py-8 md:py-10 lg:py-12 border-x border-dashed border-stone-300 dark:border-stone-800"
         >
             <div class="flex justify-center items-start gap-1 p-4 md:p-8">
-                <div class="flex flex-col items-baseline">
-                    <CornerUpRight class="w-3 text-stone-400" />
-                    <p
+                <!-- <div class="flex flex-col items-baseline"> -->
+                <!-- <CornerUpRight class="w-3 text-stone-400" /> -->
+                <!-- <p
                         class="text-xs text-stone-400"
                         style="writing-mode: vertical-rl;"
                     >
                         my beautiful girlfriend's favorite picture of me
-                    </p>
-                </div>
+                    </p> -->
+                <!-- </div> -->
                 <img
                     src={Profile}
                     alt="Profile"
                     class="h-[280px] w-[210px] aspect-[3/4] object-cover p-1 border rounded-xl overflow-hidden"
                 />
             </div>
-            <div class="flex flex-col items-start px-4 md:px-8 gap-2 py-4 md:py-8 md:py-0">
+            <div
+                class="flex flex-col items-start px-4 md:px-8 gap-2 py-4 md:py-0"
+            >
                 <h1
                     class="flex items-baseline gap-2 text-2xl sm:text-4xl font-bold"
                 >
@@ -127,32 +129,25 @@
                         class="text-2xl sm:text-4xl font-bold text-yellow-900/80 dark:text-yellow-700/80"
                         in:fade={{ duration: 500 }}>{currentText}</span
                     >{/key}
-                <p class="text-sm sm:text-xl">
+                <!-- <p class="text-sm sm:text-xl">
                     Hello! I am currently a student of George Mason University,
                     studying computer science and artificial intelligence. I am
                     interested in machine learning application in healthcare
                     industry.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div
-        class="flex justify-center items-center border-y border-dashed border-stone-300 dark:border-stone-800"
-    >
-        <div
-            class="p-4 md:p-8 bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
-        >
-            <div class="md:px-4 md:space-x-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2 text-sm md:text-base">
+                </p> -->
+                <div class="space-y-2 pt-4">
+                    <div
+                        class="grid grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
+                    >
                         <Phone class="h-4 w-4" /><a href="tel:+12029244546"
                             >Phone</a
                         >
                         <Separator orientation="vertical" class="h-4 md:mx-2" />
                         <a href="tel:+12029244546">(202) 924 - 4546</a>
                     </div>
-                    <div class="flex items-center gap-2 text-sm md:text-base">
+                    <div
+                        class="grid grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
+                    >
                         <Linkedin className="h-4 w-4" /><a
                             href="https://www.linkedin.com/in/juhun-park/"
                             >LinkedIn</a
@@ -162,9 +157,9 @@
                             >linkedin.com/in/juhun-park/</a
                         >
                     </div>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2 text-sm md:text-base">
+                    <div
+                        class="grid grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
+                    >
                         <Mails class="h-4 w-4" /><a
                             href="mailto:juhunpark32@gmail.com">Email</a
                         >
@@ -173,7 +168,9 @@
                             >juhunpark32@gmail.com</a
                         >
                     </div>
-                    <div class="flex items-center gap-2 text-sm md:text-base">
+                    <div
+                        class="grid grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
+                    >
                         <Github className="h-4 w-4" /><a
                             href="https://www.github.com/juhun32">GitHub</a
                         >
@@ -188,23 +185,25 @@
     </div>
 
     <div
-        class="flex justify-center items-center border-b border-dashed border-stone-300 dark:border-stone-800"
+        class="flex justify-center items-center border-y border-dashed border-stone-300 dark:border-stone-800"
     >
         <div
             class="p-4 md:p-8 bg-background w-3/4 sm:w-4/5 border-x border-dashed border-stone-300 dark:border-stone-800"
         >
-            <div class="md:px-4 flex flex-col md:flex-row justify-between md:items-center gap-2">
+            <div
+                class="md:px-4 flex flex-col md:flex-row justify-between md:items-center gap-2"
+            >
                 <div class="flex md:flex-col items-baseline gap-2">
                     <h2 class="text-lg font-semibold tracking-tight">Resume</h2>
                     <p class="text-xs md:text-sm text-muted-foreground">
-                        Last updated: March 1, 2025
+                        Last updated: May 19, 2025
                     </p>
                 </div>
                 <a
                     href="https://github.com/juhun32/resume"
                     class="flex items-center gap-2 text-lg font-semibold tracking-tight"
                 >
-                    <Button variant="default" class="gap-2"
+                    <Button variant="outline" class="gap-2"
                         ><Download class="h-4 w-4" />Resume</Button
                     >
                 </a>

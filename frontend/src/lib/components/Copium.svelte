@@ -4,15 +4,15 @@
     import * as Table from "$lib/components/ui/table/index.js";
     import * as Card from "$lib/components/ui/card/index.js";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
+    import * as Drawer from "$lib/components/ui/drawer/index.js";
     import copium1 from "$lib/assets/copium1.png";
     import copium2 from "$lib/assets/copium2.png";
 
-    import { MoveUpRight } from "lucide-svelte";
+    import { File, MoveUpRight } from "lucide-svelte";
 
     const card = [
         {
-            title: "InsightLegi",
-            description: "",
+            title: "copium.dev",
             link: "https://copium.dev",
             github: "https://github.com/copium-dev/copium",
             table: [
@@ -63,100 +63,115 @@
     ];
 </script>
 
-<Tabs.Root value="about" class="space-y-6 space-x-4 p-8 bg-background border-b border-dashed border-stone-300 dark:border-stone-800">
-    <div class="space-between flex items-center px-4">
-        <Tabs.List>
-            <Tabs.Trigger value="about" class="relative">About</Tabs.Trigger>
-            <Tabs.Trigger value="details">Details</Tabs.Trigger>
-        </Tabs.List>
-    </div>
-    <Tabs.Content value="about" class="border-none pr-4 outline-none">
-        <div class="w-full flex items-center justify-between">
-            <div class="w-full flex items-center justify-between">
-                <h2 class="text-2xl font-semibold tracking-tight">
-                    copium.dev
-                </h2>
-                <Button
-                    href="https://copium.dev"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm m-0"
-                >
-                    Visit Website
-                    <MoveUpRight class="w-4 h-4 ml-2" />
-                </Button>
-            </div>
-        </div>
-        <Separator class="my-4" />
-        <div class="grid grid-cols-[2fr_1fr_1fr] gap-8 justify-between">
-            <p class="text-md border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg">
-                Tech internship management platform ensuring efficient workflows
-                with a never-stale job board, real-time insights, and powerful
-                application management tools including search and filtering.
-            </p>
-            <div class="flex items-center justify-end">
-                <img
-                    src={copium1}
-                    alt="copium.dev"
-                    class="border rounded-lg"
-                />
-            </div>
-            <div class="flex items-center justify-end">
-                <img
-                    src={copium2}
-                    alt="copium.dev"
-                    class="border rounded-lg"
-                />
-                
-            </div>
-        </div>
-    </Tabs.Content>
-    <Tabs.Content
-        value="details"
-        class="flex-col border-none p-0 data-[state=active]:flex"
+<div class="w-full flex items-center justify-between">
+    <div
+        class="w-full flex flex-col md:flex-row md:items-center justify-between gap-4"
     >
-        <div class="flex items-center justify-between">
-            <Tabs.Root value={card[0].title} class="w-full">
-                {#each card as card}
-                    <Tabs.Content value={card.title} class="mt-4">
-                        <Card.Root class="w-full">
-                            <Card.Content>
-                                {#if card.table}
-                                    <Table.Root class="text-xs sm:text-sm">
-                                        <Table.Header>
-                                            <Table.Row>
-                                                <Table.Head class="sm:w-1/4"
-                                                    >Tech</Table.Head
-                                                >
-                                                <Table.Head class="sm:w-1/4"
-                                                    >Purpose</Table.Head
-                                                >
-                                                <Table.Head>Results</Table.Head>
-                                            </Table.Row>
-                                        </Table.Header>
-                                        <Table.Body>
-                                            {#each card.table as feature, j (j)}
-                                                <Table.Row>
-                                                    <Table.Cell
-                                                        class="font-medium"
-                                                        >{feature.tech}</Table.Cell
-                                                    >
-                                                    <Table.Cell
-                                                        >{feature.purpose}</Table.Cell
-                                                    >
-                                                    <Table.Cell
-                                                        >{feature.results}</Table.Cell
-                                                    >
-                                                </Table.Row>
-                                            {/each}
-                                        </Table.Body>
-                                    </Table.Root>
-                                {/if}
-                            </Card.Content>
-                        </Card.Root>
-                    </Tabs.Content>
-                {/each}
-            </Tabs.Root>
+        <h2 class="text-xl font-semibold tracking-tight">copium.dev</h2>
+        <div class="flex items-center gap-4">
+            <Drawer.Root>
+                <Drawer.Trigger asChild let:builder class="p-8">
+                    <Button builders={[builder]} variant="outline">
+                        <File class="w-4 h-4 mr-2" />
+                        Tech Stack
+                    </Button>
+                </Drawer.Trigger>
+                <Drawer.Content>
+                    <Drawer.Header>
+                        <Drawer.Description>
+                            <div class="flex items-center justify-between">
+                                <Tabs.Root value={card[0].title} class="w-full">
+                                    {#each card as card}
+                                        <Tabs.Content
+                                            value={card.title}
+                                            class="mt-4 px-8"
+                                        >
+                                            <Card.Root class="w-full">
+                                                <Card.Content>
+                                                    {#if card.table}
+                                                        <Table.Root
+                                                            class="text-xs sm:text-sm"
+                                                        >
+                                                            <Table.Header>
+                                                                <Table.Row>
+                                                                    <Table.Head
+                                                                        class="w-1/3 sm:w-1/4"
+                                                                        >Tech</Table.Head
+                                                                    >
+                                                                    <Table.Head
+                                                                        class="hidden sm:flex sm:w-1/4 h-12 items-center"
+                                                                        >Purpose</Table.Head
+                                                                    >
+                                                                    <Table.Head
+                                                                        class="w-2/3 sm:w-1/2"
+                                                                        >Results</Table.Head
+                                                                    >
+                                                                </Table.Row>
+                                                            </Table.Header>
+                                                            <Table.Body>
+                                                                {#each card.table as feature, j (j)}
+                                                                    <Table.Row>
+                                                                        <Table.Cell
+                                                                            class="font-medium align-top"
+                                                                            >{feature.tech}</Table.Cell
+                                                                        >
+                                                                        <Table.Cell
+                                                                            class="hidden sm:flex"
+                                                                            >{feature.purpose}</Table.Cell
+                                                                        >
+                                                                        <Table.Cell
+                                                                            >{feature.results}</Table.Cell
+                                                                        >
+                                                                    </Table.Row>
+                                                                {/each}
+                                                            </Table.Body>
+                                                        </Table.Root>
+                                                    {/if}
+                                                </Card.Content>
+                                            </Card.Root>
+                                        </Tabs.Content>
+                                    {/each}
+                                </Tabs.Root>
+                            </div>
+                        </Drawer.Description>
+                    </Drawer.Header>
+                    <Drawer.Footer class="px-12">
+                        <Drawer.Close asChild let:builder>
+                            <Button builders={[builder]} variant="outline">
+                                Close
+                            </Button>
+                        </Drawer.Close>
+                    </Drawer.Footer>
+                </Drawer.Content>
+            </Drawer.Root>
+            <Button
+                href="https://copium.dev"
+                variant="outline"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm m-0"
+            >
+                <MoveUpRight class="w-4 h-4 mr-2" />Visit
+                <p class="hidden md:flex ml-1">Website</p>
+            </Button>
         </div>
-    </Tabs.Content>
-</Tabs.Root>
+    </div>
+</div>
+<Separator class="my-4" />
+<div class="md:grid md:grid-cols-[2fr_1fr] gap-4 justify-between">
+    <p
+        class="text-xs md:text-sm border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg"
+    >
+        Tech internship management platform ensuring efficient workflows with a
+        never-stale job board, real-time insights, and powerful application
+        management tools including search and filtering.
+    </p>
+    <div class="flex gap-4">
+        <div class="hidden md:flex items-center justify-end">
+            <img src={copium1} alt="copium.dev" class="border rounded-lg" />
+        </div>
+        <!-- <div class="flex items-center justify-end">
+            <img src={copium2} alt="copium.dev" class="border rounded-lg" />
+        </div> -->
+    </div>
+</div>

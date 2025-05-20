@@ -29,37 +29,32 @@
     ];
 </script>
 
-<Tabs.Root value="about" class="space-y-6 space-x-4 p-8">
-    <!-- <div class="space-between flex items-center px-4">
-        <Tabs.List>
-            <Tabs.Trigger value="about" class="relative">About</Tabs.Trigger>
-            <Tabs.Trigger value="details">Details</Tabs.Trigger>
-        </Tabs.List>
-    </div> -->
+<Tabs.Root value="about" class="space-y-6 space-x-4 py-4 md:p-8">
     <Tabs.Content value="about" class="border-none pr-4 outline-none px-4">
         <div class="w-full flex items-center justify-between">
             <div class="w-full space-y-1">
-                <h2 class="text-2xl font-semibold tracking-tight">
+                <h2 class="text-xl font-semibold tracking-tight">
                     Himedia Academy
                 </h2>
                 <div class="w-full flex items-center justify-between">
-                    <p class="text-md">Software Engineer Intern</p>
-                    <p class="text-md">December 2024 - Feburary 2025</p>
+                    <p class="text-xs md:text-base">Software Engineer Intern</p>
+                    <p class="text-xs md:text-base">
+                        December 2024 - Feburary 2025
+                    </p>
                 </div>
             </div>
         </div>
         <!-- <Separator class="my-4" /> -->
-        <div class="flex gap-8 justify-between mt-4 border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg">
-            <ul class="space-y-3 list-disc marker:text-yellow-900/80 marker:dark:text-yellow-700/80 pl-5">
-                <li class="text-md">
+        <div
+            class="flex gap-8 justify-between mt-4 border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg"
+        >
+            <ul
+                class="space-y-3 list-disc marker:text-yellow-900/80 marker:dark:text-yellow-700/80 pl-5"
+            >
+                <li class="text-xs md:text-sm">
                     Built 3 web applications adhering to SDLC as a full-time
                     OJT, gained experience in Java, JS, Bootstrap, Oracle DBMS
                     development.
-                </li>
-                <li class="text-md">
-                    Improved scalability, 25% faster backend response times by
-                    implementing backend features using Object-Oriented
-                    Programming.
                 </li>
             </ul>
         </div>

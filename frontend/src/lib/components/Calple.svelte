@@ -5,55 +5,34 @@
     import * as Card from "$lib/components/ui/card/index.js";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
     import * as Drawer from "$lib/components/ui/drawer/index.js";
-    import ftrace1 from "$lib/assets/ftrace1.png";
+    import copium1 from "$lib/assets/copium1.png";
+    import copium2 from "$lib/assets/copium2.png";
 
     import { File, MoveUpRight } from "lucide-svelte";
 
     const card = [
         {
-            title: "ftrace",
-            link: "https://github.com/juhun32/ftrace",
-            github: "https://github.com/juhun32/ftrace",
+            title: "calple",
+            description: "",
+            link: "https://calple.dev",
+            github: "https://github.com/juhun32/calple",
             table: [
-                // {
-                //     tech: "React & Tailwind",
-                //     purpose: "Frontend Development",
-                //     results:
-                //         "Responsive and user friendly design. Easy to use and navigate.",
-                // },
-                // {
-                //     tech: "Redis",
-                //     purpose: "In-memory Caching",
-                //     results:
-                //         "Improved performance by 50% for frequently accessed data.",
-                // },
-                // {
-                //     tech: "AWS Lambda",
-                //     purpose: "Serverless Functions",
-                //     results:
-                //         "Efficient handling of serverless functions for authentication and data processing.",
-                // },
-                // {
-                //     tech: "Influx DB",
-                //     purpose: "Time-series Database",
-                //     results:
-                //         "Efficient storage and retrieval of time-series data for real-time analytics.",
-                // },
-                // {
-                //     tech: "GCP Pub/Sub",
-                //     purpose: "Messaging Service",
-                //     results:
-                //         "Decoupled and fault-tolerant messaging service for real-time data processing.",
-                // },
-                // {
-                //     tech: "Docker & GCP",
-                //     purpose: "Deployment",
-                //     results: "Containerized and scalable deployment.",
-                // },
                 {
-                    tech: "TBD",
-                    purpose: "TBD",
-                    results: "TBD",
+                    tech: "Next.js & Vercel",
+                    purpose: "Frontend Development",
+                    results: "Responsive, beautiful, and modern design.",
+                },
+                {
+                    tech: "Python & Firestore",
+                    purpose: "REST API & Storage",
+                    results:
+                        "Front-facing REST API for authentication, and data analytics.",
+                },
+                {
+                    tech: "Docker & GCP & Nginx",
+                    purpose: "Deployment",
+                    results:
+                        "Containerized, scalable, and fault-tolerant deployment across VM instances and serverless functions.",
                 },
             ],
         },
@@ -64,7 +43,7 @@
     <div
         class="w-full flex flex-col md:flex-row md:items-center justify-between gap-4"
     >
-        <h2 class="text-xl font-semibold tracking-tight">ftrace</h2>
+        <h2 class="text-xl font-semibold tracking-tight">calple</h2>
         <div class="flex items-center gap-4">
             <Drawer.Root>
                 <Drawer.Trigger asChild let:builder class="p-8">
@@ -105,7 +84,9 @@
                                                                     >
                                                                 </Table.Row>
                                                             </Table.Header>
-                                                            <Table.Body>
+                                                            <Table.Body
+                                                                class="items-center"
+                                                            >
                                                                 {#each card.table as feature, j (j)}
                                                                     <Table.Row>
                                                                         <Table.Cell
@@ -114,7 +95,8 @@
                                                                         >
                                                                         <Table.Cell
                                                                             class="hidden sm:flex"
-                                                                            >{feature.purpose}</Table.Cell
+                                                                        >
+                                                                            {feature.purpose}</Table.Cell
                                                                         >
                                                                         <Table.Cell
                                                                             >{feature.results}</Table.Cell
@@ -142,7 +124,7 @@
                 </Drawer.Content>
             </Drawer.Root>
             <Button
-                href="https://copium.dev"
+                href="https://calple.dev"
                 variant="outline"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -159,11 +141,17 @@
     <p
         class="text-xs md:text-sm border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg"
     >
-        Was a comprehensive F1 driver statistics system, featuring real-time
-        data retrieval and data visualization, driver standings and championship
-        points from OpenF1 APIs. Overhaul of project is under way.
+        Platform for every couples to make their relationship more beautiful.
+        Customizable shared calendar, to-do list for couples, and relationship
+        analytics. Still in development, anticipated to be released in upcoming
+        months.
     </p>
-    <div class="hidden md:flex items-center justify-end">
-        <img src={ftrace1} alt="copium.dev" class="border rounded-lg" />
+    <div class="hidden md:flex gap-4">
+        <div class="flex items-center justify-end">
+            <img src={copium1} alt="copium.dev" class="border rounded-lg" />
+        </div>
+        <!-- <div class="flex items-center justify-end">
+            <img src={copium2} alt="copium.dev" class="border rounded-lg" />
+        </div> -->
     </div>
 </div>
