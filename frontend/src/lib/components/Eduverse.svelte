@@ -1,9 +1,6 @@
 <script lang="ts">
-    import { Button } from "$lib/components/ui/button/index.js";
-    import { Separator } from "$lib/components/ui/separator/index.js";
     import * as Table from "$lib/components/ui/table/index.js";
     import * as Card from "$lib/components/ui/card/index.js";
-    import { buttonVariants } from "$lib/components/ui/button";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
 
     const card = [

@@ -6,7 +6,6 @@
     import * as Tabs from "$lib/components/ui/tabs/index.js";
     import * as Drawer from "$lib/components/ui/drawer/index.js";
     import copium1 from "$lib/assets/copium1.png";
-    import copium2 from "$lib/assets/copium2.png";
 
     import { File, MoveUpRight } from "lucide-svelte";
 
@@ -150,8 +149,5 @@
         <div class="flex items-center justify-end">
             <img src={copium1} alt="copium.dev" class="border rounded-lg" />
         </div>
-        <!-- <div class="flex items-center justify-end">
-            <img src={copium2} alt="copium.dev" class="border rounded-lg" />
-        </div> -->
     </div>
 </div>

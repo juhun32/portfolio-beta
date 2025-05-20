@@ -1,6 +1,5 @@
 <script lang="ts">
     import "../app.css";
-    import { injectAnalytics } from "@vercel/analytics/sveltekit";
     let { children } = $props();
 
     // mode watcher
@@ -13,12 +12,10 @@
 
     // images
     import Profile from "$lib/assets/profile.png";
-    import logo from "$lib/assets/logo.png";
 
     // icons
     import Avatar from "$lib/components/svg/Avatar/Avatar.svelte";
     import Github from "$lib/components/svg/Github/Github.svelte";
-    import { CornerUpRight } from "lucide-svelte";
     import { Moon } from "lucide-svelte";
     import { SunMedium } from "lucide-svelte";
     import { Phone } from "lucide-svelte";
