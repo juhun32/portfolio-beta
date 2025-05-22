@@ -50,6 +50,11 @@
     });
 </script>
 
+<svelte:head>
+    <title>Juhun Park</title>
+    <meta name="description" content="Juhun Park Portfolio" />
+</svelte:head>
+
 <ModeWatcher />
 <div class="min-h-screen">
     <header class="bg-background sticky top-0 z-50 flex justify-center">
