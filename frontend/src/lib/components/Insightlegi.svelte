@@ -44,7 +44,9 @@
                 <h2 class="text-xl font-semibold tracking-tight">
                     InsightLegi
                 </h2>
-                <div class="w-full flex items-center justify-between">
+                <div
+                    class="w-full flex flex-col md:flex-row md:items-center justify-between"
+                >
                     <p class="text-xs md:text-base">Software Engineer Intern</p>
                     <p class="text-xs md:text-base">
                         January 2024 - March 2025

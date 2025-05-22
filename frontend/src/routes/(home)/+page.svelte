@@ -18,7 +18,7 @@
         >
             <Tabs.Root
                 value="copium"
-                class="space-y-6 space-x-4 py-4 md:p-8 bg-background border-b border-dashed border-stone-300 dark:border-stone-800"
+                class="space-y-6 space-x-4 py-4 md:p-8 bg-background"
             >
                 <div class="space-between flex items-center px-4">
                     <Tabs.List>

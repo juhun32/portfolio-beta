@@ -45,8 +45,8 @@
         <h2 class="text-xl font-semibold tracking-tight">calple</h2>
         <div class="flex items-center gap-4">
             <Drawer.Root>
-                <Drawer.Trigger asChild let:builder class="p-8">
-                    <Button builders={[builder]} variant="outline">
+                <Drawer.Trigger>
+                    <Button variant="outline" class="text-xs sm:text-sm">
                         <File class="w-4 h-4 mr-2" />
                         Tech Stack
                     </Button>
@@ -114,10 +114,10 @@
                         </Drawer.Description>
                     </Drawer.Header>
                     <Drawer.Footer class="px-12">
-                        <Drawer.Close asChild let:builder>
-                            <Button builders={[builder]} variant="outline">
-                                Close
-                            </Button>
+                        <Drawer.Close>
+                            <Button variant="outline" class="w-full"
+                                >Close</Button
+                            >
                         </Drawer.Close>
                     </Drawer.Footer>
                 </Drawer.Content>
@@ -127,10 +127,9 @@
                 variant="outline"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-sm m-0"
+                class="m-0 text-xs sm:text-sm"
             >
                 <MoveUpRight class="w-4 h-4 mr-2" />Visit
-                <p class="hidden md:flex ml-1">Website</p>
             </Button>
         </div>
     </div>

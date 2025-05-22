@@ -78,7 +78,7 @@
                 <div class="flex">
                     <div class="flex items-center gap-2 mr-3">
                         <Button
-                            on:click={toggleMode}
+                            onclick={toggleMode}
                             variant="ghost"
                             class="w-12 sm:w-16"
                             aria-label="Toggle theme"
@@ -134,47 +134,58 @@
                 </p> -->
                 <div class="space-y-2 pt-4">
                     <div
-                        class="grid grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
+                        class="grid grid-cols-[2fr_1fr_12fr] md:grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
                     >
-                        <Phone class="h-4 w-4" /><a href="tel:+12029244546"
+                        <Phone class="h-4 w-4" />
+                        <a href="tel:+12029244546" class="hidden md:flex"
                             >Phone</a
                         >
                         <Separator orientation="vertical" class="h-4 md:mx-2" />
                         <a href="tel:+12029244546">(202) 924 - 4546</a>
                     </div>
                     <div
-                        class="grid grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
+                        class="grid grid-cols-[2fr_1fr_12fr] md:grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
                     >
-                        <Linkedin className="h-4 w-4" /><a
+                        <Linkedin className="h-4 w-4" />
+                        <a
                             href="https://www.linkedin.com/in/juhun-park/"
-                            >LinkedIn</a
+                            class="hidden md:flex"
                         >
+                            LinkedIn
+                        </a>
                         <Separator orientation="vertical" class="h-4 md:mx-2" />
-                        <a href="https://www.linkedin.com/in/juhun-park/"
-                            >linkedin.com/in/juhun-park/</a
-                        >
+                        <a href="https://www.linkedin.com/in/juhun-park/">
+                            linkedin.com/in/juhun-park/
+                        </a>
                     </div>
                     <div
-                        class="grid grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
+                        class="grid grid-cols-[2fr_1fr_12fr] md:grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
                     >
-                        <Mails class="h-4 w-4" /><a
-                            href="mailto:juhunpark32@gmail.com">Email</a
+                        <Mails class="h-4 w-4" />
+                        <a
+                            href="mailto:juhunpark32@gmail.com"
+                            class="hidden md:flex"
                         >
+                            Email
+                        </a>
                         <Separator orientation="vertical" class="h-4 md:mx-2" />
-                        <a href="mailto:juhunpark32@gmail.com"
-                            >juhunpark32@gmail.com</a
-                        >
+                        <a href="mailto:juhunpark32@gmail.com">
+                            juhunpark32@gmail.com
+                        </a>
                     </div>
                     <div
-                        class="grid grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
+                        class="grid grid-cols-[2fr_1fr_12fr] md:grid-cols-[1fr_3fr_1fr_12fr] items-center gap-2 text-sm md:text-base"
                     >
                         <Github className="h-4 w-4" /><a
-                            href="https://www.github.com/juhun32">GitHub</a
+                            href="https://www.github.com/juhun32"
+                            class="hidden md:flex"
                         >
+                            GitHub
+                        </a>
                         <Separator orientation="vertical" class="h-4 md:mx-2" />
-                        <a href="https://www.github.com/juhun32"
-                            >github.com/juhun32</a
-                        >
+                        <a href="https://www.github.com/juhun32">
+                            github.com/juhun32
+                        </a>
                     </div>
                 </div>
             </div>
@@ -209,7 +220,7 @@
     </div>
 
     <main class="bg-background overflow-auto">
-        {@render children()}
+        {@render children?.()}
     </main>
 
     <footer class="flex justify-center">
