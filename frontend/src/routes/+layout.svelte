@@ -26,7 +26,6 @@
     import { onMount, onDestroy } from "svelte";
     import { fade } from "svelte/transition";
     import Linkedin from "$lib/components/svg/Linkedin/Linkedin.svelte";
-    import { base } from "$app/paths";
 
     // changing text for the main page
     let texts = [
@@ -61,7 +60,7 @@
                 class="w-3/4 sm:w-4/5 backdrop-blur-md py-2 flex items-center justify-between border-x border-dashed border-stone-300 dark:border-stone-800"
             >
                 <a
-                    href="{base}/"
+                    href="/"
                     aria-label="Home"
                     class="group flex items-center hover:opacity-80 transition-all"
                 >
