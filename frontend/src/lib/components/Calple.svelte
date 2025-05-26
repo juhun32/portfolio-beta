@@ -16,7 +16,7 @@
 
     const card = [
         {
-            title: "calple",
+            title: "calple.date",
             link: "https://calple.date",
             github: "https://github.com/juhun32/calple",
             table: [
@@ -137,16 +137,18 @@
     </div>
 </div>
 <Separator class="my-4" />
-<div class="md:grid md:grid-cols-[2fr_1fr] gap-4 justify-between">
-    <p
+<div class="flex flex-col md:grid md:grid-cols-[2fr_1fr] gap-4 justify-between">
+    <div
         class="text-xs md:text-sm border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg"
     >
         Platform for every couples to make their relationship more beautiful.
         Customizable shared calendar, to-do list for couples, and relationship
-        analytics. Still in development, anticipated to be released in upcoming
-        months.
-    </p>
-    <div class="hidden md:flex gap-4">
+        analytics.
+        <p class="underline">
+            Still in development, anticipated to be released in upcoming months.
+        </p>
+    </div>
+    <div class="gap-4">
         <div class="flex items-center justify-end">
             {#if isDarkMode}
                 <img

@@ -153,15 +153,17 @@
     </div>
 </div>
 <Separator class="my-4" />
-<div class="md:grid md:grid-cols-[2fr_1fr] gap-4 justify-between">
-    <p
+<div class="flex flex-col md:grid md:grid-cols-[2fr_1fr] gap-4 justify-between">
+    <div
         class="text-xs md:text-sm border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg"
     >
         Was a comprehensive F1 driver statistics system, featuring real-time
         data retrieval and data visualization, driver standings and championship
-        points from OpenF1 APIs. Overhaul of project is under way.
-    </p>
-    <div class="hidden md:flex items-center justify-end">
+        points from OpenF1 APIs. <p class="underline">
+            Overhaul of project is under way.
+        </p>
+    </div>
+    <div class="items-center justify-end">
         {#if isDarkMode}
             <img
                 src={ftrace1}

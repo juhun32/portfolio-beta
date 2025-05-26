@@ -14,7 +14,7 @@
 
     const card = [
         {
-            title: "formulaba",
+            title: "formulaba.dev",
             link: "https://github.com/juhun32/formulaba",
             github: "https://github.com/juhun32/formulaba",
             table: [
@@ -122,13 +122,13 @@
     </div>
 </div>
 <Separator class="my-4" />
-<div class="md:grid md:grid-cols-[2fr_1fr] gap-4 justify-between">
+<div class="flex flex-col md:grid md:grid-cols-[2fr_1fr] gap-4 justify-between">
     <p
         class="text-xs md:text-sm border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg"
     >
         TBD
     </p>
-    <div class="hidden md:flex items-center justify-end">
+    <div class="items-center justify-end">
         {#if isDarkMode}
             <img
                 src={formulaba}
