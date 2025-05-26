@@ -46,14 +46,16 @@
                     class="hidden sm:block space-between flex items-center sm:px-4"
                 >
                     <Tabs.List>
-                        <Tabs.Trigger value="copium" class="relative">
+                        <Tabs.Trigger value="copium.dev" class="relative">
                             copium.dev
                         </Tabs.Trigger>
-                        <Tabs.Trigger value="calple">calple.date</Tabs.Trigger>
-                        <Tabs.Trigger value="formulaba"
+                        <Tabs.Trigger value="calple.date"
+                            >calple.date</Tabs.Trigger
+                        >
+                        <Tabs.Trigger value="formulaba.dev"
                             >formulaba.dev</Tabs.Trigger
                         >
-                        <Tabs.Trigger value="ftrace">ftrace.dev</Tabs.Trigger>
+                        <Tabs.Trigger value="ftrace">ftrace</Tabs.Trigger>
                     </Tabs.List>
                 </div>
                 <div class="flex sm:hidden">
