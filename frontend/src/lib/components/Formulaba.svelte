@@ -5,9 +5,7 @@
     import * as Card from "$lib/components/ui/card/index.js";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
     import * as Drawer from "$lib/components/ui/drawer/index.js";
-
-    import calple_dark from "$lib/assets/calple_dark.png";
-    import calple_light from "$lib/assets/calple_light.png";
+    import formulaba from "$lib/assets/formulaba.png";
 
     import { File, MoveUpRight } from "lucide-svelte";
 
@@ -16,26 +14,14 @@
 
     const card = [
         {
-            title: "calple",
-            link: "https://calple.date",
-            github: "https://github.com/juhun32/calple",
+            title: "formulaba",
+            link: "https://github.com/juhun32/formulaba",
+            github: "https://github.com/juhun32/formulaba",
             table: [
                 {
-                    tech: "Next.js & Vercel",
-                    purpose: "Frontend Development",
-                    results: "Responsive, beautiful, and modern design.",
-                },
-                {
-                    tech: "Python & Firestore",
-                    purpose: "REST API & Storage",
-                    results:
-                        "Front-facing REST API for authentication, and data analytics.",
-                },
-                {
-                    tech: "Docker & GCP & Nginx",
-                    purpose: "Deployment",
-                    results:
-                        "Containerized, scalable, and fault-tolerant deployment across VM instances and serverless functions.",
+                    tech: "TBD",
+                    purpose: "TBD",
+                    results: "TBD",
                 },
             ],
         },
@@ -74,15 +60,15 @@
                                                             <Table.Header>
                                                                 <Table.Row>
                                                                     <Table.Head
-                                                                        class="w-1/2 sm:w-1/4"
+                                                                        class="w-1/3 sm:w-1/4"
                                                                         >Tech</Table.Head
                                                                     >
                                                                     <Table.Head
-                                                                        class="sm:w-1/4 h-12 items-center"
+                                                                        class="hidden sm:flex sm:w-1/4 h-12 items-center"
                                                                         >Purpose</Table.Head
                                                                     >
                                                                     <Table.Head
-                                                                        class="hidden sm:flex w-1/2"
+                                                                        class="w-2/3 sm:w-1/2"
                                                                         >Results</Table.Head
                                                                     >
                                                                 </Table.Row>
@@ -91,15 +77,14 @@
                                                                 {#each card.table as feature, j (j)}
                                                                     <Table.Row>
                                                                         <Table.Cell
-                                                                            class="text-left p-2 px-4 sm:p-4 font-medium"
+                                                                            class="font-medium align-top"
                                                                             >{feature.tech}</Table.Cell
                                                                         >
                                                                         <Table.Cell
-                                                                            class="text-left p-2 px-4 sm:p-4"
+                                                                            class="hidden sm:flex"
                                                                             >{feature.purpose}</Table.Cell
                                                                         >
                                                                         <Table.Cell
-                                                                            class="hidden sm:flex"
                                                                             >{feature.results}</Table.Cell
                                                                         >
                                                                     </Table.Row>
@@ -141,26 +126,21 @@
     <p
         class="text-xs md:text-sm border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg"
     >
-        Platform for every couples to make their relationship more beautiful.
-        Customizable shared calendar, to-do list for couples, and relationship
-        analytics. Still in development, anticipated to be released in upcoming
-        months.
+        TBD
     </p>
-    <div class="hidden md:flex gap-4">
-        <div class="flex items-center justify-end">
-            {#if isDarkMode}
-                <img
-                    src={calple_dark}
-                    alt={card[0].title}
-                    class="border rounded-lg aspect-[16/9] object-cover"
-                />
-            {:else}
-                <img
-                    src={calple_light}
-                    alt={card[0].title}
-                    class="border rounded-lg aspect-[16/9] object-cover"
-                />
-            {/if}
-        </div>
+    <div class="hidden md:flex items-center justify-end">
+        {#if isDarkMode}
+            <img
+                src={formulaba}
+                alt={card[0].title}
+                class="w-full border rounded-lg aspect-[16/9] object-cover"
+            />
+        {:else}
+            <img
+                src={formulaba}
+                alt={card[0].title}
+                class="w-full border rounded-lg aspect-[16/9] object-cover"
+            />
+        {/if}
     </div>
 </div>

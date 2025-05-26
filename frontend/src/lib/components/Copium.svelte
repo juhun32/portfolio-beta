@@ -5,9 +5,14 @@
     import * as Card from "$lib/components/ui/card/index.js";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
     import * as Drawer from "$lib/components/ui/drawer/index.js";
-    import copium1 from "$lib/assets/copium1.png";
+
+    import copium_dark from "$lib/assets/copium_dark.png";
+    import copium_light from "$lib/assets/copium_light.png";
 
     import { File, MoveUpRight } from "lucide-svelte";
+
+    import { mode } from "mode-watcher";
+    $: isDarkMode = $mode === "dark";
 
     const card = [
         {
@@ -17,7 +22,7 @@
             table: [
                 {
                     tech: "SvelteKit & Vercel",
-                    purpose: "Frontend Development",
+                    purpose: "Frontend",
                     results:
                         "Responsive, beautiful, and accessible design with SSR for performance.",
                 },
@@ -66,7 +71,7 @@
     <div
         class="w-full flex flex-col md:flex-row md:items-center justify-between gap-4"
     >
-        <h2 class="text-xl font-semibold tracking-tight">copium.dev</h2>
+        <h2 class="text-xl font-semibold tracking-tight">{card[0].title}</h2>
         <div class="flex items-center gap-4">
             <Drawer.Root>
                 <Drawer.Trigger>
@@ -83,7 +88,7 @@
                                     {#each card as card}
                                         <Tabs.Content
                                             value={card.title}
-                                            class="mt-4 px-8"
+                                            class="px-8"
                                         >
                                             <Card.Root class="w-full">
                                                 <Card.Content>
@@ -94,15 +99,15 @@
                                                             <Table.Header>
                                                                 <Table.Row>
                                                                     <Table.Head
-                                                                        class="w-1/3 sm:w-1/4"
+                                                                        class="w-1/2 sm:w-1/4"
                                                                         >Tech</Table.Head
                                                                     >
                                                                     <Table.Head
-                                                                        class="hidden sm:flex sm:w-1/4 h-12 items-center"
+                                                                        class="sm:w-1/4 h-12 items-center"
                                                                         >Purpose</Table.Head
                                                                     >
                                                                     <Table.Head
-                                                                        class="w-2/3 sm:w-1/2"
+                                                                        class="hidden sm:flex w-1/2"
                                                                         >Results</Table.Head
                                                                     >
                                                                 </Table.Row>
@@ -111,14 +116,15 @@
                                                                 {#each card.table as feature, j (j)}
                                                                     <Table.Row>
                                                                         <Table.Cell
-                                                                            class="font-medium align-top"
+                                                                            class="text-left p-2 px-4 sm:p-4 font-medium"
                                                                             >{feature.tech}</Table.Cell
                                                                         >
                                                                         <Table.Cell
-                                                                            class="hidden sm:flex"
+                                                                            class="text-left p-2 px-4 sm:p-4"
                                                                             >{feature.purpose}</Table.Cell
                                                                         >
                                                                         <Table.Cell
+                                                                            class="hidden sm:flex"
                                                                             >{feature.results}</Table.Cell
                                                                         >
                                                                     </Table.Row>
@@ -144,7 +150,7 @@
                 </Drawer.Content>
             </Drawer.Root>
             <Button
-                href="https://copium.dev"
+                href={card[0].link}
                 variant="outline"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -166,10 +172,19 @@
     </p>
     <div class="flex gap-4">
         <div class="hidden md:flex items-center justify-end">
-            <img src={copium1} alt="copium.dev" class="border rounded-lg" />
+            {#if isDarkMode}
+                <img
+                    src={copium_dark}
+                    alt={card[0].title}
+                    class="border rounded-lg aspect-[16/9] object-cover"
+                />
+            {:else}
+                <img
+                    src={copium_light}
+                    alt={card[0].title}
+                    class="border rounded-lg aspect-[16/9] object-cover"
+                />
+            {/if}
         </div>
-        <!-- <div class="flex items-center justify-end">
-            <img src={copium2} alt="copium.dev" class="border rounded-lg" />
-        </div> -->
     </div>
 </div>

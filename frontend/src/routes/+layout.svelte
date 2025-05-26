@@ -70,7 +70,7 @@
                     class="group flex items-center hover:opacity-80 transition-all"
                 >
                     <div
-                        class="ml-8 rounded-full border border-stone-950 overflow-hidden dark:bg-white"
+                        class="ml-8 rounded-full border border-stone-300 dark:border-stone-800 overflow-hidden dark:bg-white"
                     >
                         <Avatar className="h-6" />
                     </div>
