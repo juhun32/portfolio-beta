@@ -122,7 +122,7 @@
     </div>
 </div>
 <Separator class="my-4" />
-<div class="flex flex-col md:grid md:grid-cols-[2fr_1fr] gap-4 justify-between">
+<div class="flex flex-col lg:grid lg:grid-cols-[1fr_2fr] gap-4 justify-between">
     <p
         class="text-xs md:text-sm border border-dashed border-stone-300 dark:border-stone-800 p-4 rounded-lg"
     >
