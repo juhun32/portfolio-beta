@@ -1,12 +1,13 @@
 <script lang="ts">
-    export let className: string;
+    export let className: string = "";
 </script>
 
+<!-- hardcoded size icon cause of class / className confilct -->
 <svg
     role="img"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
-    class={className}
+    class={`h-4 w-4 ${className}`}
     fill="currentColor"
 >
     <path
