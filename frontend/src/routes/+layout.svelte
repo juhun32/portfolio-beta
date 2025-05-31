@@ -37,7 +37,9 @@
             >
                 <img src={Logo} alt="Logo" class="h-6 w-6 object-cover" />
 
-                <p class="text-base sm:text-lg font-bold px-4">Juhun Park</p>
+                <p class="text-base sm:text-lg font-semibold px-4">
+                    Juhun Park
+                </p>
             </a>
             <div class="flex items-center gap-2">
                 <Button
@@ -55,14 +57,12 @@
     </header>
 
     <div
-        class="flex-1 w-full container flex flex-col lg:grid lg:grid-cols-[1fr_3fr] xl:grid-cols-[2fr_3fr] border-x border-dashed border-stone-300 dark:border-stone-800"
+        class="flex-1 w-full container flex flex-col lg:grid lg:grid-cols-[2fr_3fr] border-x border-dashed border-stone-300 dark:border-stone-800"
     >
-        <div class="flex flex-col justify-center gap-4 lg:items-end">
-            <Profile />
-        </div>
+        <Profile />
 
         <main
-            class="bg-background overflow-y-auto my-4 sm:my-8 flex justify-center items-start h-[calc(100vh-200px)]"
+            class="bg-background overflow-y-auto my-4 sm:my-8 flex justify-center items-start"
         >
             {@render children?.()}
         </main>

@@ -19,214 +19,263 @@
     import Himedia from "$lib/components/experience/Himedia.svelte";
     import Separator from "$lib/components/ui/separator/separator.svelte";
     import Label from "$lib/components/ui/label/label.svelte";
-    import { Download } from "lucide-svelte";
-
-    let isProject = $state(true);
-
-    $effect(() => {
-        if (!isProject) {
-            value = "copium.dev.experience";
-        } else {
-            value = "copium.dev.project";
-        }
-    });
+    import {
+        ArrowLeft,
+        Download,
+        EllipsisVertical,
+        ExternalLink,
+        Plus,
+    } from "lucide-svelte";
+    import Copium from "$lib/components/experience/Copium.svelte";
+    import * as Table from "$lib/components/ui/table/index.js";
+    import Github from "$lib/components/svg/Github/Github.svelte";
 
     const projects = [
         {
-            value: "copium.dev.project",
-            label: "copium.dev",
+            id: "copium_project",
+            title: "copium.dev",
+            github: "https://github.com/copium-dev/copium",
+            link: "https://copium.dev",
         },
         {
-            value: "calple.date",
-            label: "calple.date",
+            id: "calple",
+            title: "calple.date",
+            github: "https://github.com/juhun32/calple",
+            link: "https://calple.date",
         },
         {
-            value: "formulaba.dev",
-            label: "formulaba.dev",
+            id: "formulaba",
+            title: "formulaba.dev",
+            github: "",
+            link: "",
         },
         {
-            value: "ftrace",
-            label: "ftrace",
+            id: "ftrace",
+            title: "ftrace",
+            github: "https://github.com/juhun32/ftrace",
         },
     ];
 
     const experiences = [
         {
-            value: "copium.dev.experience",
-            label: "copium.dev",
+            id: "copium_experience",
+            title: "Copium",
+            link: "https://copium.dev",
         },
         {
-            value: "InsightLegi",
-            label: "InsightLegi",
+            id: "insightlegi",
+            title: "Insightlegi",
         },
         {
-            value: "Eduverse",
-            label: "Eduverse",
+            id: "eduverse",
+            title: "Eduverse",
         },
         {
-            value: "Himedia",
-            label: "Himedia",
+            id: "himedia",
+            title: "Himedia",
         },
     ];
 
-    let open = $state(false);
-    let value = $state("copium.dev.project");
-    let triggerRef = $state<HTMLButtonElement>(null!);
+    let currentView = $state("table");
 
-    const selectedValue = $derived(
-        projects.find((f) => f.value === value)?.label ||
-            experiences.find((f) => f.value === value)?.label
-    );
+    function showProjectDetails(projectId: string) {
+        currentView = projectId;
+    }
 
-    // We want to refocus the trigger button when the user selects
-    // an item from the list so users can continue navigating the
-    // rest of the form with the keyboard.
-    function closeAndFocusTrigger() {
-        open = false;
-        tick().then(() => {
-            triggerRef.focus();
-        });
+    function backToTable() {
+        currentView = "table";
+    }
+
+    function getProjectComponent(projectId: string) {
+        switch (projectId) {
+            case "copium_project":
+                return Copium_project;
+            case "calple":
+                return Calple;
+            case "formulaba":
+                return Formulaba;
+            case "ftrace":
+                return Ftrace;
+            default:
+                return null;
+        }
+    }
+
+    function getExperienceComponent(experienceId: string) {
+        switch (experienceId) {
+            case "copium_experience":
+                return Copium_experience;
+            case "insightlegi":
+                return Insightlegi;
+            case "eduverse":
+                return Eduverse;
+            case "himedia":
+                return Himedia;
+            default:
+                return null;
+        }
     }
 </script>
 
-<div class="w-full bg-background flex flex-col items-center justify-center">
-    <div class="px-4 h-full">
-        <div
-            class="w-full flex flex-row justify-between sm:items-center p-4 rounded-lg border border-dashed border-stone-300 dark:border-stone-800"
+<div
+    class="w-4/5 h-full bg-background flex flex-col items-center justify-center gap-4 sm:gap-8"
+>
+    <div
+        class="w-full flex flex-row justify-between sm:items-center p-4 sm:px-8 rounded-lg border border-dashed border-stone-300 dark:border-stone-800"
+    >
+        <div class="flex flex-col">
+            <h2 class="font-semibold tracking-tight">Resume</h2>
+            <p class="text-xs md:text-sm text-muted-foreground">
+                Latest: May 19, 2025
+            </p>
+        </div>
+        <a
+            href="https://github.com/juhun32/resume"
+            class="flex items-center gap-2 text-lg font-semibold tracking-tight"
         >
-            <div class="flex flex-col">
-                <h2 class="font-semibold tracking-tight">Resume</h2>
-                <p class="text-xs md:text-sm text-muted-foreground">
-                    Latest: May 19, 2025
-                </p>
-            </div>
-            <a
-                href="https://github.com/juhun32/resume"
-                class="flex items-center gap-2 text-lg font-semibold tracking-tight"
+            <Button variant="outline" class="gap-2">
+                <Download class="h-4 w-4" />Resume</Button
             >
-                <Button variant="outline" class="gap-2">
-                    <Download class="h-4 w-4" />Resume</Button
+        </a>
+    </div>
+
+    <div
+        class="w-full h-full p-4 rounded-lg border border-dashed border-stone-300 dark:border-stone-800"
+    >
+        {#if currentView === "table"}
+            <div class="h-full flex flex-col gap-4">
+                <Table.Root>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.Head class="w-[30%]">Projects</Table.Head>
+                            <Table.Head class="w-[40%]"></Table.Head>
+                            <Table.Head class="w-[30%]"></Table.Head>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {#each projects as project (project.id)}
+                            <Table.Row class="w-full">
+                                <Table.Cell class="h-full font-medium py-2">
+                                    <div class="flex gap-2 items-center">
+                                        <CheckIcon class="h-4 w-4" />
+                                        <a
+                                            href={project.link}
+                                            class="hover:underline"
+                                        >
+                                            {project.title}
+                                        </a>
+                                    </div>
+                                </Table.Cell>
+                                <Table.Cell class="font-medium py-2">
+                                    <div class="flex items-center gap-4">
+                                        {#if project.github}
+                                            <a
+                                                href={project.github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="items-center hover:text-primary"
+                                            >
+                                                <Github />
+                                            </a>
+                                        {/if}
+                                        {#if project.link}
+                                            <a
+                                                href={project.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="items-center hover:text-primary"
+                                            >
+                                                <ExternalLink class="h-4 w-4" />
+                                            </a>
+                                        {/if}
+                                    </div>
+                                </Table.Cell>
+                                <Table.Cell class="font-medium text-right py-2">
+                                    <Button
+                                        variant="outline"
+                                        size="icon"
+                                        onclick={() =>
+                                            showProjectDetails(project.id)}
+                                        class="h-6 w-6"
+                                    >
+                                        <Plus class="h-4 w-4" />
+                                    </Button>
+                                </Table.Cell>
+                            </Table.Row>
+                        {/each}
+                    </Table.Body>
+                </Table.Root>
+
+                <Table.Root>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.Head class="w-[30%]">Experiences</Table.Head>
+                            <Table.Head class="w-[40%]"></Table.Head>
+                            <Table.Head class="w-[30%]"></Table.Head>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {#each experiences as project (project.id)}
+                            <Table.Row class="w-full">
+                                <Table.Cell class="h-full font-medium py-2">
+                                    <div class="flex gap-2 items-center">
+                                        <CheckIcon class="h-4 w-4" />
+                                        <a
+                                            href={project.link}
+                                            class="hover:underline"
+                                        >
+                                            {project.title}
+                                        </a>
+                                    </div>
+                                </Table.Cell>
+                                <Table.Cell class="font-medium py-2">
+                                    <div class="flex items-center gap-4">
+                                        {#if project.link}
+                                            <a
+                                                href={project.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="items-center hover:text-primary"
+                                            >
+                                                <ExternalLink class="h-4 w-4" />
+                                            </a>
+                                        {/if}
+                                    </div>
+                                </Table.Cell>
+                                <Table.Cell class="font-medium text-right py-2">
+                                    <Button
+                                        variant="outline"
+                                        size="icon"
+                                        onclick={() =>
+                                            showProjectDetails(project.id)}
+                                        class="h-6 w-6"
+                                    >
+                                        <Plus class="h-4 w-4" />
+                                    </Button>
+                                </Table.Cell>
+                            </Table.Row>
+                        {/each}
+                    </Table.Body>
+                </Table.Root>
+            </div>
+        {:else}
+            <div class="flex items-center">
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    onclick={backToTable}
+                    class="flex items-center gap-2"
                 >
-            </a>
-        </div>
+                    <ArrowLeft class="h-4 w-4" />
+                    Back to Projects
+                </Button>
+            </div>
 
-        <div class="w-full flex items-center justify-center gap-4 py-4 sm:py-8">
-            <Switch id="isProject" bind:checked={isProject} />
-            <Label for="isProject" class="text-sm">
-                {isProject ? "Projects" : "Experiences"}
-            </Label>
+            {@const ProjectComponent = getProjectComponent(currentView)}
+            <ProjectComponent />
 
-            <!-- <Separator orientation="vertical" class="h-6" /> -->
-
-            {#if isProject}
-                <Popover.Root bind:open>
-                    <Popover.Trigger bind:ref={triggerRef}>
-                        {#snippet child({ props })}
-                            <Button
-                                variant="outline"
-                                class="w-full justify-between"
-                                {...props}
-                                role="combobox"
-                                aria-expanded={open}
-                            >
-                                {selectedValue || "Select..."}
-                                <ChevronsUpDownIcon class="opacity-50" />
-                            </Button>
-                        {/snippet}
-                    </Popover.Trigger>
-
-                    <Popover.Content class="p-0">
-                        <Command.Root>
-                            <Command.List>
-                                <Command.Empty>Interesting.</Command.Empty>
-                                <Command.Group value="resume">
-                                    {#each projects as project (project.value)}
-                                        <Command.Item
-                                            value={project.value}
-                                            onSelect={() => {
-                                                value = project.value;
-                                                closeAndFocusTrigger();
-                                            }}
-                                        >
-                                            <CheckIcon
-                                                class={cn(
-                                                    value !== project.value &&
-                                                        "text-transparent"
-                                                )}
-                                            />
-                                            {project.label}
-                                        </Command.Item>
-                                    {/each}
-                                </Command.Group>
-                            </Command.List>
-                        </Command.Root>
-                    </Popover.Content>
-                </Popover.Root>
-            {:else}
-                <Popover.Root bind:open>
-                    <Popover.Trigger bind:ref={triggerRef}>
-                        {#snippet child({ props })}
-                            <Button
-                                variant="outline"
-                                class="w-full justify-between"
-                                {...props}
-                                role="combobox"
-                                aria-expanded={open}
-                            >
-                                {selectedValue || "Select..."}
-                                <ChevronsUpDownIcon class="opacity-50" />
-                            </Button>
-                        {/snippet}
-                    </Popover.Trigger>
-
-                    <Popover.Content class="p-0">
-                        <Command.Root>
-                            <Command.List>
-                                <Command.Empty>Interesting.</Command.Empty>
-                                <Command.Group value="resume">
-                                    {#each experiences as experience (experience.value)}
-                                        <Command.Item
-                                            value={experience.value}
-                                            onSelect={() => {
-                                                value = experience.value;
-                                                closeAndFocusTrigger();
-                                            }}
-                                        >
-                                            <CheckIcon
-                                                class={cn(
-                                                    value !==
-                                                        experience.value &&
-                                                        "text-transparent"
-                                                )}
-                                            />
-                                            {experience.label}
-                                        </Command.Item>
-                                    {/each}
-                                </Command.Group>
-                            </Command.List>
-                        </Command.Root>
-                    </Popover.Content>
-                </Popover.Root>
-            {/if}
-        </div>
-        <div class="w-full flex flex-col items-center justify-center">
-            {#if value === "copium.dev.project"}
-                <Copium_project />
-            {:else if value === "calple.date"}
-                <Calple />
-            {:else if value === "formulaba.dev"}
-                <Formulaba />
-            {:else if value === "ftrace"}
-                <Ftrace />
-            {:else if value === "copium.dev.experience"}
-                <Copium_experience />
-            {:else if value === "InsightLegi"}
-                <Insightlegi />
-            {:else if value === "Eduverse"}
-                <Eduverse />
-            {:else if value === "Himedia"}
-                <Himedia />
-            {/if}
-        </div>
+            {@const ExperienceComponent = getExperienceComponent(currentView)}
+            <ExperienceComponent />
+        {/if}
     </div>
 </div>
