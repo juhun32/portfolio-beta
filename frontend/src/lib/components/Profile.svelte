@@ -109,8 +109,7 @@
 <div
     class="w-full h-full flex flex-col items-center justify-center lg:items-start lg:justify-start pt-8 lg:pl-8 xl:pl-16"
 >
-    <div>
-        <!-- <div class="flex flex-col items-baseline">
+    <!-- <div class="flex flex-col items-baseline">
             <CornerUpRight class="w-3 text-stone-400" />
             <p
                 class="text-xs text-stone-400"
@@ -119,12 +118,11 @@
                 my beautiful girlfriend's favorite picture of me
             </p>
         </div> -->
-        <img
-            src={Profile}
-            alt="Profile"
-            class="h-[200px] sm:h-[250px] aspect-[1/1] sm:aspect-[3/4] object-cover p-1 border rounded-full sm:rounded-xl overflow-hidden border-stone-300 dark:border-stone-800"
-        />
-    </div>
+    <img
+        src={Profile}
+        alt="Profile"
+        class="h-[200px] sm:h-[250px] aspect-[1/1] sm:aspect-[3/4] object-cover p-1 border rounded-full sm:rounded-xl overflow-hidden border-stone-300 dark:border-stone-800"
+    />
 
     <div class="w-full flex flex-col items-center lg:items-start gap-2 md:py-0">
         <h1
@@ -156,7 +154,7 @@
         </div>
 
         <div
-            class="border border-dashed rounded-lg pt-4 px-4 sm:px-8 lg:pt-0 lg:px-0 lg:border-none w-4/5 lg:w-full border-stone-300 dark:border-stone-800 mt-6 lg:mt-0"
+            class="border border-dashed rounded-lg pt-4 px-4 sm:px-8 lg:pt-0 lg:px-0 lg:border-none w-full sm:w-4/5 lg:w-full border-stone-300 dark:border-stone-800 mt-6 lg:mt-0"
         >
             <div class="w-full flex flex-col sm:items-start lg:mt-6">
                 <h3 class="text-sm font-semibold mb-2 h-6">

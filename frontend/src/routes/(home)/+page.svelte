@@ -1,34 +1,37 @@
 <script lang="ts">
-    import CheckIcon from "@lucide/svelte/icons/check";
-    import ChevronsUpDownIcon from "@lucide/svelte/icons/chevrons-up-down";
-    import { tick } from "svelte";
-    import * as Command from "$lib/components/ui/command/index.js";
-    import * as Popover from "$lib/components/ui/popover/index.js";
+    // components
     import { Button } from "$lib/components/ui/button/index.js";
-    import { Switch } from "$lib/components/ui/switch/index.js";
-    import { cn } from "$lib/utils.js";
+    import * as Table from "$lib/components/ui/table/index.js";
 
+    // project
     import Copium_project from "$lib/components/project/Copium.svelte";
     import Calple from "$lib/components/project/Calple.svelte";
     import Formulaba from "$lib/components/project/Formulaba.svelte";
     import Ftrace from "$lib/components/project/Ftrace.svelte";
 
+    // experience
     import Copium_experience from "$lib/components/experience/Copium.svelte";
     import Insightlegi from "$lib/components/experience/Insightlegi.svelte";
     import Eduverse from "$lib/components/experience/Eduverse.svelte";
     import Himedia from "$lib/components/experience/Himedia.svelte";
-    import Separator from "$lib/components/ui/separator/separator.svelte";
-    import Label from "$lib/components/ui/label/label.svelte";
+
+    // icon
     import {
         ArrowLeft,
+        Dot,
         Download,
-        EllipsisVertical,
         ExternalLink,
         Plus,
     } from "lucide-svelte";
-    import Copium from "$lib/components/experience/Copium.svelte";
-    import * as Table from "$lib/components/ui/table/index.js";
     import Github from "$lib/components/svg/Github/Github.svelte";
+
+    // images
+    import Copium_logo from "$lib/assets/copium_logo.png";
+    import Calple_logo from "$lib/assets/calple_logo.png";
+
+    import Insightlegi_logo from "$lib/assets/insightlegi_logo.png";
+    import Eduverse_logo from "$lib/assets/eduverse_logo.png";
+    import Himedia_logo from "$lib/assets/himedia_logo.png";
 
     const projects = [
         {
@@ -36,12 +39,23 @@
             title: "copium.dev",
             github: "https://github.com/copium-dev/copium",
             link: "https://copium.dev",
+            logo: Copium_logo,
+            description: "Tech internship management platform",
         },
         {
             id: "calple",
             title: "calple.date",
             github: "https://github.com/juhun32/calple",
             link: "https://calple.date",
+            logo: Calple_logo,
+            description: "Couple schedule management platform",
+        },
+        {
+            id: "ftrace",
+            title: "ftrace",
+            github: "https://github.com/juhun32/ftrace",
+            // link: "https://ftrace.dev",
+            description: "Racing simulator telemetry analysis tool",
         },
         {
             id: "formulaba",
@@ -49,30 +63,34 @@
             github: "",
             link: "",
         },
-        {
-            id: "ftrace",
-            title: "ftrace",
-            github: "https://github.com/juhun32/ftrace",
-        },
     ];
 
     const experiences = [
         {
             id: "copium_experience",
             title: "Copium",
+            github: "https://github.com/copium-dev",
             link: "https://copium.dev",
+            logo: Copium_logo,
+            description: "Jan 2025 - Present",
         },
         {
             id: "insightlegi",
             title: "Insightlegi",
+            logo: Insightlegi_logo,
+            description: "Jan 2025 - Mar 2025",
         },
         {
             id: "eduverse",
             title: "Eduverse",
+            logo: Eduverse_logo,
+            description: "Dec 2024 - Jan 2025",
         },
         {
             id: "himedia",
             title: "Himedia",
+            logo: Himedia_logo,
+            description: "Jan 2023 - April 2023",
         },
     ];
 
@@ -118,7 +136,7 @@
 </script>
 
 <div
-    class="w-4/5 h-full bg-background flex flex-col items-center justify-center gap-4 sm:gap-8"
+    class="w-full sm:w-4/5 h-full bg-background flex flex-col items-center justify-center gap-4 sm:gap-8"
 >
     <div
         class="w-full flex flex-row justify-between sm:items-center p-4 sm:px-8 rounded-lg border border-dashed border-stone-300 dark:border-stone-800"
@@ -148,16 +166,27 @@
                     <Table.Header>
                         <Table.Row>
                             <Table.Head class="w-[30%]">Projects</Table.Head>
-                            <Table.Head class="w-[40%]"></Table.Head>
-                            <Table.Head class="w-[30%]"></Table.Head>
+                            <Table.Head class="w-[10%]">Links</Table.Head>
+                            <Table.Head class="w-[50%] hidden xl:table-cell">
+                                Description</Table.Head
+                            >
+                            <Table.Head class="w-[10%]">More</Table.Head>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
                         {#each projects as project (project.id)}
                             <Table.Row class="w-full">
                                 <Table.Cell class="h-full font-medium py-2">
-                                    <div class="flex gap-2 items-center">
-                                        <CheckIcon class="h-4 w-4" />
+                                    <div class="flex gap-4 items-center">
+                                        {#if project.logo}
+                                            <img
+                                                src={project.logo}
+                                                alt={project.title}
+                                                class="h-4 w-4 rounded-full"
+                                            />
+                                        {:else}
+                                            <Dot class="h-4 w-4" />
+                                        {/if}
                                         <a
                                             href={project.link}
                                             class="hover:underline"
@@ -190,7 +219,12 @@
                                         {/if}
                                     </div>
                                 </Table.Cell>
-                                <Table.Cell class="font-medium text-right py-2">
+                                <Table.Cell class="hidden xl:table-cell">
+                                    <p class="text-sm text-muted-foreground">
+                                        {project.description}
+                                    </p>
+                                </Table.Cell>
+                                <Table.Cell class="font-medium py-2">
                                     <Button
                                         variant="outline"
                                         size="icon"
@@ -210,29 +244,50 @@
                     <Table.Header>
                         <Table.Row>
                             <Table.Head class="w-[30%]">Experiences</Table.Head>
-                            <Table.Head class="w-[40%]"></Table.Head>
-                            <Table.Head class="w-[30%]"></Table.Head>
+                            <Table.Head class="w-[10%]">Links</Table.Head>
+                            <Table.Head class="w-[50%] hidden xl:table-cell"
+                                >Description</Table.Head
+                            >
+                            <Table.Head class="w-[10%]">More</Table.Head>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {#each experiences as project (project.id)}
+                        {#each experiences as experience (experience.id)}
                             <Table.Row class="w-full">
                                 <Table.Cell class="h-full font-medium py-2">
-                                    <div class="flex gap-2 items-center">
-                                        <CheckIcon class="h-4 w-4" />
+                                    <div class="flex gap-4 items-center">
+                                        {#if experience.logo}
+                                            <img
+                                                src={experience.logo}
+                                                alt={experience.title}
+                                                class="h-4 w-4 rounded-full"
+                                            />
+                                        {:else}
+                                            <Dot class="h-4 w-4" />
+                                        {/if}
                                         <a
-                                            href={project.link}
+                                            href={experience.link}
                                             class="hover:underline"
                                         >
-                                            {project.title}
+                                            {experience.title}
                                         </a>
                                     </div>
                                 </Table.Cell>
                                 <Table.Cell class="font-medium py-2">
                                     <div class="flex items-center gap-4">
-                                        {#if project.link}
+                                        {#if experience.github}
                                             <a
-                                                href={project.link}
+                                                href={experience.github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="items-center hover:text-primary"
+                                            >
+                                                <Github />
+                                            </a>
+                                        {/if}
+                                        {#if experience.link}
+                                            <a
+                                                href={experience.link}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 class="items-center hover:text-primary"
@@ -242,12 +297,17 @@
                                         {/if}
                                     </div>
                                 </Table.Cell>
-                                <Table.Cell class="font-medium text-right py-2">
+                                <Table.Cell class="hidden xl:table-cell">
+                                    <p class="text-sm text-muted-foreground">
+                                        {experience.description}
+                                    </p>
+                                </Table.Cell>
+                                <Table.Cell class="font-medium py-2">
                                     <Button
                                         variant="outline"
                                         size="icon"
                                         onclick={() =>
-                                            showProjectDetails(project.id)}
+                                            showProjectDetails(experience.id)}
                                         class="h-6 w-6"
                                     >
                                         <Plus class="h-4 w-4" />
