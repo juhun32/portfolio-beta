@@ -107,7 +107,7 @@
 </script>
 
 <div
-    class="w-full h-full flex flex-col items-center justify-center lg:items-start lg:justify-start pt-8 lg:pl-8 xl:pl-16"
+    class="w-full h-full flex flex-col items-center justify-center lg:items-start lg:justify-start pt-8 lg:pl-16"
 >
     <!-- <div class="flex flex-col items-baseline">
             <CornerUpRight class="w-3 text-stone-400" />
@@ -169,7 +169,7 @@
                         {#if spotifyData.isPlaying}
                             <a
                                 href={spotifyData.songURL}
-                                class="flex items-center gap-2 hover:underline"
+                                class="flex items-center gap-4 hover:underline"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
