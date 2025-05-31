@@ -19,6 +19,7 @@
     import Himedia from "$lib/components/experience/Himedia.svelte";
     import Separator from "$lib/components/ui/separator/separator.svelte";
     import Label from "$lib/components/ui/label/label.svelte";
+    import { Download } from "lucide-svelte";
 
     let isProject = $state(true);
 
@@ -89,7 +90,26 @@
 </script>
 
 <div class="w-full bg-background flex flex-col items-center justify-center">
-    <div class="px-4 md:w-4/5 h-full">
+    <div class="px-4 h-full">
+        <div
+            class="w-full flex flex-row justify-between sm:items-center p-4 rounded-lg border border-dashed border-stone-300 dark:border-stone-800"
+        >
+            <div class="flex flex-col">
+                <h2 class="font-semibold tracking-tight">Resume</h2>
+                <p class="text-xs md:text-sm text-muted-foreground">
+                    Latest: May 19, 2025
+                </p>
+            </div>
+            <a
+                href="https://github.com/juhun32/resume"
+                class="flex items-center gap-2 text-lg font-semibold tracking-tight"
+            >
+                <Button variant="outline" class="gap-2">
+                    <Download class="h-4 w-4" />Resume</Button
+                >
+            </a>
+        </div>
+
         <div class="w-full flex items-center justify-center gap-4 py-4 sm:py-8">
             <Switch id="isProject" bind:checked={isProject} />
             <Label for="isProject" class="text-sm">

@@ -1,9 +1,11 @@
 <script lang="ts">
-    import type { Component } from "svelte";
+    import { onMount, onDestroy } from "svelte";
+    import { fade } from "svelte/transition";
 
     // components
     import { Separator } from "$lib/components/ui/separator";
-    import { Button } from "$lib/components/ui/button/index.js";
+    import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
+    import * as Collapsible from "$lib/components/ui/collapsible/index.js";
 
     // images
     import Profile from "$lib/assets/profile.png";
@@ -14,13 +16,12 @@
     import Download from "@lucide/svelte/icons/download";
     import Linkedin from "$lib/components/svg/Linkedin/Linkedin.svelte";
     import Github from "$lib/components/svg/Github/Github.svelte";
+    import Spotify from "$lib/components/svg/Spotify/Primary_Logo_Green_RGB.svg";
+    import { ChevronsUpDownIcon } from "lucide-svelte";
 
-    type Contact = {
-        icon: Component;
-        label: string;
-        value: string;
-        link: string;
-    };
+    // types
+    import type { Contact } from "$lib/types/profile";
+    import type { SpotifyData } from "$lib/types/spotify";
 
     const contacts: Contact[] = [
         {
@@ -50,9 +51,6 @@
     ];
 
     // changing text
-    import { onMount, onDestroy } from "svelte";
-    import { fade } from "svelte/transition";
-
     let texts = ["Software Engineer", "Racing Enthusiast", "Korean BBQ Lover"];
     let index = 0;
     let currentText = $state(texts[index]);
@@ -60,33 +58,37 @@
 
     // spotify
     let spotifyInterval: number;
+    let spotifyData = $state<SpotifyData>({
+        isPlaying: false,
+        title: "",
+        artist: "",
+        albumImageURL: "",
+        songURL: "",
+        nowPlaying: "",
+        topTracks: [],
+    });
 
     async function fetchSpotifyData() {
-        const statusElement = document.getElementById("spotify-status");
-        if (!statusElement) return;
-
         try {
             const response = await fetch("/spotify");
             const data = await response.json();
 
-            if (data && data.isPlaying) {
-                statusElement.innerHTML = `
-                <a href="${data.songURL}" class="flex items-center gap-2 hover:underline" target="_blank" rel="noopener noreferrer">
-                    ${data.albumImageURL ? `<img src="${data.albumImageURL}" alt="Album art" class="h-10 w-10 rounded" />` : ""}
-                    <div>
-                        <p class="font-medium">${data.title}</p>
-                        <p class="text-xs text-muted-foreground">by ${data.artist}</p>
-                    </div>
-                </a>
-            `;
-            } else {
-                statusElement.textContent = "Not playing anything right now";
-            }
+            spotifyData = {
+                isPlaying: data?.isPlaying || false,
+                title: data?.title || "",
+                artist: data?.artist || "",
+                albumImageURL: data?.albumImageURL || "",
+                songURL: data?.songURL || "",
+                nowPlaying: data?.nowPlaying || "",
+                topTracks: data?.topTracks || [],
+            };
         } catch (error) {
             console.error("Failed to fetch Spotify data", error);
+            spotifyData.isPlaying = false;
         }
     }
 
+    // lifecycle hooks
     onMount(() => {
         // change text every 5 seconds
         interval = setInterval(() => {
@@ -96,7 +98,7 @@
 
         // fetch spotify data every 30 seconds
         fetchSpotifyData();
-        spotifyInterval = setInterval(fetchSpotifyData, 30000);
+        spotifyInterval = setInterval(fetchSpotifyData, 30 * 1000);
     });
 
     onDestroy(() => {
@@ -108,7 +110,7 @@
 <div
     class="w-full h-full flex flex-col items-center justify-center lg:items-start lg:justify-start py-4 md:py-8 lg:pl-8 xl:pl-16"
 >
-    <div class="p-8">
+    <div class="px-4 sm:px-8">
         <!-- <div class="flex flex-col items-baseline">
             <CornerUpRight class="w-3 text-stone-400" />
             <p
@@ -121,7 +123,7 @@
         <img
             src={Profile}
             alt="Profile"
-            class="h-[200px] sm:h-[280px] aspect-[1/1] sm:aspect-[3/4] object-cover p-1 border rounded-full sm:rounded-xl overflow-hidden"
+            class="h-[200px] sm:h-[250px] aspect-[1/1] sm:aspect-[3/4] object-cover p-1 border rounded-full sm:rounded-xl overflow-hidden border-stone-300 dark:border-stone-800"
         />
     </div>
 
@@ -129,73 +131,149 @@
         class="w-full flex flex-col items-center lg:items-start sm:p-4 md:px-8 gap-2 md:py-0"
     >
         <h1
-            class="w-full flex items-baseline justify-center lg:justify-start gap-2 text-2xl sm:text-4xl font-bold"
+            class="w-full flex items-baseline justify-center lg:justify-start gap-2 text-2xl sm:text-4xl font-bold pt-4"
         >
             Juhun Park <p class="text-sm">박주훈</p>
         </h1>
+
         {#key currentText}
             <span
                 class="w-full flex justify-center lg:justify-start text-2xl sm:text-3xl font-bold text-yellow-900/80 dark:text-yellow-700/80"
                 in:fade={{ duration: 500 }}>{currentText}</span
             >
         {/key}
-        <div class="space-y-2 pt-8">
-            <div
-                class="grid grid-cols-[1fr_1fr_6fr] sm:grid-cols-[1fr_2fr_1fr_6fr] items-center gap-2 text-sm md:text-base"
-            >
-                {#each contacts as contact}
-                    <contact.icon class="h-4 w-4" />
-                    <a href={contact.link} class="hidden sm:flex">
-                        {contact.label}
-                    </a>
-                    <Separator orientation="vertical" class="h-4 md:mx-2" />
-                    <a href={contact.link}>
-                        {contact.value}
-                    </a>
-                {/each}
-            </div>
-            <div
-                class="w-full flex flex-row justify-between sm:items-center pt-8 gap-4"
-            >
-                <div class="flex flex-col">
-                    <h2 class="font-semibold tracking-tight">Resume</h2>
-                    <p class="text-xs md:text-sm text-muted-foreground">
-                        Latest: May 19, 2025
-                    </p>
-                </div>
-                <a
-                    href="https://github.com/juhun32/resume"
-                    class="flex items-center gap-2 text-lg font-semibold tracking-tight"
-                >
-                    <Button variant="outline" class="gap-2"
-                        ><Download class="h-4 w-4" />Resume</Button
-                    >
+
+        <div
+            class="pt-4 grid grid-cols-[1fr_1fr_6fr] sm:grid-cols-[1fr_2fr_1fr_6fr] items-center gap-2 text-sm md:text-base"
+        >
+            {#each contacts as contact}
+                <contact.icon class="h-4 w-4" />
+                <a href={contact.link} class="hidden sm:flex">
+                    {contact.label}
                 </a>
-            </div>
-            <div
-                class="w-full flex flex-row justify-between sm:items-center pt-8 gap-4"
-            >
+                <Separator orientation="vertical" class="h-4 md:mx-2" />
+                <a href={contact.link}>
+                    {contact.value}
+                </a>
+            {/each}
+        </div>
+
+        <div class="w-full flex flex-col sm:items-start pt-4">
+            <h3 class="text-sm font-semibold mb-2">Currently Playing</h3>
+            <div class="flex gap-4">
                 <div class="flex items-center gap-2">
-                    <svg
-                        class="h-4 w-4 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path
-                            d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm3.75 14.65c-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85-.2.3-.55.4-.85.2zm1-2.7c-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1s-.7.5-1.05.25zM17 9.7c-3.3-1.95-8.65-2.1-11.8-1.2-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.3z"
-                        />
-                    </svg>
-                    <h2 class="font-semibold tracking-tight">Spotify</h2>
+                    <img src={Spotify} alt="Spotify Logo" class="h-4 w-4" />
                 </div>
 
-                <div
-                    id="spotify-status"
-                    class="text-xs md:text-sm text-muted-foreground"
-                >
-                    Not playing anything right now
+                <div id="spotify-status" class="text-xs md:text-sm">
+                    {#if spotifyData.isPlaying}
+                        <a
+                            href={spotifyData.songURL}
+                            class="flex items-center gap-2 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {#if spotifyData.albumImageURL}
+                                <img
+                                    src={spotifyData.albumImageURL}
+                                    alt="Album art"
+                                    class="h-8 w-8 rounded"
+                                />
+                            {/if}
+                            <div>
+                                <p class="font-medium">{spotifyData.title}</p>
+                                <p class="text-xs text-muted-foreground">
+                                    by {spotifyData.artist}
+                                </p>
+                            </div>
+                        </a>
+                    {:else}
+                        Not playing anything right now
+                    {/if}
                 </div>
             </div>
+        </div>
+
+        <div class="flex flex-col pt-4 w-full">
+            {#if spotifyData.topTracks && spotifyData.topTracks.length > 0}
+                <Collapsible.Root class="w-full">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-semibold">My Top Tracks</h3>
+                        <Collapsible.Trigger
+                            class={buttonVariants({
+                                variant: "ghost",
+                                size: "icon",
+                                class: "p-0 h-4",
+                            })}
+                        >
+                            <ChevronsUpDownIcon class="h-6" />
+                            <span class="sr-only">Toggle</span>
+                        </Collapsible.Trigger>
+                    </div>
+                    <a
+                        href={spotifyData.topTracks[0].url}
+                        class="flex items-center pb-4 gap-4 group rounded-md transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <div
+                            class="flex-shrink-0 w-4 text-center font-medium text-muted-foreground"
+                        >
+                            {1}
+                        </div>
+                        {#if spotifyData.topTracks[0].coverImage}
+                            <img
+                                src={spotifyData.topTracks[0].coverImage.url}
+                                alt="{spotifyData.topTracks[0].title} album art"
+                                class="h-8 w-8 rounded object-cover"
+                            />
+                        {/if}
+                        <div>
+                            <p
+                                class="font-medium group-hover:underline text-xs"
+                            >
+                                {spotifyData.topTracks[0].title}
+                            </p>
+                            <p class="text-xs text-muted-foreground">
+                                {spotifyData.topTracks[0].artist}
+                            </p>
+                        </div>
+                    </a>
+                    <Collapsible.Content class="">
+                        {#each spotifyData.topTracks.slice(1, 10) as track, i}
+                            <a
+                                href={track.url}
+                                class="flex items-center pb-4 gap-4 group rounded-md transition-colors"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <div
+                                    class="flex-shrink-0 w-4 text-center font-medium text-muted-foreground"
+                                >
+                                    {i + 2}
+                                </div>
+                                {#if track.coverImage}
+                                    <img
+                                        src={track.coverImage.url}
+                                        alt="{track.title} album art"
+                                        class="h-8 w-8 rounded object-cover"
+                                    />
+                                {/if}
+                                <div>
+                                    <p
+                                        class="font-medium group-hover:underline text-xs"
+                                    >
+                                        {track.title}
+                                    </p>
+                                    <p class="text-xs text-muted-foreground">
+                                        {track.artist}
+                                    </p>
+                                </div>
+                            </a>
+                        {/each}
+                    </Collapsible.Content>
+                </Collapsible.Root>
+            {/if}
         </div>
     </div>
 </div>

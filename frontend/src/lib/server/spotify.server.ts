@@ -79,12 +79,13 @@ export const currentlyPlaying = async (
         artist,
         albumImageURL,
         songURL,
+        nowPlaying: `${title} by ${artist}`,
     };
 };
 
 export const topTracks = async (
     accessToken: string
-): Promise<SpotifyTypes.TopTrack[]> => {
+): Promise<SpotifyTypes.SpotifyTrack[]> => {
     const res = await fetch(
         "https://api.spotify.com/v1/me/top/tracks?limit=10&time_range=short_term",
         {
@@ -95,7 +96,15 @@ export const topTracks = async (
     );
 
     if (!res.ok) {
-        throw new Error("Failed to fetch top tracks");
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Top tracks API error details:", {
+            status: res.status,
+            statusText: res.statusText,
+            errorData,
+        });
+        throw new Error(
+            `Failed to fetch top tracks: ${res.status} ${res.statusText}`
+        );
     }
 
     if (res.status === 204) {

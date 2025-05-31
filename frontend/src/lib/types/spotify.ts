@@ -1,11 +1,10 @@
 export interface Image {
     url: string;
-    height: number;
-    width: number;
+    height?: number;
+    width?: number;
 }
 
 export interface Artist {
-    id: string;
     name: string;
     external_urls: {
         spotify: string;
@@ -15,13 +14,9 @@ export interface Artist {
 export interface Album {
     name: string;
     images: Image[];
-    external_urls: {
-        spotify: string;
-    };
 }
 
 export interface Track {
-    id: string;
     name: string;
     artists: Artist[];
     album: Album;
@@ -45,12 +40,23 @@ export interface CurrentlyPlayingTrack {
     artist: string;
     albumImageURL: string;
     songURL: string;
+    nowPlaying: string;
 }
 
-export interface TopTrack {
+export interface SpotifyTrack {
     title: string;
     artist: string;
-    albumName: string;
+    albumName?: string;
     url: string;
-    coverImage: Image;
+    coverImage?: Image;
+}
+
+export interface SpotifyData {
+    isPlaying: boolean;
+    title: string;
+    artist: string;
+    albumImageURL: string;
+    songURL: string;
+    nowPlaying: string;
+    topTracks: SpotifyTrack[];
 }

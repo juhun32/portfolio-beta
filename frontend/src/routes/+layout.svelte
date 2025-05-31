@@ -55,14 +55,14 @@
     </header>
 
     <div
-        class="flex-1 w-full container flex flex-col lg:grid lg:grid-cols-[1fr_3fr] xl:grid-cols-[3fr_7fr] border-x border-dashed border-stone-300 dark:border-stone-800"
+        class="flex-1 w-full container flex flex-col lg:grid lg:grid-cols-[1fr_3fr] xl:grid-cols-[2fr_3fr] border-x border-dashed border-stone-300 dark:border-stone-800"
     >
         <div class="flex flex-col justify-center gap-4 lg:items-end">
             <Profile />
         </div>
 
         <main
-            class="bg-background overflow-auto py-4 sm:py-8 flex justify-center items-start"
+            class="bg-background overflow-y-auto my-4 sm:my-8 flex justify-center items-start h-[calc(100vh-200px)]"
         >
             {@render children?.()}
         </main>
