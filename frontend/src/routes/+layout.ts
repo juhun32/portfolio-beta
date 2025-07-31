@@ -1,3 +1,4 @@
+import { dev } from "$app/environment";
 import { injectAnalytics } from "@vercel/analytics/sveltekit";
 
-injectAnalytics();
+injectAnalytics({ mode: dev ? "development" : "production" });

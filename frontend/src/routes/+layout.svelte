@@ -15,6 +15,7 @@
 
     // image
     import Logo from "$lib/assets/logo.png";
+    import Github from "$lib/components/svg/Github/Github.svelte";
 </script>
 
 <svelte:head>
@@ -24,65 +25,41 @@
 
 <ModeWatcher />
 <div class="min-h-screen flex flex-col">
-    <header
-        class="bg-background flex justify-center border-b border-dashed border-stone-300 dark:border-stone-800"
-    >
-        <div
-            class="w-full container backdrop-blur-sm py-2 px-8 flex items-center justify-between border-x border-dashed border-stone-300 dark:border-stone-800"
+    <header class="container max-w-xl bg-background flex justify-end py-4 px-0">
+        <Button
+            onclick={toggleMode}
+            variant="outline"
+            size="icon"
+            class="rounded-full"
+            aria-label="Toggle theme"
         >
-            <a
-                href="/"
-                aria-label="Home"
-                class="group flex items-center hover:opacity-80 transition-all"
-            >
-                <img src={Logo} alt="Logo" class="h-6 w-6 object-cover" />
-
-                <p class="text-base sm:text-lg font-semibold px-4">
-                    Juhun Park
-                </p>
-            </a>
-            <div class="flex items-center gap-2">
-                <Button
-                    onclick={toggleMode}
-                    variant="ghost"
-                    class="w-12 sm:w-16"
-                    aria-label="Toggle theme"
-                >
-                    <SunMedium class="dark:hidden" />
-                    <Moon class="hidden dark:block" />
-                    <span class="sr-only">Toggle theme</span>
-                </Button>
-            </div>
-        </div>
+            <SunMedium class="dark:hidden" />
+            <Moon class="hidden dark:block" />
+            <span class="sr-only">Toggle theme</span>
+        </Button>
     </header>
 
-    <div
-        class="flex-1 w-full container flex flex-col lg:grid lg:grid-cols-[2fr_3fr] border-x border-dashed border-stone-300 dark:border-stone-800"
-    >
+    <div class="flex-1 w-full container flex flex-col">
         <Profile />
 
         <main
-            class="bg-background overflow-y-auto my-4 sm:my-8 flex justify-center items-start"
+            class="max-w-xl mx-auto overflow-y-auto my-4 sm:my-8 flex justify-center items-start w-full"
         >
             {@render children?.()}
         </main>
     </div>
 
     <footer
-        class="flex justify-center border-t border-dashed border-stone-300 dark:border-stone-800"
+        class="max-w-xl container mx-auto w-full flex justify-between items-center py-4 px-0"
     >
-        <div
-            class="container flex justify-between py-4 border-x border-dashed border-stone-300 dark:border-stone-800"
+        <p class="text-xs md:text-sm text-muted-foreground">
+            &copy; Juhun Park
+        </p>
+        <a
+            href="https://github.com/juhun32/portfolio"
+            class="hover:text-yellow-700 hover:underline decoration-yellow-700 text-xs md:text-sm text-muted-foreground"
         >
-            <p class="text-xs md:text-sm text-muted-foreground">
-                Built by Juhun Park
-            </p>
-            <a
-                href="https://github.com/juhun32/portfolio"
-                class="hover:text-yellow-700 hover:underline decoration-yellow-700 text-xs md:text-sm text-muted-foreground"
-            >
-                [GitHub]
-            </a>
-        </div>
+            <Github />
+        </a>
     </footer>
 </div>

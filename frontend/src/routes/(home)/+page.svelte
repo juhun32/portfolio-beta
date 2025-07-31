@@ -18,6 +18,7 @@
     // icon
     import {
         ArrowLeft,
+        ArrowUpRight,
         Dot,
         Download,
         ExternalLink,
@@ -32,6 +33,7 @@
     import Insightlegi_logo from "$lib/assets/insightlegi_logo.png";
     import Eduverse_logo from "$lib/assets/eduverse_logo.png";
     import Himedia_logo from "$lib/assets/himedia_logo.png";
+    import Badge from "$lib/components/ui/badge/badge.svelte";
 
     const projects = [
         {
@@ -136,206 +138,212 @@
 </script>
 
 <div
-    class="w-full sm:w-4/5 h-full bg-background flex flex-col items-center justify-center gap-4 sm:gap-8"
+    class="w-full h-full bg-background flex flex-col items-center justify-center gap-4 sm:gap-8"
 >
-    <div
-        class="w-full flex flex-row justify-between sm:items-center p-4 sm:px-8 rounded-lg border border-dashed border-stone-300 dark:border-stone-800"
-    >
+    <div class="w-full flex flex-col justify-start items-start gap-4">
         <div class="flex flex-col">
-            <h2 class="font-semibold tracking-tight">Resume</h2>
-            <p class="text-xs md:text-sm text-muted-foreground">
-                Latest: May 19, 2025
-            </p>
+            <Badge class="font-normal tracking-tight text-sm" variant="outline">
+                Resume
+            </Badge>
         </div>
         <a
+            class="w-full gap-2 rounded-full font-normal grid grid-cols-[1fr_6fr] items-center justify-start h-fit px-0 py-0 gap-4"
             href="https://github.com/juhun32/resume"
-            class="flex items-center gap-2 text-lg font-semibold tracking-tight"
+            target="_blank"
+            rel="noopener noreferrer"
         >
-            <Button variant="outline" class="gap-2">
-                <Download class="h-4 w-4" />Resume</Button
-            >
+            <p class="text-sm text-muted-foreground text-start">Latest</p>
+            <p class="flex items-start gap-1 text-sm text-start px-4 text-sm">
+                {new Date().toLocaleDateString()}
+                <ArrowUpRight class="h-3 w-3" strokeWidth={1.5} />
+            </p>
         </a>
     </div>
 
-    <div
-        class="w-full h-full p-4 rounded-lg border border-dashed border-stone-300 dark:border-stone-800"
-    >
-        {#if currentView === "table"}
-            <div class="h-full flex flex-col gap-4">
-                <Table.Root>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.Head class="w-[30%]">Projects</Table.Head>
-                            <Table.Head class="w-[10%]">Links</Table.Head>
-                            <Table.Head class="w-[50%] hidden xl:table-cell">
-                                Description</Table.Head
+    {#if currentView === "table"}
+        <div class="w-full h-full flex flex-col gap-4">
+            <Table.Root>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.Head class="w-[3%] h-8 text-xs font-normal px-0"
+                        ></Table.Head>
+                        <Table.Head class="w-[20%] h-8 text-xs font-normal"
+                            >Projects</Table.Head
+                        >
+                        <Table.Head class="w-[10%] h-8 text-xs font-normal"
+                            >Github</Table.Head
+                        >
+                        <Table.Head
+                            class="w-[50%] h-8 hidden md:table-cell text-xs font-normal"
+                        >
+                            Description</Table.Head
+                        >
+                        <Table.Head class="w-[10%] h-8 text-xs font-normal"
+                            >More</Table.Head
+                        >
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {#each projects as project (project.id)}
+                        <Table.Row class="w-full">
+                            <Table.Cell
+                                class="h-full font-medium py-0 px-0 pl-4"
                             >
-                            <Table.Head class="w-[10%]">More</Table.Head>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {#each projects as project (project.id)}
-                            <Table.Row class="w-full">
-                                <Table.Cell class="h-full font-medium py-2">
-                                    <div class="flex gap-4 items-center">
-                                        {#if project.logo}
-                                            <img
-                                                src={project.logo}
-                                                alt={project.title}
-                                                class="h-4 w-4 rounded-full"
-                                            />
-                                        {:else}
-                                            <Dot class="h-4 w-4" />
-                                        {/if}
-                                        <a
-                                            href={project.link}
-                                            class="hover:underline"
+                                {#if project.logo}
+                                    <img
+                                        src={project.logo}
+                                        alt={project.title}
+                                        class="h-3 w-3 rounded-full"
+                                    />
+                                {:else}
+                                    <Dot class="h-4 w-4 text-transparent" />
+                                {/if}
+                            </Table.Cell>
+                            <Table.Cell class="h-full font-medium py-0">
+                                <a
+                                    href={project.link}
+                                    class="hover:underline font-normal flex items-start gap-1"
+                                >
+                                    {project.title}
+                                    {#if project.link}
+                                        <div
+                                            class="items-center hover:text-primary"
                                         >
-                                            {project.title}
+                                            <ArrowUpRight class="h-3 w-3" />
+                                        </div>
+                                    {/if}
+                                </a>
+                            </Table.Cell>
+                            <Table.Cell class="font-medium py-0">
+                                <div class="flex items-center gap-2">
+                                    {#if project.github}
+                                        <a
+                                            href={project.github}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="items-center hover:text-primary text-muted-foreground"
+                                        >
+                                            <Github />
                                         </a>
-                                    </div>
-                                </Table.Cell>
-                                <Table.Cell class="font-medium py-2">
-                                    <div class="flex items-center gap-4">
-                                        {#if project.github}
-                                            <a
-                                                href={project.github}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                class="items-center hover:text-primary"
-                                            >
-                                                <Github />
-                                            </a>
-                                        {/if}
-                                        {#if project.link}
-                                            <a
-                                                href={project.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                class="items-center hover:text-primary"
-                                            >
-                                                <ExternalLink class="h-4 w-4" />
-                                            </a>
-                                        {/if}
-                                    </div>
-                                </Table.Cell>
-                                <Table.Cell class="hidden xl:table-cell">
-                                    <p class="text-sm text-muted-foreground">
-                                        {project.description}
-                                    </p>
-                                </Table.Cell>
-                                <Table.Cell class="font-medium py-2">
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
-                                        onclick={() =>
-                                            showProjectDetails(project.id)}
-                                        class="h-6 w-6"
-                                    >
-                                        <Plus class="h-4 w-4" />
-                                    </Button>
-                                </Table.Cell>
-                            </Table.Row>
-                        {/each}
-                    </Table.Body>
-                </Table.Root>
-
-                <Table.Root>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.Head class="w-[30%]">Experiences</Table.Head>
-                            <Table.Head class="w-[10%]">Links</Table.Head>
-                            <Table.Head class="w-[50%] hidden xl:table-cell"
-                                >Description</Table.Head
-                            >
-                            <Table.Head class="w-[10%]">More</Table.Head>
+                                    {/if}
+                                </div>
+                            </Table.Cell>
+                            <Table.Cell class="hidden md:table-cell py-0">
+                                <p class="text-xs text-muted-foreground">
+                                    {project.description}
+                                </p>
+                            </Table.Cell>
+                            <Table.Cell class="font-medium py-2">
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onclick={() =>
+                                        showProjectDetails(project.id)}
+                                    class="h-6 w-6"
+                                >
+                                    <Plus class="h-4 w-4" />
+                                </Button>
+                            </Table.Cell>
                         </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {#each experiences as experience (experience.id)}
-                            <Table.Row class="w-full">
-                                <Table.Cell class="h-full font-medium py-2">
-                                    <div class="flex gap-4 items-center">
-                                        {#if experience.logo}
-                                            <img
-                                                src={experience.logo}
-                                                alt={experience.title}
-                                                class="h-4 w-4 rounded-full"
-                                            />
-                                        {:else}
-                                            <Dot class="h-4 w-4" />
-                                        {/if}
+                    {/each}
+                </Table.Body>
+            </Table.Root>
+
+            <Table.Root>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.Head class="w-[30%] h-8">Experiences</Table.Head>
+                        <Table.Head class="w-[10%] h-8">Links</Table.Head>
+                        <Table.Head class="w-[50%] hidden xl:table-cell h-8"
+                            >Description</Table.Head
+                        >
+                        <Table.Head class="w-[10%] h-8">More</Table.Head>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {#each experiences as experience (experience.id)}
+                        <Table.Row class="w-full">
+                            <Table.Cell class="h-full font-medium py-2">
+                                <div class="flex gap-4 items-center">
+                                    {#if experience.logo}
+                                        <img
+                                            src={experience.logo}
+                                            alt={experience.title}
+                                            class="h-4 w-4 rounded-full"
+                                        />
+                                    {:else}
+                                        <Dot class="h-4 w-4" />
+                                    {/if}
+                                    <a
+                                        href={experience.link}
+                                        class="hover:underline"
+                                    >
+                                        {experience.title}
+                                    </a>
+                                </div>
+                            </Table.Cell>
+                            <Table.Cell class="font-medium py-2">
+                                <div class="flex items-center gap-4">
+                                    {#if experience.github}
+                                        <a
+                                            href={experience.github}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="items-center hover:text-primary"
+                                        >
+                                            <Github />
+                                        </a>
+                                    {/if}
+                                    {#if experience.link}
                                         <a
                                             href={experience.link}
-                                            class="hover:underline"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="items-center hover:text-primary"
                                         >
-                                            {experience.title}
+                                            <ExternalLink class="h-4 w-4" />
                                         </a>
-                                    </div>
-                                </Table.Cell>
-                                <Table.Cell class="font-medium py-2">
-                                    <div class="flex items-center gap-4">
-                                        {#if experience.github}
-                                            <a
-                                                href={experience.github}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                class="items-center hover:text-primary"
-                                            >
-                                                <Github />
-                                            </a>
-                                        {/if}
-                                        {#if experience.link}
-                                            <a
-                                                href={experience.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                class="items-center hover:text-primary"
-                                            >
-                                                <ExternalLink class="h-4 w-4" />
-                                            </a>
-                                        {/if}
-                                    </div>
-                                </Table.Cell>
-                                <Table.Cell class="hidden xl:table-cell">
-                                    <p class="text-sm text-muted-foreground">
-                                        {experience.description}
-                                    </p>
-                                </Table.Cell>
-                                <Table.Cell class="font-medium py-2">
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
-                                        onclick={() =>
-                                            showProjectDetails(experience.id)}
-                                        class="h-6 w-6"
-                                    >
-                                        <Plus class="h-4 w-4" />
-                                    </Button>
-                                </Table.Cell>
-                            </Table.Row>
-                        {/each}
-                    </Table.Body>
-                </Table.Root>
-            </div>
-        {:else}
-            <div class="flex items-center">
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onclick={backToTable}
-                    class="flex items-center gap-2"
-                >
-                    <ArrowLeft class="h-4 w-4" />
-                    Back to Projects
-                </Button>
-            </div>
+                                    {/if}
+                                </div>
+                            </Table.Cell>
+                            <Table.Cell class="hidden xl:table-cell">
+                                <p class="text-sm text-muted-foreground">
+                                    {experience.description}
+                                </p>
+                            </Table.Cell>
+                            <Table.Cell class="font-medium py-2">
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onclick={() =>
+                                        showProjectDetails(experience.id)}
+                                    class="h-6 w-6"
+                                >
+                                    <Plus class="h-4 w-4" />
+                                </Button>
+                            </Table.Cell>
+                        </Table.Row>
+                    {/each}
+                </Table.Body>
+            </Table.Root>
+        </div>
+    {:else}
+        <div class="flex items-center">
+            <Button
+                variant="ghost"
+                size="sm"
+                onclick={backToTable}
+                class="flex items-center gap-2"
+            >
+                <ArrowLeft class="h-4 w-4" />
+                Back to Projects
+            </Button>
+        </div>
 
-            {@const ProjectComponent = getProjectComponent(currentView)}
-            <ProjectComponent />
+        {@const ProjectComponent = getProjectComponent(currentView)}
+        <ProjectComponent />
 
-            {@const ExperienceComponent = getExperienceComponent(currentView)}
-            <ExperienceComponent />
-        {/if}
-    </div>
+        {@const ExperienceComponent = getExperienceComponent(currentView)}
+        <ExperienceComponent />
+    {/if}
 </div>
