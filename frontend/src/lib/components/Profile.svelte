@@ -122,13 +122,13 @@
     />
     <div class="w-full grid grid-rows-[1fr_auto_1fr] items-center">
         <h1
-            class="w-full flex items-baseline justify-center sm:justify-start gap-1 text-xl font-normal px-1"
+            class="w-full flex items-baseline justify-center sm:justify-start gap-2 text-xl font-normal px-1"
         >
             Juhun Park <p class="text-xs">박주훈</p>
         </h1>
         {#key currentText}
             <span
-                class="w-full flex justify-center lg:justify-start text-muted-foreground text-sm px-1"
+                class="w-full flex justify-center sm:justify-start text-muted-foreground text-sm px-1"
                 in:fade={{ duration: 500 }}>{currentText}</span
             >
         {/key}
@@ -146,7 +146,7 @@
                 Resume
             </Badge>
             <p
-                class="flex items-start gap-1 text-sm text-start text-xs hover:underline"
+                class="flex items-start gap-1 text-sm text-start hover:underline"
             >
                 Latest:
                 {new Date().toLocaleDateString()}
@@ -208,7 +208,7 @@
                     </div>
                 {/if}
                 <div class="px-3">
-                    <p class="font-normal text-xs">
+                    <p class="font-normal text-sm">
                         {spotifyData.title}
                     </p>
                     <p class="text-xs text-muted-foreground">
@@ -227,7 +227,7 @@
                     />
                     <Skeleton class="h-8 w-8 rounded" />
                 </div>
-                <div class="text-xs text-muted-foreground px-3">Offline</div>
+                <div class="text-sm text-muted-foreground px-3">Offline</div>
             </div>
         {/if}
     </div>
@@ -274,7 +274,7 @@
                     {/if}
                 </div>
                 <div class="group-hover:underline px-3">
-                    <p class="font-normal text-xs">
+                    <p class="font-normal text-sm">
                         {spotifyData.topTracks[0].title}
                     </p>
                     <p class="text-xs text-muted-foreground">
@@ -305,7 +305,7 @@
                             {/if}
                         </div>
                         <div class="group-hover:underline">
-                            <p class="font-normal text-xs">
+                            <p class="font-normal text-sm">
                                 {track.title}
                             </p>
                             <p class="text-xs text-muted-foreground">

@@ -14,13 +14,16 @@
     import Profile from "$lib/components/Profile.svelte";
 
     // image
-    import Logo from "$lib/assets/logo.png";
     import Github from "$lib/components/svg/Github/Github.svelte";
 </script>
 
 <svelte:head>
     <title>Juhun Park</title>
     <meta name="description" content="Juhun Park Portfolio" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet"
+    />
 </svelte:head>
 
 <ModeWatcher />
@@ -63,3 +66,9 @@
         </a>
     </footer>
 </div>
+
+<style>
+    :global(body) {
+        font-family: "Inter", sans-serif;
+    }
+</style>
