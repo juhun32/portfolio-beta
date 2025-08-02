@@ -219,7 +219,9 @@
                         {project.description}
                     </div>
                     {#if project.light_pictures}
-                        <div class="flex items-center gap-2 mt-6">
+                        <div
+                            class="flex flex-col sm:flex-row items-center gap-2 mt-6"
+                        >
                             {#if !isDarkMode}
                                 {#each project.light_pictures as picture}
                                     <Button
@@ -230,7 +232,7 @@
                                         <img
                                             src={picture}
                                             alt={project.title}
-                                            class="h-20 rounded cursor-pointer border"
+                                            class="sm:h-20 rounded cursor-pointer border"
                                         /></Button
                                     >
                                 {/each}
@@ -244,7 +246,7 @@
                                         <img
                                             src={picture}
                                             alt={project.title}
-                                            class="h-20 rounded cursor-pointer border"
+                                            class="sm:h-20 rounded cursor-pointer border"
                                         /></Button
                                     >
                                 {/each}
@@ -318,7 +320,9 @@
                             {experience.description}
                         </div>
                         {#if experience.light_pictures}
-                            <div class="flex items-center gap-2 mt-6">
+                            <div
+                                class="flex flex-col sm:flex-row items-center gap-2 mt-6"
+                            >
                                 {#if !isDarkMode}
                                     {#each experience.light_pictures as picture}
                                         <Button
@@ -329,7 +333,7 @@
                                             <img
                                                 src={picture}
                                                 alt={experience.title}
-                                                class="h-20 rounded cursor-pointer"
+                                                class="sm:h-20 rounded cursor-pointer"
                                             />
                                         </Button>
                                     {/each}
@@ -343,12 +347,13 @@
                                             <img
                                                 src={picture}
                                                 alt={experience.title}
-                                                class="h-20 rounded cursor-pointer"
+                                                class="sm:h-20 rounded cursor-pointer"
                                             />
                                         </Button>
                                     {/each}
                                 {/if}
-                            </div>{/if}
+                            </div>
+                        {/if}
                     </div>
                 </div>
             {/each}
@@ -376,7 +381,7 @@
     {#if popupImage}
         <Dialog.Root open={true} onOpenChange={closeImage}>
             <Dialog.Content
-                class="w-[70vw] z-50 p-2 bg-background rounded shadow-lg flex flex-col items-center"
+                class="w-[90vw] sm:w-[70vw] z-50 p-2 bg-background rounded shadow-lg flex flex-col items-center"
             >
                 <img
                     src={popupImage}

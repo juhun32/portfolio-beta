@@ -104,7 +104,7 @@
 </script>
 
 <div
-    class="max-w-2xl w-full h-full grid grid-cols-[1fr_3fr] items-center justify-start mx-auto my-8 px-3"
+    class="max-w-2xl w-full h-full flex flex-col gap-2 sm:gap-0 sm:grid sm:grid-cols-[1fr_3fr] items-center justify-start mx-auto my-8 px-3"
 >
     <!-- <div class="flex flex-col items-baseline">
             <CornerUpRight class="w-3 text-stone-400" />
@@ -122,7 +122,7 @@
     />
     <div class="w-full grid grid-rows-[1fr_auto_1fr] items-center">
         <h1
-            class="w-full flex items-baseline justify-start gap-1 text-xl font-normal px-1"
+            class="w-full flex items-baseline justify-center sm:justify-start gap-1 text-xl font-normal px-1"
         >
             Juhun Park <p class="text-xs">박주훈</p>
         </h1>
@@ -134,7 +134,7 @@
         {/key}
 
         <a
-            class="w-full gap-2 rounded-full font-normal flex items-center justify-start h-fit px-0 pt-2 gap-2"
+            class="w-full gap-2 rounded-full font-normal flex items-center justify-center sm:justify-start h-fit px-0 pt-2 gap-2"
             href="https://github.com/juhun32/resume"
             target="_blank"
             rel="noopener noreferrer"
@@ -165,10 +165,7 @@
         </Badge>
         <div class="w-full grid grid-cols-[1fr_3fr] items-center text-sm px-3">
             {#each contacts as contact}
-                <a
-                    href={contact.link}
-                    class="hidden sm:flex text-muted-foreground py-2"
-                >
+                <a href={contact.link} class="flex text-muted-foreground py-2">
                     {contact.label}
                 </a>
                 <a

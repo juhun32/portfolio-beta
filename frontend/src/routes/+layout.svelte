@@ -26,7 +26,7 @@
 <ModeWatcher />
 <div class="min-h-screen flex flex-col">
     <header
-        class="container max-w-2xl bg-background flex justify-end py-4 px-0 rounded-full"
+        class="container max-w-2xl bg-background flex justify-end py-4 rounded-full"
     >
         <Button
             onclick={toggleMode}
@@ -41,18 +41,16 @@
         </Button>
     </header>
 
-    <div class="flex-1 w-full container flex flex-col my-8">
+    <div class="flex-1 w-full container flex flex-col my-8 max-w-2xl mx-auto">
         <Profile />
 
-        <main
-            class="max-w-2xl mx-auto overflow-y-auto flex justify-center items-start w-full"
-        >
+        <main class="overflow-y-auto flex justify-center items-start w-full">
             {@render children?.()}
         </main>
     </div>
 
     <footer
-        class="max-w-2xl container mx-auto w-full flex justify-between items-center py-4 px-3"
+        class="max-w-2xl container mx-auto w-full flex justify-between items-center py-4 sm:px-3"
     >
         <p class="text-xs md:text-sm text-muted-foreground">
             &copy; Juhun Park
