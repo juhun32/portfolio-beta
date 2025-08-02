@@ -5,7 +5,7 @@
     import * as Card from "$lib/components/ui/card/index.js";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
     import * as Drawer from "$lib/components/ui/drawer/index.js";
-    import formulaba from "$lib/assets/formulaba.png";
+    // import formulaba from "$lib/assets/formulaba.png";
 
     import { File, MoveUpRight } from "lucide-svelte";
 
@@ -141,7 +141,7 @@
             TBD
         </p>
         <div class="items-center justify-end">
-            {#if isDarkMode}
+            <!-- {#if isDarkMode}
                 <img
                     src={formulaba}
                     alt={card[0].title}
@@ -153,7 +153,7 @@
                     alt={card[0].title}
                     class="w-full border rounded-lg aspect-[16/9] object-cover"
                 />
-            {/if}
+            {/if} -->
         </div>
     </div>
 </div>

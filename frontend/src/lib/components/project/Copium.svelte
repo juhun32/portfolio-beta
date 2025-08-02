@@ -6,8 +6,8 @@
     import * as Tabs from "$lib/components/ui/tabs/index.js";
     import * as Drawer from "$lib/components/ui/drawer/index.js";
 
-    import copium_dark from "$lib/assets/copium_dark.png";
-    import copium_light from "$lib/assets/copium_light.png";
+    import copium_dark from "$lib/assets/copium_dark1.png";
+    import copium_light from "$lib/assets/copium_light1.png";
 
     import { File, MoveUpRight } from "lucide-svelte";
 

@@ -5,7 +5,7 @@
     import * as Card from "$lib/components/ui/card/index.js";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
     import * as Drawer from "$lib/components/ui/drawer/index.js";
-    import ftrace1 from "$lib/assets/ftrace1.png";
+    // import ftrace1 from "$lib/assets/ftrace1.png";
 
     import { File, MoveUpRight } from "lucide-svelte";
 
@@ -176,7 +176,7 @@
             </p>
         </div>
         <div class="items-center justify-end">
-            {#if isDarkMode}
+            <!-- {#if isDarkMode}
                 <img
                     src={ftrace1}
                     alt={card[0].title}
@@ -188,7 +188,7 @@
                     alt={card[0].title}
                     class="border rounded-lg aspect-[16/9] object-cover"
                 />
-            {/if}
+            {/if} -->
         </div>
     </div>
 </div>

@@ -6,8 +6,8 @@
     import * as Tabs from "$lib/components/ui/tabs/index.js";
     import * as Drawer from "$lib/components/ui/drawer/index.js";
 
-    import calple_dark from "$lib/assets/calple_dark.png";
-    import calple_light from "$lib/assets/calple_light.png";
+    import calple_dark from "$lib/assets/calple_dark1.png";
+    import calple_light from "$lib/assets/calple_light1.png";
 
     import { File, MoveUpRight } from "lucide-svelte";
 

@@ -1,9 +1,10 @@
 <script lang="ts">
     import { onMount, onDestroy } from "svelte";
-    import { fade } from "svelte/transition";
+    import { fade, slide } from "svelte/transition";
 
     // components
     import { Separator } from "$lib/components/ui/separator";
+    import { Skeleton } from "$lib/components/ui/skeleton/index.js";
     import { buttonVariants } from "$lib/components/ui/button/index.js";
     import * as Collapsible from "$lib/components/ui/collapsible/index.js";
     import Badge from "$lib/components/ui/badge/badge.svelte";
@@ -17,7 +18,11 @@
     import Linkedin from "$lib/components/svg/Linkedin/Linkedin.svelte";
     import Github from "$lib/components/svg/Github/Github.svelte";
     import Spotify from "$lib/components/svg/Spotify/Primary_Logo_Green_RGB.svg";
-    import { ArrowUpRight, ChevronsUpDownIcon } from "lucide-svelte";
+    import {
+        ArrowUpRight,
+        ChevronsRight,
+        ChevronsUpDownIcon,
+    } from "lucide-svelte";
 
     // types
     import type { Contact } from "$lib/types/profile";
@@ -99,7 +104,7 @@
 </script>
 
 <div
-    class="max-w-xl container w-full h-full my-16 flex items-center justify-start mx-auto gap-4 p-4 px-5 border rounded-full"
+    class="max-w-2xl w-full h-full grid grid-cols-[1fr_3fr] items-center justify-start mx-auto my-8 px-3"
 >
     <!-- <div class="flex flex-col items-baseline">
             <CornerUpRight class="w-3 text-stone-400" />
@@ -115,7 +120,7 @@
         alt="Profile"
         class="h-[94px] aspect-[1/1] object-cover rounded-full"
     />
-    <div class="h-full grid grid-rows-[1fr_1fr_1fr] items-center">
+    <div class="w-full grid grid-rows-[1fr_auto_1fr] items-center">
         <h1
             class="w-full flex items-baseline justify-start gap-1 text-xl font-normal px-1"
         >
@@ -123,64 +128,53 @@
         </h1>
         {#key currentText}
             <span
-                class="w-full flex justify-center lg:justify-start text-muted-foreground text-sm px-1 pb-0.5"
+                class="w-full flex justify-center lg:justify-start text-muted-foreground text-sm px-1"
                 in:fade={{ duration: 500 }}>{currentText}</span
             >
         {/key}
-        <Badge variant="outline" class="flex gap-1 py-1 w-fit">
-            <div class="flex items-center">
-                <img src={Spotify} alt="Spotify Logo" class="h-3.5 w-3.5" />
-            </div>
 
-            <div id="spotify-status" class="text-xs md:text-sm">
-                {#if spotifyData.isPlaying}
-                    <a
-                        href={spotifyData.songURL}
-                        class="flex items-center gap-4 hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {#if spotifyData.albumImageURL}
-                            <img
-                                src={spotifyData.albumImageURL}
-                                alt="Album art"
-                                class="h-8 w-8 rounded"
-                            />
-                        {/if}
-                        <div>
-                            <p class="font-medium text-sm">
-                                {spotifyData.title}
-                            </p>
-                            <p class="text-xs text-muted-foreground">
-                                by {spotifyData.artist}
-                            </p>
-                        </div>
-                    </a>
-                {:else}
-                    <p class="text-xs text-muted-foreground font-normal">
-                        Offline
-                    </p>
-                {/if}
-            </div>
-        </Badge>
+        <a
+            class="w-full gap-2 rounded-full font-normal flex items-center justify-start h-fit px-0 pt-2 gap-2"
+            href="https://github.com/juhun32/resume"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <Badge
+                class="font-normal tracking-tight text-sm h-5"
+                variant="secondary"
+            >
+                Resume
+            </Badge>
+            <p
+                class="flex items-start gap-1 text-sm text-start text-xs hover:underline"
+            >
+                Latest:
+                {new Date().toLocaleDateString()}
+                <ArrowUpRight class="h-3 w-3" strokeWidth={1.5} />
+            </p>
+        </a>
     </div>
 </div>
 
 <div
-    class="max-w-xl w-full h-full flex flex-col gap-4 items-start justify-start mx-auto"
+    class="max-w-2xl w-full h-full flex flex-col gap-16 items-start justify-start mx-auto my-8"
 >
     <div class="w-full">
-        <Badge variant="outline" class="text-sm font-normal mb-4">Contact</Badge
-        >
-        <div class="w-full grid grid-cols-[1fr_6fr] items-center gap-4 text-sm">
+        <Badge variant="secondary" class="h-5 text-sm font-normal mb-4">
+            Contact
+        </Badge>
+        <div class="w-full grid grid-cols-[1fr_3fr] items-center text-sm px-3">
             {#each contacts as contact}
                 <a
                     href={contact.link}
-                    class="hidden sm:flex text-muted-foreground"
+                    class="hidden sm:flex text-muted-foreground py-2"
                 >
                     {contact.label}
                 </a>
-                <a href={contact.link} class="px-4 flex items-start gap-1">
+                <a
+                    href={contact.link}
+                    class="px-3 flex items-start gap-1 hover:underline py-2"
+                >
                     {contact.value}
                     <ArrowUpRight class="h-3 w-3" strokeWidth={1.5} />
                 </a>
@@ -188,89 +182,142 @@
         </div>
     </div>
 
-    <div class="w-full lg:w-full flex flex-col w-full mt-6">
-        {#if spotifyData.topTracks && spotifyData.topTracks.length > 0}
-            <Collapsible.Root class="w-full">
-                <div class="flex items-center justify-between mb-4">
-                    <Badge variant="outline" class="text-sm font-normal">
-                        Spotify Top Tracks
-                    </Badge>
-                    <Collapsible.Trigger
-                        class={buttonVariants({
-                            variant: "ghost",
-                            size: "icon",
-                            class: "p-0 h-6 w-6",
-                        })}
-                    >
-                        <ChevronsUpDownIcon class="h-6" />
-                        <span class="sr-only">Toggle</span>
-                    </Collapsible.Trigger>
-                </div>
-                <a
-                    href={spotifyData.topTracks[0].url}
-                    class="grid grid-cols-[1fr_6fr] items-center pb-4 gap-4 group rounded-md transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
+    <div
+        id="spotify-status"
+        class="flex flex-col items-start justify-center gap-4 w-full"
+    >
+        <Badge variant="secondary" class="h-5 text-sm font-normal gap-1">
+            <img src={Spotify} alt="Spotify Logo" class="h-3.5 w-3.5" />
+            Playing
+        </Badge>
+        {#if spotifyData.isPlaying}
+            <a
+                href={spotifyData.songURL}
+                class="grid grid-cols-[1fr_3fr] items-center hover:underline w-full px-3"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {#if spotifyData.albumImageURL}
                     <div class="flex items-center gap-4">
-                        <div
-                            class="w-4 text-center text-xs font-normal text-muted-foreground"
-                        >
-                            {1}
-                        </div>
-                        {#if spotifyData.topTracks[0].coverImage}
-                            <img
-                                src={spotifyData.topTracks[0].coverImage.url}
-                                alt="{spotifyData.topTracks[0].title} album art"
-                                class="h-8 w-8 rounded object-cover"
-                            />
-                        {/if}
+                        <ChevronsRight
+                            class="h-4 w-4 text-muted-foreground"
+                            strokeWidth={1.5}
+                        />
+                        <img
+                            src={spotifyData.albumImageURL}
+                            alt="Album art"
+                            class="h-8 w-8 rounded"
+                        />
                     </div>
-                    <div class="px-4">
-                        <p class="font-medium group-hover:underline text-xs">
-                            {spotifyData.topTracks[0].title}
-                        </p>
-                        <p class="text-xs text-muted-foreground">
-                            {spotifyData.topTracks[0].artist}
-                        </p>
-                    </div>
-                </a>
-                <Collapsible.Content class="">
-                    {#each spotifyData.topTracks.slice(1, 10) as track, i}
-                        <a
-                            href={track.url}
-                            class="grid grid-cols-[1fr_6fr] items-center pb-4 gap-4 group rounded-md transition-colors"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <div class="flex items-center gap-4">
-                                <div
-                                    class="w-4 text-center text-xs font-normal text-muted-foreground"
-                                >
-                                    {i + 2}
-                                </div>
-                                {#if track.coverImage}
-                                    <img
-                                        src={track.coverImage.url}
-                                        alt="{track.title} album art"
-                                        class="h-8 w-8 rounded object-cover"
-                                    />
-                                {/if}
-                            </div>
-                            <div class="px-4">
-                                <p
-                                    class="font-medium group-hover:underline text-xs"
-                                >
-                                    {track.title}
-                                </p>
-                                <p class="text-xs text-muted-foreground">
-                                    {track.artist}
-                                </p>
-                            </div>
-                        </a>
-                    {/each}
-                </Collapsible.Content>
-            </Collapsible.Root>
+                {/if}
+                <div class="px-3">
+                    <p class="font-normal text-xs">
+                        {spotifyData.title}
+                    </p>
+                    <p class="text-xs text-muted-foreground">
+                        {spotifyData.artist}
+                    </p>
+                </div>
+            </a>
+        {:else}
+            <div
+                class="grid grid-cols-[1fr_3fr] items-center hover:underline w-full px-3"
+            >
+                <div class="flex items-center gap-4">
+                    <ChevronsRight
+                        class="h-4 w-4 text-muted-foreground"
+                        strokeWidth={1.5}
+                    />
+                    <Skeleton class="h-8 w-8 rounded" />
+                </div>
+                <div class="text-xs text-muted-foreground px-3">Offline</div>
+            </div>
         {/if}
     </div>
+
+    {#if spotifyData.topTracks && spotifyData.topTracks.length > 0}
+        <Collapsible.Root class="w-full">
+            <div class="flex items-center justify-between mb-4">
+                <Badge
+                    variant="secondary"
+                    class="h-5 text-sm font-normal gap-1"
+                >
+                    <img src={Spotify} alt="Spotify Logo" class="h-3.5 w-3.5" />
+                    Top Tracks
+                </Badge>
+                <Collapsible.Trigger
+                    class={buttonVariants({
+                        variant: "ghost",
+                        size: "icon",
+                        class: "p-0 h-6 w-6",
+                    })}
+                >
+                    <ChevronsUpDownIcon class="h-6" />
+                    <span class="sr-only">Toggle</span>
+                </Collapsible.Trigger>
+            </div>
+            <a
+                href={spotifyData.topTracks[0].url}
+                class="grid grid-cols-[1fr_3fr] items-center group rounded-md transition-colors px-3"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-4 text-center text-xs font-normal text-muted-foreground"
+                    >
+                        {1}
+                    </div>
+                    {#if spotifyData.topTracks[0].coverImage}
+                        <img
+                            src={spotifyData.topTracks[0].coverImage.url}
+                            alt="{spotifyData.topTracks[0].title} album art"
+                            class="h-8 w-8 rounded object-cover"
+                        />
+                    {/if}
+                </div>
+                <div class="group-hover:underline px-3">
+                    <p class="font-normal text-xs">
+                        {spotifyData.topTracks[0].title}
+                    </p>
+                    <p class="text-xs text-muted-foreground">
+                        {spotifyData.topTracks[0].artist}
+                    </p>
+                </div>
+            </a>
+            <Collapsible.Content class="mt-4">
+                {#each spotifyData.topTracks.slice(1, 10) as track, i}
+                    <a
+                        href={track.url}
+                        class="grid grid-cols-[1fr_3fr] items-center pb-4 gap-4 group rounded-md px-3"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-4 text-center text-xs font-normal text-muted-foreground"
+                            >
+                                {i + 2}
+                            </div>
+                            {#if track.coverImage}
+                                <img
+                                    src={track.coverImage.url}
+                                    alt="{track.title} album art"
+                                    class="h-8 w-8 rounded object-cover"
+                                />
+                            {/if}
+                        </div>
+                        <div class="group-hover:underline">
+                            <p class="font-normal text-xs">
+                                {track.title}
+                            </p>
+                            <p class="text-xs text-muted-foreground">
+                                {track.artist}
+                            </p>
+                        </div>
+                    </a>
+                {/each}
+            </Collapsible.Content>
+        </Collapsible.Root>
+    {/if}
 </div>

@@ -1,7 +1,5 @@
 <script lang="ts">
-    // components
-    import { Button } from "$lib/components/ui/button/index.js";
-    import * as Table from "$lib/components/ui/table/index.js";
+    import Badge from "$lib/components/ui/badge/badge.svelte";
 
     // project
     import Copium_project from "$lib/components/project/Copium.svelte";
@@ -16,24 +14,32 @@
     import Himedia from "$lib/components/experience/Himedia.svelte";
 
     // icon
-    import {
-        ArrowLeft,
-        ArrowUpRight,
-        Dot,
-        Download,
-        ExternalLink,
-        Plus,
-    } from "lucide-svelte";
+    import { ArrowUpRight, DotIcon } from "lucide-svelte";
     import Github from "$lib/components/svg/Github/Github.svelte";
 
     // images
-    import Copium_logo from "$lib/assets/copium_logo.png";
-    import Calple_logo from "$lib/assets/calple_logo.png";
+    import copium_light1 from "$lib/assets/copium_light1.png";
+    import copium_light2 from "$lib/assets/copium_light2.png";
+    import copium_light3 from "$lib/assets/copium_light3.png";
 
-    import Insightlegi_logo from "$lib/assets/insightlegi_logo.png";
-    import Eduverse_logo from "$lib/assets/eduverse_logo.png";
-    import Himedia_logo from "$lib/assets/himedia_logo.png";
-    import Badge from "$lib/components/ui/badge/badge.svelte";
+    import copium_dark1 from "$lib/assets/copium_dark1.png";
+    import copium_dark2 from "$lib/assets/copium_dark2.png";
+    import copium_dark3 from "$lib/assets/copium_dark3.png";
+
+    import calple_light1 from "$lib/assets/calple_light1.png";
+    import calple_light2 from "$lib/assets/calple_light2.png";
+    import calple_light3 from "$lib/assets/calple_light3.png";
+
+    import calple_dark1 from "$lib/assets/calple_dark1.png";
+    import calple_dark2 from "$lib/assets/calple_dark2.png";
+    import calple_dark3 from "$lib/assets/calple_dark3.png";
+
+    import { mode } from "mode-watcher";
+    let isDarkMode = $state(false);
+
+    $effect(() => {
+        isDarkMode = $mode === "dark";
+    });
 
     const projects = [
         {
@@ -41,16 +47,18 @@
             title: "copium.dev",
             github: "https://github.com/copium-dev/copium",
             link: "https://copium.dev",
-            logo: Copium_logo,
             description: "Tech internship management platform",
+            date: "Now",
         },
         {
             id: "calple",
             title: "calple.date",
             github: "https://github.com/juhun32/calple",
             link: "https://calple.date",
-            logo: Calple_logo,
             description: "Couple schedule management platform",
+            date: "Now",
+            light_pictures: [calple_light1, calple_light2, calple_light3],
+            dark_pictures: [calple_dark1, calple_dark2, calple_dark3],
         },
         {
             id: "ftrace",
@@ -58,52 +66,64 @@
             github: "https://github.com/juhun32/ftrace",
             // link: "https://ftrace.dev",
             description: "Racing simulator telemetry analysis tool",
+            date: "2025",
         },
         {
             id: "formulaba",
             title: "formulaba.dev",
             github: "",
             link: "",
+            description: "TBD",
+            date: "Now",
         },
     ];
 
     const experiences = [
         {
+            id: "kellogg_collective",
+            title: "Kellogg Collective",
+            logo: "",
+            date: "Jul '25 - Now",
+            description: "Northwestern Kellogg Alumni Connection Platform",
+        },
+        {
             id: "copium_experience",
             title: "Copium",
             github: "https://github.com/copium-dev",
             link: "https://copium.dev",
-            logo: Copium_logo,
-            description: "Jan 2025 - Present",
+            date: "Jan '25 - Now",
+            description: "Tech internship management platform",
+            light_pictures: [copium_light2, copium_light3],
+            dark_pictures: [copium_dark2, copium_dark3],
         },
         {
             id: "insightlegi",
             title: "Insightlegi",
-            logo: Insightlegi_logo,
-            description: "Jan 2025 - Mar 2025",
+            date: "Jan '25 - Mar '25",
+            description: "Data driven legal insights platform",
         },
         {
             id: "eduverse",
             title: "Eduverse",
-            logo: Eduverse_logo,
-            description: "Dec 2024 - Jan 2025",
+            date: "Dec '24 - Jan '25",
+            description: "Personalized learning platform for CS students",
         },
         {
             id: "himedia",
             title: "Himedia",
-            logo: Himedia_logo,
-            description: "Jan 2023 - April 2023",
+            date: "Jan '23 - Apr '23",
+            description: "Coding bootcamp",
         },
     ];
 
-    let currentView = $state("table");
+    let currentView = $state("list");
 
     function showProjectDetails(projectId: string) {
         currentView = projectId;
     }
 
-    function backToTable() {
-        currentView = "table";
+    function backToList() {
+        currentView = "list";
     }
 
     function getProjectComponent(projectId: string) {
@@ -135,215 +155,235 @@
                 return null;
         }
     }
+
+    import * as Dialog from "$lib/components/ui/dialog";
+    import Button from "$lib/components/ui/button/button.svelte";
+
+    let popupImage = $state<string | null>(null);
+    function openImage(src: string) {
+        popupImage = src;
+    }
+    function closeImage() {
+        popupImage = null;
+    }
 </script>
 
 <div
-    class="w-full h-full bg-background flex flex-col items-center justify-center gap-4 sm:gap-8"
+    class="w-full h-full bg-background flex flex-col items-center justify-center gap-8 my-8"
 >
-    <div class="w-full flex flex-col justify-start items-start gap-4">
-        <div class="flex flex-col">
-            <Badge class="font-normal tracking-tight text-sm" variant="outline">
-                Resume
-            </Badge>
-        </div>
-        <a
-            class="w-full gap-2 rounded-full font-normal grid grid-cols-[1fr_6fr] items-center justify-start h-fit px-0 py-0 gap-4"
-            href="https://github.com/juhun32/resume"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div class="w-full">
+        <Badge
+            class="h-5 font-normal tracking-tight text-sm mb-2"
+            variant="secondary"
         >
-            <p class="text-sm text-muted-foreground text-start">Latest</p>
-            <p class="flex items-start gap-1 text-sm text-start px-4 text-sm">
-                {new Date().toLocaleDateString()}
-                <ArrowUpRight class="h-3 w-3" strokeWidth={1.5} />
-            </p>
-        </a>
+            Projects
+        </Badge>
+        <div class="w-full grid grid-cols-[1fr_3fr] items-start text-sm px-3">
+            {#each projects as project}
+                <div
+                    class="flex items-start gap-2 text-muted-foreground text-sm py-4"
+                >
+                    {project.date}
+                </div>
+                <div class="flex flex-col items-start px-3 py-4">
+                    <div class="flex items-center gap-1">
+                        {#if project.link}
+                            <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="hover:text-primary flex items-start gap-1 hover:underline"
+                            >
+                                <span class="font-normal text-sm">
+                                    {project.title}
+                                </span>
+                                <ArrowUpRight class="h-3 w-3" />
+                            </a>
+                        {:else}
+                            <span class="font-normal text-sm">
+                                {project.title}
+                            </span>
+                        {/if}
+                        {#if project.github}
+                            <a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="hover:text-primary text-muted-foreground flex items-center justify-end"
+                            >
+                                <Github />
+                            </a>
+                        {/if}
+                    </div>
+                    <div class="text-muted-foreground text-sm">
+                        {project.description}
+                    </div>
+                    {#if project.light_pictures}
+                        <div class="flex items-center gap-2 mt-6">
+                            {#if !isDarkMode}
+                                {#each project.light_pictures as picture}
+                                    <Button
+                                        variant="ghost"
+                                        onclick={() => openImage(picture)}
+                                        class="h-fit w-fit rounded cursor-pointer px-0 py-0"
+                                    >
+                                        <img
+                                            src={picture}
+                                            alt={project.title}
+                                            class="h-20 rounded cursor-pointer border"
+                                        /></Button
+                                    >
+                                {/each}
+                            {:else}
+                                {#each project.dark_pictures as picture}
+                                    <Button
+                                        variant="ghost"
+                                        onclick={() => openImage(picture)}
+                                        class="h-fit w-fit rounded cursor-pointer px-0 py-0"
+                                    >
+                                        <img
+                                            src={picture}
+                                            alt={project.title}
+                                            class="h-20 rounded cursor-pointer border"
+                                        /></Button
+                                    >
+                                {/each}
+                            {/if}
+                        </div>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    </div>
+    <!-- {#if currentView !== "list"}
+        {@const ProjectComponent = getProjectComponent(currentView)}
+        {#if ProjectComponent}
+            <ProjectComponent />
+        {/if}
+    {/if} -->
+
+    <div class="w-full">
+        <Badge
+            class="h-5 font-normal tracking-tight text-sm mb-2"
+            variant="secondary"
+        >
+            Experiences
+        </Badge>
+        <div class="w-full grid grid-cols-[1fr_3fr] items-start text-sm px-3">
+            {#each experiences as experience}
+                <div
+                    class="flex items-start gap-2 text-muted-foreground text-sm py-4"
+                >
+                    {experience.date}
+                </div>
+                <div class="flex items-center gap-2 py-4">
+                    <!-- {#if experience.logo}
+                            <img
+                                src={experience.logo}
+                                alt={experience.title}
+                                class="h-5 w-5 rounded-full"
+                            />
+                        {/if} -->
+                    <div class="flex flex-col items-start px-3">
+                        <div class="flex items-center gap-1">
+                            {#if experience.link}
+                                <a
+                                    href={experience.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="hover:text-primary flex items-start gap-1 hover:underline"
+                                >
+                                    <span class="font-normal text-sm">
+                                        {experience.title}
+                                    </span>
+                                    <ArrowUpRight class="h-3 w-3" />
+                                </a>
+                            {:else}
+                                <span class="font-normal text-sm">
+                                    {experience.title}
+                                </span>
+                            {/if}
+                            {#if experience.github}
+                                <a
+                                    href={experience.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="hover:text-primary text-muted-foreground flex items-center justify-end"
+                                >
+                                    <Github />
+                                </a>
+                            {/if}
+                        </div>
+                        <div class="text-muted-foreground text-sm">
+                            {experience.description}
+                        </div>
+                        {#if experience.light_pictures}
+                            <div class="flex items-center gap-2 mt-6">
+                                {#if !isDarkMode}
+                                    {#each experience.light_pictures as picture}
+                                        <Button
+                                            variant="ghost"
+                                            onclick={() => openImage(picture)}
+                                            class="h-fit w-fit rounded cursor-pointer px-0 py-0 border"
+                                        >
+                                            <img
+                                                src={picture}
+                                                alt={experience.title}
+                                                class="h-20 rounded cursor-pointer"
+                                            />
+                                        </Button>
+                                    {/each}
+                                {:else}
+                                    {#each experience.dark_pictures as picture}
+                                        <Button
+                                            variant="ghost"
+                                            onclick={() => openImage(picture)}
+                                            class="h-fit w-fit rounded cursor-pointer px-0 py-0"
+                                        >
+                                            <img
+                                                src={picture}
+                                                alt={experience.title}
+                                                class="h-20 rounded cursor-pointer"
+                                            />
+                                        </Button>
+                                    {/each}
+                                {/if}
+                            </div>{/if}
+                    </div>
+                </div>
+            {/each}
+        </div>
     </div>
 
-    {#if currentView === "table"}
-        <div class="w-full h-full flex flex-col gap-4">
-            <Table.Root>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.Head class="w-[3%] h-8 text-xs font-normal px-0"
-                        ></Table.Head>
-                        <Table.Head class="w-[20%] h-8 text-xs font-normal"
-                            >Projects</Table.Head
-                        >
-                        <Table.Head class="w-[10%] h-8 text-xs font-normal"
-                            >Github</Table.Head
-                        >
-                        <Table.Head
-                            class="w-[50%] h-8 hidden md:table-cell text-xs font-normal"
-                        >
-                            Description</Table.Head
-                        >
-                        <Table.Head class="w-[10%] h-8 text-xs font-normal"
-                            >More</Table.Head
-                        >
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {#each projects as project (project.id)}
-                        <Table.Row class="w-full">
-                            <Table.Cell
-                                class="h-full font-medium py-0 px-0 pl-4"
-                            >
-                                {#if project.logo}
-                                    <img
-                                        src={project.logo}
-                                        alt={project.title}
-                                        class="h-3 w-3 rounded-full"
-                                    />
-                                {:else}
-                                    <Dot class="h-4 w-4 text-transparent" />
-                                {/if}
-                            </Table.Cell>
-                            <Table.Cell class="h-full font-medium py-0">
-                                <a
-                                    href={project.link}
-                                    class="hover:underline font-normal flex items-start gap-1"
-                                >
-                                    {project.title}
-                                    {#if project.link}
-                                        <div
-                                            class="items-center hover:text-primary"
-                                        >
-                                            <ArrowUpRight class="h-3 w-3" />
-                                        </div>
-                                    {/if}
-                                </a>
-                            </Table.Cell>
-                            <Table.Cell class="font-medium py-0">
-                                <div class="flex items-center gap-2">
-                                    {#if project.github}
-                                        <a
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="items-center hover:text-primary text-muted-foreground"
-                                        >
-                                            <Github />
-                                        </a>
-                                    {/if}
-                                </div>
-                            </Table.Cell>
-                            <Table.Cell class="hidden md:table-cell py-0">
-                                <p class="text-xs text-muted-foreground">
-                                    {project.description}
-                                </p>
-                            </Table.Cell>
-                            <Table.Cell class="font-medium py-2">
-                                <Button
-                                    variant="outline"
-                                    size="icon"
-                                    onclick={() =>
-                                        showProjectDetails(project.id)}
-                                    class="h-6 w-6"
-                                >
-                                    <Plus class="h-4 w-4" />
-                                </Button>
-                            </Table.Cell>
-                        </Table.Row>
-                    {/each}
-                </Table.Body>
-            </Table.Root>
-
-            <Table.Root>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.Head class="w-[30%] h-8">Experiences</Table.Head>
-                        <Table.Head class="w-[10%] h-8">Links</Table.Head>
-                        <Table.Head class="w-[50%] hidden xl:table-cell h-8"
-                            >Description</Table.Head
-                        >
-                        <Table.Head class="w-[10%] h-8">More</Table.Head>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {#each experiences as experience (experience.id)}
-                        <Table.Row class="w-full">
-                            <Table.Cell class="h-full font-medium py-2">
-                                <div class="flex gap-4 items-center">
-                                    {#if experience.logo}
-                                        <img
-                                            src={experience.logo}
-                                            alt={experience.title}
-                                            class="h-4 w-4 rounded-full"
-                                        />
-                                    {:else}
-                                        <Dot class="h-4 w-4" />
-                                    {/if}
-                                    <a
-                                        href={experience.link}
-                                        class="hover:underline"
-                                    >
-                                        {experience.title}
-                                    </a>
-                                </div>
-                            </Table.Cell>
-                            <Table.Cell class="font-medium py-2">
-                                <div class="flex items-center gap-4">
-                                    {#if experience.github}
-                                        <a
-                                            href={experience.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="items-center hover:text-primary"
-                                        >
-                                            <Github />
-                                        </a>
-                                    {/if}
-                                    {#if experience.link}
-                                        <a
-                                            href={experience.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="items-center hover:text-primary"
-                                        >
-                                            <ExternalLink class="h-4 w-4" />
-                                        </a>
-                                    {/if}
-                                </div>
-                            </Table.Cell>
-                            <Table.Cell class="hidden xl:table-cell">
-                                <p class="text-sm text-muted-foreground">
-                                    {experience.description}
-                                </p>
-                            </Table.Cell>
-                            <Table.Cell class="font-medium py-2">
-                                <Button
-                                    variant="outline"
-                                    size="icon"
-                                    onclick={() =>
-                                        showProjectDetails(experience.id)}
-                                    class="h-6 w-6"
-                                >
-                                    <Plus class="h-4 w-4" />
-                                </Button>
-                            </Table.Cell>
-                        </Table.Row>
-                    {/each}
-                </Table.Body>
-            </Table.Root>
-        </div>
-    {:else}
-        <div class="flex items-center">
+    <!-- {#if currentView !== "list"}
+        <div class="flex items-center mt-4">
             <Button
                 variant="ghost"
                 size="sm"
-                onclick={backToTable}
+                onclick={backToList}
                 class="flex items-center gap-2"
             >
                 <ArrowLeft class="h-4 w-4" />
-                Back to Projects
+                Back
             </Button>
         </div>
-
-        {@const ProjectComponent = getProjectComponent(currentView)}
-        <ProjectComponent />
-
         {@const ExperienceComponent = getExperienceComponent(currentView)}
-        <ExperienceComponent />
+        {#if ExperienceComponent}
+            <ExperienceComponent />
+        {/if}
+    {/if} -->
+
+    {#if popupImage}
+        <Dialog.Root open={true} onOpenChange={closeImage}>
+            <Dialog.Content
+                class="w-[70vw] z-50 p-2 bg-background rounded shadow-lg flex flex-col items-center"
+            >
+                <img
+                    src={popupImage}
+                    alt="Full preview"
+                    class="rounded aspect-[16/9]"
+                />
+            </Dialog.Content>
+        </Dialog.Root>
     {/if}
 </div>

@@ -25,12 +25,14 @@
 
 <ModeWatcher />
 <div class="min-h-screen flex flex-col">
-    <header class="container max-w-xl bg-background flex justify-end py-4 px-0">
+    <header
+        class="container max-w-2xl bg-background flex justify-end py-4 px-0 rounded-full"
+    >
         <Button
             onclick={toggleMode}
-            variant="outline"
+            variant="ghost"
             size="icon"
-            class="rounded-full"
+            class="w-8 h-8 rounded-full"
             aria-label="Toggle theme"
         >
             <SunMedium class="dark:hidden" />
@@ -39,25 +41,25 @@
         </Button>
     </header>
 
-    <div class="flex-1 w-full container flex flex-col">
+    <div class="flex-1 w-full container flex flex-col my-8">
         <Profile />
 
         <main
-            class="max-w-xl mx-auto overflow-y-auto my-4 sm:my-8 flex justify-center items-start w-full"
+            class="max-w-2xl mx-auto overflow-y-auto flex justify-center items-start w-full"
         >
             {@render children?.()}
         </main>
     </div>
 
     <footer
-        class="max-w-xl container mx-auto w-full flex justify-between items-center py-4 px-0"
+        class="max-w-2xl container mx-auto w-full flex justify-between items-center py-4 px-3"
     >
         <p class="text-xs md:text-sm text-muted-foreground">
             &copy; Juhun Park
         </p>
         <a
             href="https://github.com/juhun32/portfolio"
-            class="hover:text-yellow-700 hover:underline decoration-yellow-700 text-xs md:text-sm text-muted-foreground"
+            class="hover:text-primary hover:underline text-xs md:text-sm text-muted-foreground"
         >
             <Github />
         </a>
