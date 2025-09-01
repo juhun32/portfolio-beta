@@ -61,14 +61,6 @@
             dark_pictures: [calple_dark1, calple_dark2, calple_dark3],
         },
         {
-            id: "ftrace",
-            title: "ftrace",
-            github: "https://github.com/juhun32/ftrace",
-            // link: "https://ftrace.dev",
-            description: "Racing simulator telemetry analysis tool",
-            date: "2025",
-        },
-        {
             id: "formulaba",
             title: "formulaba.dev",
             github: "",
@@ -76,15 +68,24 @@
             description: "TBD",
             date: "Now",
         },
+        {
+            id: "ftrace",
+            title: "ftrace",
+            github: "https://github.com/juhun32/ftrace",
+            // link: "https://ftrace.dev",
+            description: "Racing simulator telemetry analysis tool",
+            date: "2025",
+        },
     ];
 
     const experiences = [
         {
             id: "kellogg_collective",
-            title: "Kellogg Collective",
+            title: "Northwestern Kellogg - Alumni Association",
             logo: "",
-            date: "Jul '25 - Now",
-            description: "Northwestern Kellogg Alumni Connection Platform",
+            date: "Jul '25 - Aug '25",
+            description:
+                "Northwestern Kellogg Alumni Connection Platform, KCMS",
         },
         {
             id: "copium_experience",
@@ -98,21 +99,22 @@
         },
         {
             id: "insightlegi",
-            title: "Insightlegi",
+            title: "George Mason University - Insightlegi",
             date: "Jan '25 - Mar '25",
-            description: "Data driven legal insights platform",
+            description:
+                "Data driven legal insights platform, product and hackathon",
         },
         {
             id: "eduverse",
-            title: "Eduverse",
+            title: "George Mason University - Eduverse",
             date: "Dec '24 - Jan '25",
-            description: "Personalized learning platform for CS students",
+            description: "Personalized learning platform, computer science",
         },
         {
             id: "himedia",
             title: "Himedia",
             date: "Jan '23 - Apr '23",
-            description: "Coding bootcamp",
+            description: "Coding bootcamp, backend development",
         },
     ];
 
@@ -169,7 +171,7 @@
 </script>
 
 <div
-    class="w-full h-full bg-background flex flex-col items-center justify-center gap-8 my-8"
+    class="w-full h-full bg-background flex flex-col items-center justify-center gap-16 my-8"
 >
     <div class="w-full">
         <Badge
@@ -209,9 +211,9 @@
                                 href={project.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="hover:text-primary text-muted-foreground flex items-center justify-end"
+                                class="hover:text-primary text-muted-foreground flex items-center justify-end gap-1 border rounded-full px-1 h-5"
                             >
-                                <Github />
+                                <Github /> Github
                             </a>
                         {/if}
                     </div>
@@ -220,7 +222,7 @@
                     </div>
                     {#if project.light_pictures}
                         <div
-                            class="flex flex-col sm:flex-row items-center gap-2 mt-6"
+                            class="flex flex-col sm:flex-row items-center gap-2 mt-1"
                         >
                             {#if !isDarkMode}
                                 {#each project.light_pictures as picture}
@@ -310,9 +312,9 @@
                                     href={experience.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="hover:text-primary text-muted-foreground flex items-center justify-end"
+                                    class="hover:text-primary text-muted-foreground flex items-center justify-end gap-1 border rounded-full px-1 h-5"
                                 >
-                                    <Github />
+                                    <Github /> Github
                                 </a>
                             {/if}
                         </div>
@@ -321,7 +323,7 @@
                         </div>
                         {#if experience.light_pictures}
                             <div
-                                class="flex flex-col sm:flex-row items-center gap-2 mt-6"
+                                class="flex flex-col sm:flex-row items-center gap-2 mt-1"
                             >
                                 {#if !isDarkMode}
                                     {#each experience.light_pictures as picture}

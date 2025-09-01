@@ -27,10 +27,8 @@
 </svelte:head>
 
 <ModeWatcher />
-<div class="min-h-screen flex flex-col">
-    <header
-        class="container max-w-2xl bg-background flex justify-end py-4 rounded-full"
-    >
+<div class="min-h-screen flex flex-col sm:bg-secondary">
+    <header class="container max-w-2xl flex justify-end py-3 rounded-full">
         <Button
             onclick={toggleMode}
             variant="ghost"
@@ -44,7 +42,9 @@
         </Button>
     </header>
 
-    <div class="flex-1 w-full container flex flex-col my-8 max-w-2xl mx-auto">
+    <div
+        class="flex-1 w-full container flex flex-col mb-2 pt-3 max-w-2xl mx-auto sm:border rounded-xl bg-card"
+    >
         <Profile />
 
         <main class="overflow-y-auto flex justify-center items-start w-full">
@@ -53,16 +53,16 @@
     </div>
 
     <footer
-        class="max-w-2xl container mx-auto w-full flex justify-between items-center py-4 sm:px-3"
+        class="max-w-2xl container mx-auto w-full flex justify-between items-center py-3 sm:px-3"
     >
         <p class="text-xs md:text-sm text-muted-foreground">
             &copy; Juhun Park
         </p>
         <a
             href="https://github.com/juhun32/portfolio"
-            class="hover:text-primary hover:underline text-xs md:text-sm text-muted-foreground"
+            class="hover:text-primary hover:underline text-xs md:text-sm text-muted-foreground flex items-center gap-1 border rounded-full px-1 h-5"
         >
-            <Github />
+            <Github /> Github
         </a>
     </footer>
 </div>
