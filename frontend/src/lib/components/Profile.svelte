@@ -104,7 +104,7 @@
 </script>
 
 <div
-    class="max-w-2xl w-full h-full flex flex-col gap-2 sm:gap-0 sm:grid sm:grid-cols-[25%_75%] items-center justify-start mx-auto my-8 px-3"
+    class="max-w-2xl w-full h-full flex flex-col gap-6 sm:gap-0 sm:grid sm:grid-cols-[25%_75%] items-center justify-start mx-auto my-8 px-3"
 >
     <!-- <div class="flex flex-col items-baseline">
             <CornerUpRight class="w-3 text-stone-400" />
@@ -118,7 +118,7 @@
     <img
         src={Profile}
         alt="Profile"
-        class="h-[94px] aspect-[1/1] object-cover rounded-full"
+        class="h-[94px] aspect-[1/1] object-cover rounded-xl"
     />
     <div class="w-full grid grid-rows-[1fr_auto_1fr] items-center">
         <h1
@@ -140,7 +140,7 @@
             rel="noopener noreferrer"
         >
             <Badge
-                class="font-normal tracking-tight text-sm h-5"
+                class="font-normal tracking-tight text-sm h-5 dark:border-muted-foreground"
                 variant="secondary"
             >
                 Resume
@@ -160,7 +160,10 @@
     class="max-w-2xl w-full h-full flex flex-col gap-16 items-start justify-start mx-auto my-8"
 >
     <div class="w-full">
-        <Badge variant="secondary" class="h-5 text-sm font-normal mb-4">
+        <Badge
+            variant="secondary"
+            class="h-5 text-sm font-normal mb-4 dark:border-muted-foreground"
+        >
             Contact
         </Badge>
         <div class="w-full grid grid-cols-[25%_75%] items-center text-sm px-3">
@@ -183,7 +186,10 @@
         id="spotify-status"
         class="flex flex-col items-start justify-center gap-4 w-full"
     >
-        <Badge variant="secondary" class="h-5 text-sm font-normal gap-1">
+        <Badge
+            variant="secondary"
+            class="h-5 text-sm font-normal gap-1 dark:border-muted-foreground"
+        >
             <img src={Spotify} alt="Spotify Logo" class="h-3.5 w-3.5" />
             Spotify
         </Badge>
@@ -194,11 +200,9 @@
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {#if spotifyData.albumImageURL}
-                    <p class="text-xs text-muted-foreground hidden sm:flex">
-                        Now Playing
-                    </p>
-                {/if}
+                <p class="text-xs text-muted-foreground hidden sm:flex">
+                    Now Playing
+                </p>
                 <div class="flex items-center gap-3">
                     <ChevronsRight
                         class="h-4 w-4 text-muted-foreground"
@@ -228,21 +232,28 @@
             </a>
         {:else}
             <div
-                class="grid grid-cols-[25%_75%] items-center hover:underline w-full px-3"
+                class="grid grid-cols-[25%_75%] sm:grid-cols-[15%_10%_75%] items-center hover:underline w-full px-3"
             >
+                <p class="text-xs text-muted-foreground hidden sm:flex">
+                    Now Playing
+                </p>
                 <div class="flex items-center gap-3">
                     <ChevronsRight
                         class="h-4 w-4 text-muted-foreground"
                         strokeWidth={1.5}
                     />
                     <div class="sm:hidden">
-                        <Skeleton class="h-8 w-8 rounded" />
+                        <Skeleton
+                            class="h-8 w-8 rounded dark:bg-muted-foreground"
+                        />
                     </div>
                 </div>
                 <div
-                    class="text-xs text-muted-foreground flex items-center gap-3 px-3"
+                    class="text-xs text-muted-foreground flex items-center gap-3 sm:gap-6 px-3"
                 >
-                    <Skeleton class="h-8 w-8 rounded hidden sm:block" />Offline
+                    <Skeleton
+                        class="h-8 w-8 rounded hidden sm:block dark:bg-muted-foreground"
+                    />Offline
                 </div>
             </div>
         {/if}

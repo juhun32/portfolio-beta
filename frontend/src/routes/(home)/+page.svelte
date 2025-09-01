@@ -171,11 +171,11 @@
 </script>
 
 <div
-    class="w-full h-full bg-background flex flex-col items-center justify-center gap-16 my-8"
+    class="w-full h-full bg-background dark:bg-secondary flex flex-col items-center justify-center gap-16 my-8"
 >
     <div class="w-full">
         <Badge
-            class="h-5 font-normal tracking-tight text-sm mb-2"
+            class="h-5 font-normal tracking-tight text-sm mb-2 dark:border-muted-foreground"
             variant="secondary"
         >
             Projects
@@ -211,7 +211,7 @@
                                 href={project.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="hover:text-primary text-muted-foreground flex items-center justify-end gap-1 border rounded-full px-1 h-5"
+                                class="hover:text-primary text-muted-foreground flex items-center justify-end gap-1 border dark:border-muted-foreground rounded-full px-1 h-5"
                             >
                                 <Github /> Github
                             </a>
@@ -268,7 +268,7 @@
 
     <div class="w-full">
         <Badge
-            class="h-5 font-normal tracking-tight text-sm mb-2"
+            class="h-5 font-normal tracking-tight text-sm mb-2 dark:border-muted-foreground"
             variant="secondary"
         >
             Experiences
@@ -312,7 +312,7 @@
                                     href={experience.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="hover:text-primary text-muted-foreground flex items-center justify-end gap-1 border rounded-full px-1 h-5"
+                                    class="hover:text-primary text-muted-foreground flex items-center justify-end gap-1 border dark:border-muted-foreground rounded-full px-1 h-5"
                                 >
                                     <Github /> Github
                                 </a>

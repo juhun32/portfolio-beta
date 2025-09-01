@@ -27,7 +27,9 @@
 </svelte:head>
 
 <ModeWatcher />
-<div class="min-h-screen flex flex-col sm:bg-secondary">
+<div
+    class="min-h-screen flex flex-col sm:bg-secondary dark:bg-secondary sm:dark:bg-card"
+>
     <header class="container max-w-2xl flex justify-end py-3 rounded-full">
         <Button
             onclick={toggleMode}
@@ -43,7 +45,7 @@
     </header>
 
     <div
-        class="flex-1 w-full container flex flex-col mb-2 pt-3 max-w-2xl mx-auto sm:border rounded-xl bg-card"
+        class="flex-1 w-full container flex flex-col mb-2 pt-3 max-w-2xl mx-auto sm:border rounded-xl bg-card dark:bg-secondary"
     >
         <Profile />
 
@@ -60,7 +62,7 @@
         </p>
         <a
             href="https://github.com/juhun32/portfolio"
-            class="hover:text-primary hover:underline text-xs md:text-sm text-muted-foreground flex items-center gap-1 border rounded-full px-1 h-5"
+            class="hover:text-primary hover:underline text-xs md:text-sm text-muted-foreground flex items-center gap-1 border dark:border-muted-foreground rounded-full px-1 h-5"
         >
             <Github /> Github
         </a>
