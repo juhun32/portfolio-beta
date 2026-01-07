@@ -1,179 +1,116 @@
 <script lang="ts">
-    import { onMount, onDestroy } from "svelte";
-    import { fade, slide } from "svelte/transition";
+    import { fade } from "svelte/transition";
 
-    // components
     import { Separator } from "$lib/components/ui/separator";
-    import { Skeleton } from "$lib/components/ui/skeleton/index.js";
     import { buttonVariants } from "$lib/components/ui/button/index.js";
     import * as Collapsible from "$lib/components/ui/collapsible/index.js";
     import Badge from "$lib/components/ui/badge/badge.svelte";
 
-    // images
-    import Profile from "$lib/assets/profile.png";
+    import ProfileImg from "$lib/assets/profile.png";
 
-    // icons
-    import Phone from "@lucide/svelte/icons/phone";
-    import Mails from "@lucide/svelte/icons/mail";
-    import Linkedin from "$lib/components/svg/Linkedin/Linkedin.svelte";
-    import Github from "$lib/components/svg/Github/Github.svelte";
-    import Spotify from "$lib/components/svg/Spotify/Primary_Logo_Green_RGB.svg";
+    import SpotifyLogo from "$lib/components/svg/Spotify/Primary_Logo_Green_RGB.svg";
     import {
         ArrowUpRight,
         ChevronsRight,
         ChevronsUpDownIcon,
+        Briefcase,
+        FolderGit2,
+        Paperclip,
+        Phone,
     } from "lucide-svelte";
 
-    // types
-    import type { Contact } from "$lib/types/profile";
     import type { SpotifyData } from "$lib/types/spotify";
+    import Skeleton from "./ui/skeleton/skeleton.svelte";
 
-    const contacts: Contact[] = [
-        {
-            label: "Email",
-            value: "juhunpark32@gmail.com",
-            link: "mailto:juhunpark32@gmail.com",
-        },
-        {
-            label: "LinkedIn",
-            value: "juhun-park",
-            link: "https://www.linkedin.com/in/juhun-park/",
-        },
-        {
-            label: "GitHub",
-            value: "juhun32",
-            link: "https://www.github.com/juhun32",
-        },
-    ];
+    let { data, spotify } = $props<{ data: any; spotify: SpotifyData }>();
 
-    // changing text
-    let texts = ["Software Engineer", "Racing Enthusiast", "Korean BBQ Lover"];
-    let index = 0;
-    let currentText = $state(texts[index]);
-    let interval: number;
+    let contacts = $derived(data?.Profile?.contacts || []);
+    let titles = $derived(data?.Profile?.titles || ["Developer"]);
+    let experiences = $derived(data?.Experience || []);
+    let projects = $derived(data?.Projects || []);
 
-    // spotify
-    let spotifyInterval: number;
-    let spotifyData = $state<SpotifyData>({
-        isPlaying: false,
-        title: "",
-        artist: "",
-        albumImageURL: "",
-        songURL: "",
-        nowPlaying: "",
-        topTracks: [],
-    });
+    // rotating texts
+    let index = $state(0);
+    let currentText = $derived(titles[index]);
 
-    async function fetchSpotifyData() {
-        try {
-            const response = await fetch("/spotify");
-            const data = await response.json();
-
-            spotifyData = {
-                isPlaying: data?.isPlaying || false,
-                title: data?.title || "",
-                artist: data?.artist || "",
-                albumImageURL: data?.albumImageURL || "",
-                songURL: data?.songURL || "",
-                nowPlaying: data?.nowPlaying || "",
-                topTracks: data?.topTracks || [],
-            };
-        } catch (error) {
-            console.error("Failed to fetch Spotify data", error);
-            spotifyData.isPlaying = false;
-        }
-    }
-
-    // lifecycle hooks
-    onMount(() => {
-        // change text every 5 seconds
-        interval = setInterval(() => {
-            index = (index + 1) % texts.length;
-            currentText = texts[index];
+    $effect(() => {
+        const interval = setInterval(() => {
+            if (titles.length > 0) {
+                index = (index + 1) % titles.length;
+            }
         }, 5000);
-
-        // fetch spotify data every 30 seconds
-        fetchSpotifyData();
-        spotifyInterval = setInterval(fetchSpotifyData, 30 * 1000);
-    });
-
-    onDestroy(() => {
-        clearInterval(interval);
-        clearInterval(spotifyInterval);
+        return () => clearInterval(interval);
     });
 </script>
 
 <div
-    class="max-w-2xl w-full h-full flex flex-col gap-6 sm:gap-0 sm:grid sm:grid-cols-[25%_75%] items-center justify-start mx-auto my-8 px-3"
+    class="max-w-2xl w-full min-h-full flex flex-col gap-6 items-center justify-start mx-auto py-3 px-3"
 >
-    <!-- <div class="flex flex-col items-baseline">
-            <CornerUpRight class="w-3 text-stone-400" />
-            <p
-                class="text-xs text-stone-400"
-                style="writing-mode: vertical-rl;"
-            >
-                my beautiful girlfriend's favorite picture of me
-            </p>
-        </div> -->
-    <img
-        src={Profile}
-        alt="Profile"
-        class="h-[94px] aspect-[1/1] object-cover rounded-xl"
-    />
-    <div class="w-full grid grid-rows-[1fr_auto_1fr] items-center">
-        <h1
-            class="w-full flex items-baseline justify-center sm:justify-start gap-2 text-xl font-normal px-1"
-        >
-            Juhun Park <p class="text-xs">박주훈</p>
-        </h1>
-        {#key currentText}
-            <span
-                class="w-full flex justify-center sm:justify-start text-muted-foreground text-sm px-1"
-                in:fade={{ duration: 500 }}>{currentText}</span
-            >
-        {/key}
+    <div
+        class="w-full flex flex-col sm:grid sm:grid-cols-[25%_75%] items-center gap-3"
+    >
+        <img
+            src={ProfileImg}
+            alt="Profile"
+            class="h-[94px] aspect-[1/1] object-cover rounded-full"
+        />
+        <div class="w-full grid grid-rows-[1fr_auto] items-center">
+            <div>
+                <h1
+                    class="w-full flex items-baseline justify-center sm:justify-start gap-2 text-xl font-light px-1"
+                >
+                    {data?.Profile?.name || "Juhun Park"}
+                    <p class="text-xs">{data?.Profile?.koreanName || ""}</p>
+                </h1>
+                {#key currentText}
+                    <span
+                        class="w-full flex justify-center sm:justify-start text-muted-foreground text-sm px-1"
+                        in:fade={{ duration: 500 }}>{currentText}</span
+                    >
+                {/key}
+            </div>
 
-        <a
-            class="w-full gap-2 rounded-full font-normal flex items-center justify-center sm:justify-start h-fit px-0 pt-2 gap-2"
-            href="https://github.com/juhun32/resume"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            <Badge
-                class="font-normal tracking-tight text-sm h-5 dark:border-muted-foreground"
-                variant="secondary"
+            <a
+                class="w-full gap-2 font-light flex items-center justify-center sm:justify-start h-fit px-0 pt-3 gap-2"
+                href="https://github.com/juhun32/resume"
+                target="_blank"
+                rel="noopener noreferrer"
             >
-                Resume
-            </Badge>
-            <p
-                class="flex items-start gap-1 text-sm text-start hover:underline"
-            >
-                Latest:
-                {new Date().toLocaleDateString()}
-                <ArrowUpRight class="h-3 w-3" strokeWidth={1.5} />
-            </p>
-        </a>
+                <Badge
+                    class="tracking-tight h-5 dark:border-muted-foreground gap-1"
+                    variant="secondary"
+                >
+                    <Paperclip class="h-3 w-3" strokeWidth={1.5} />Resume
+                </Badge>
+                <p
+                    class="flex items-start gap-1 text-sm text-start hover:underline"
+                >
+                    Latest: {new Date().toLocaleDateString()}
+                    <ArrowUpRight class="h-3 w-3" strokeWidth={1.5} />
+                </p>
+            </a>
+        </div>
     </div>
-</div>
 
-<div
-    class="max-w-2xl w-full h-full flex flex-col gap-16 items-start justify-start mx-auto my-8"
->
     <div class="w-full">
         <Badge
             variant="secondary"
-            class="h-5 text-sm font-normal mb-4 dark:border-muted-foreground"
+            class="h-5 mb-4 dark:border-muted-foreground gap-1"
         >
+            <Phone class="h-3 w-3" strokeWidth={1.5} />
             Contact
         </Badge>
         <div class="w-full grid grid-cols-[25%_75%] items-center text-sm px-3">
             {#each contacts as contact}
-                <a href={contact.link} class="flex text-muted-foreground py-2">
+                <a
+                    href={contact.link}
+                    class="flex text-muted-foreground py-1 text-xs"
+                >
                     {contact.label}
                 </a>
                 <a
                     href={contact.link}
-                    class="px-3 flex items-start gap-1 hover:underline py-2"
+                    class="px-3 flex items-start gap-1 hover:underline py-1"
                 >
                     {contact.value}
                     <ArrowUpRight class="h-3 w-3" strokeWidth={1.5} />
@@ -181,6 +118,72 @@
             {/each}
         </div>
     </div>
+    <Separator class="my-2" />
+
+    {#if experiences.length > 0}
+        <div class="w-full">
+            <Badge
+                variant="secondary"
+                class="h-5 mb-4 gap-1 dark:border-muted-foreground"
+            >
+                <Briefcase class="h-3 w-3" strokeWidth={1.5} /> Experience
+            </Badge>
+            <div class="w-full flex flex-col gap-6 px-3">
+                {#each experiences as exp}
+                    <div class="grid grid-cols-[25%_75%] gap-2 text-sm">
+                        <div class="text-muted-foreground text-xs pt-0.5">
+                            {exp.period}
+                        </div>
+                        <div>
+                            <div class="font-medium">{exp.role}</div>
+                            <div
+                                class="text-muted-foreground text-xs mt-1 mb-3"
+                            >
+                                {exp.company}
+                            </div>
+                            <p class="text-muted-foreground leading-relaxed">
+                                {exp.description}
+                            </p>
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        </div>
+        <Separator class="my-2" />
+    {/if}
+
+    {#if projects.length > 0}
+        <div class="w-full">
+            <Badge
+                variant="secondary"
+                class="h-5 mb-4 gap-1 dark:border-muted-foreground"
+            >
+                <FolderGit2 class="h-3 w-3" /> Projects
+            </Badge>
+            <div class="w-full flex flex-col gap-6 px-3">
+                {#each projects as project}
+                    <a
+                        href={project.link || "#"}
+                        target="_blank"
+                        class="flex flex-col gap-2 text-sm group items-start"
+                    >
+                        <div
+                            class="font-medium flex items-center gap-1 group-hover:underline"
+                        >
+                            {project.name}
+                            <ArrowUpRight
+                                class="h-3 w-3 opacity-50 group-hover:opacity-100"
+                            />
+                        </div>
+                        <p class="text-muted-foreground leading-relaxed">
+                            {project.description}
+                        </p>
+                    </a>
+                {/each}
+            </div>
+        </div>
+        <Separator class="my-2" />
+    {/if}
 
     <div
         id="spotify-status"
@@ -188,14 +191,15 @@
     >
         <Badge
             variant="secondary"
-            class="h-5 text-sm font-normal gap-1 dark:border-muted-foreground"
+            class="h-5 gap-1 dark:border-muted-foreground"
         >
-            <img src={Spotify} alt="Spotify Logo" class="h-3.5 w-3.5" />
-            Spotify
+            <img src={SpotifyLogo} alt="Spotify Logo" class="h-3.5 w-3.5" />
+            {data?.Activity?.status || "Spotify"}
         </Badge>
-        {#if spotifyData.isPlaying}
+
+        {#if data?.Activity?.music?.isPlaying}
             <a
-                href={spotifyData.songURL}
+                href={spotify.songURL || "#"}
                 class="grid grid-cols-[25%_75%] sm:grid-cols-[15%_10%_75%] items-center hover:underline w-full px-3"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -209,55 +213,50 @@
                         strokeWidth={1.5}
                     />
                     <img
-                        src={spotifyData.albumImageURL}
+                        src={spotify.albumImageURL}
                         alt="Album art"
                         class="h-8 w-8 rounded max-w-none sm:hidden"
                     />
                 </div>
                 <div class="flex items-center gap-3 px-3">
                     <img
-                        src={spotifyData.albumImageURL}
+                        src={spotify.albumImageURL}
                         alt="Album art"
                         class="h-8 w-8 rounded max-w-none hidden sm:block"
                     />
                     <div class="sm:px-3 w-full">
-                        <p class="font-normal text-sm">
-                            {spotifyData.title}
+                        <p class="font-light text-sm">
+                            {data?.Activity?.music?.track}
                         </p>
                         <p class="text-xs text-muted-foreground">
-                            {spotifyData.artist}
+                            {data?.Activity?.music?.artist}
                         </p>
                     </div>
                 </div>
             </a>
         {:else}
             <div
-                class="grid grid-cols-[25%_75%] sm:grid-cols-[15%_10%_75%] items-center hover:underline w-full px-3"
+                class="grid grid-cols-[25%_75%] sm:grid-cols-[15%_10%_75%] items-center w-full px-3"
             >
                 <p class="text-xs text-muted-foreground hidden sm:flex">
-                    Now Playing
+                    Status
                 </p>
                 <div class="flex items-center gap-3">
                     <ChevronsRight
                         class="h-4 w-4 text-muted-foreground"
                         strokeWidth={1.5}
                     />
-                    <div class="sm:hidden">
-                        <Skeleton
-                            class="h-8 w-8 rounded dark:bg-muted-foreground"
-                        />
-                    </div>
                 </div>
                 <div
                     class="text-xs text-muted-foreground flex items-center gap-3 sm:gap-6 px-3"
                 >
-                    <Skeleton
-                        class="h-8 w-8 rounded hidden sm:block dark:bg-muted-foreground"
-                    />Offline
+                    <Skeleton class="h-8 w-8 rounded object-cover max-w-none" />
+                    Offline / Not Listening
                 </div>
             </div>
         {/if}
-        {#if spotifyData.topTracks && spotifyData.topTracks.length > 0}
+
+        {#if spotify.topTracks && spotify.topTracks.length > 0}
             <Collapsible.Root class="w-full">
                 <div
                     class="grid grid-cols-[25%_70%_5%] sm:grid-cols-[15%_10%_70%_5%] items-center group rounded-md transition-colors px-3"
@@ -267,17 +266,15 @@
                     </p>
                     <div class="flex items-center gap-3">
                         <div
-                            class="w-4 text-center text-xs font-normal text-muted-foreground"
+                            class="w-4 text-center text-xs font-light text-muted-foreground"
                         >
                             1
                         </div>
                         <div class="sm:hidden h-8 w-8">
-                            {#if spotifyData.topTracks[0].coverImage}
+                            {#if spotify.topTracks[0].coverImage}
                                 <img
-                                    src={spotifyData.topTracks[0].coverImage
-                                        .url}
-                                    alt="{spotifyData.topTracks[0]
-                                        .title} album art"
+                                    src={spotify.topTracks[0].coverImage.url}
+                                    alt="art"
                                     class="h-8 w-8 rounded object-cover"
                                 />
                             {/if}
@@ -285,27 +282,25 @@
                     </div>
                     <a
                         class="group-hover:underline flex items-center gap-3 px-3"
-                        href={spotifyData.topTracks[0].url}
+                        href={spotify.topTracks[0].url}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         <div class="hidden sm:block h-8 w-8">
-                            {#if spotifyData.topTracks[0].coverImage}
+                            {#if spotify.topTracks[0].coverImage}
                                 <img
-                                    src={spotifyData.topTracks[0].coverImage
-                                        .url}
-                                    alt="{spotifyData.topTracks[0]
-                                        .title} album art"
+                                    src={spotify.topTracks[0].coverImage.url}
+                                    alt="art"
                                     class="h-8 w-8 rounded object-cover max-w-none"
                                 />
                             {/if}
                         </div>
                         <div class="w-full sm:px-3">
-                            <p class="font-normal text-sm">
-                                {spotifyData.topTracks[0].title}
+                            <p class="font-light text-sm">
+                                {spotify.topTracks[0].title}
                             </p>
                             <p class="text-xs text-muted-foreground">
-                                {spotifyData.topTracks[0].artist}
+                                {spotify.topTracks[0].artist}
                             </p>
                         </div>
                     </a>
@@ -321,7 +316,7 @@
                     </Collapsible.Trigger>
                 </div>
                 <Collapsible.Content class="mt-4">
-                    {#each spotifyData.topTracks.slice(1, 10) as track, i}
+                    {#each spotify.topTracks.slice(1, 10) as track, i}
                         <a
                             href={track.url}
                             class="grid grid-cols-[25%_70%_5%] sm:grid-cols-[15%_10%_70%_5%] items-center pb-4 group rounded-md px-3 text-baseline"
@@ -331,34 +326,30 @@
                             <p class="hidden sm:flex">&nbsp;</p>
                             <div class="flex items-center gap-3">
                                 <div
-                                    class="w-4 text-center text-xs font-normal text-muted-foreground"
+                                    class="w-4 text-center text-xs font-light text-muted-foreground"
                                 >
                                     {i + 2}
                                 </div>
                                 <div class="sm:hidden">
-                                    {#if track.coverImage}
-                                        <img
+                                    {#if track.coverImage}<img
                                             src={track.coverImage.url}
-                                            alt="{track.title} album art"
+                                            alt="art"
                                             class="h-8 w-8 rounded object-cover"
-                                        />
-                                    {/if}
+                                        />{/if}
                                 </div>
                             </div>
                             <div
                                 class="group-hover:underline flex items-center gap-3 px-3"
                             >
                                 <div class="hidden sm:block">
-                                    {#if track.coverImage}
-                                        <img
+                                    {#if track.coverImage}<img
                                             src={track.coverImage.url}
-                                            alt="{track.title} album art"
+                                            alt="art"
                                             class="h-8 w-8 rounded object-cover max-w-none"
-                                        />
-                                    {/if}
+                                        />{/if}
                                 </div>
                                 <div class="w-full sm:px-3">
-                                    <p class="font-normal text-sm">
+                                    <p class="font-light text-sm">
                                         {track.title}
                                     </p>
                                     <p class="text-xs text-muted-foreground">

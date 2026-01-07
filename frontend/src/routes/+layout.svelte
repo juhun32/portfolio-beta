@@ -11,7 +11,6 @@
 
     // icons
     import { Moon, SunMedium } from "lucide-svelte";
-    import Profile from "$lib/components/Profile.svelte";
 
     // image
     import Github from "$lib/components/svg/Github/Github.svelte";
@@ -28,9 +27,9 @@
 
 <ModeWatcher />
 <div
-    class="min-h-screen flex flex-col sm:bg-secondary dark:bg-secondary sm:dark:bg-card"
+    class="h-dvh w-full flex flex-col overflow-hidden sm:bg-secondary dark:bg-secondary sm:dark:bg-card"
 >
-    <header class="container max-w-2xl flex justify-end py-3 rounded-full">
+    <header class="container flex justify-end py-3 rounded-full flex-none">
         <Button
             onclick={toggleMode}
             variant="ghost"
@@ -44,25 +43,19 @@
         </Button>
     </header>
 
-    <div
-        class="flex-1 w-full container flex flex-col mb-2 pt-3 max-w-2xl mx-auto sm:border rounded-xl bg-card dark:bg-secondary"
-    >
-        <Profile />
-
-        <main class="overflow-y-auto flex justify-center items-start w-full">
-            {@render children?.()}
-        </main>
-    </div>
+    <main class="flex-1 min-h-0 w-full relative">
+        {@render children?.()}
+    </main>
 
     <footer
-        class="max-w-2xl container mx-auto w-full flex justify-between items-center py-3 sm:px-3"
+        class="container mx-auto w-full flex justify-between items-center py-2 flex-none"
     >
         <p class="text-xs md:text-sm text-muted-foreground">
             &copy; Juhun Park
         </p>
         <a
             href="https://github.com/juhun32/portfolio"
-            class="hover:text-primary hover:underline text-xs md:text-sm text-muted-foreground flex items-center gap-1 border dark:border-muted-foreground rounded-full px-1 h-5"
+            class="hover:text-primary hover:underline text-xs text-muted-foreground flex items-center gap-1 border dark:border-muted-foreground rounded-full px-1 h-5"
         >
             <Github /> Github
         </a>

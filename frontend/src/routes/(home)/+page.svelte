@@ -1,396 +1,263 @@
 <script lang="ts">
-    import Badge from "$lib/components/ui/badge/badge.svelte";
+    import { onMount, onDestroy } from "svelte";
 
-    // project
-    import Copium_project from "$lib/components/project/Copium.svelte";
-    import Calple from "$lib/components/project/Calple.svelte";
-    import Formulaba from "$lib/components/project/Formulaba.svelte";
-    import Ftrace from "$lib/components/project/Ftrace.svelte";
+    import Editor from "$lib/components/Editor.svelte";
+    import Profile from "$lib/components/Profile.svelte";
 
-    // experience
-    import Copium_experience from "$lib/components/experience/Copium.svelte";
-    import Insightlegi from "$lib/components/experience/Insightlegi.svelte";
-    import Eduverse from "$lib/components/experience/Eduverse.svelte";
-    import Himedia from "$lib/components/experience/Himedia.svelte";
+    import { Spinner } from "$lib/components/ui/spinner/index.js";
 
-    // icon
-    import { ArrowUpRight, DotIcon } from "lucide-svelte";
-    import Github from "$lib/components/svg/Github/Github.svelte";
+    import type { SpotifyData } from "$lib/types/spotify";
 
-    // images
-    import copium_light1 from "$lib/assets/copium_light1.png";
-    import copium_light2 from "$lib/assets/copium_light2.png";
-    import copium_light3 from "$lib/assets/copium_light3.png";
+    let isLoading = $state(true);
 
-    import copium_dark1 from "$lib/assets/copium_dark1.png";
-    import copium_dark2 from "$lib/assets/copium_dark2.png";
-    import copium_dark3 from "$lib/assets/copium_dark3.png";
+    // spotify / editor
+    const offlineData: SpotifyData = {
+        isPlaying: false,
+        title: "N/A",
+        artist: "N/A",
+        albumImageURL: "N/A",
+        songURL: "",
+        nowPlaying: "",
+        topTracks: [],
+    };
 
-    import calple_light1 from "$lib/assets/calple_light1.png";
-    import calple_light2 from "$lib/assets/calple_light2.png";
-    import calple_light3 from "$lib/assets/calple_light3.png";
+    let isInitialLoad = true;
 
-    import calple_dark1 from "$lib/assets/calple_dark1.png";
-    import calple_dark2 from "$lib/assets/calple_dark2.png";
-    import calple_dark3 from "$lib/assets/calple_dark3.png";
+    let spotifyInterval: number;
+    let spotifyData = $state<SpotifyData>(offlineData);
 
-    import { mode } from "mode-watcher";
-    let isDarkMode = $state(false);
+    let code = $state("");
+    let editorRef: any = $state();
 
-    $effect(() => {
-        isDarkMode = $mode === "dark";
+    async function fetchSpotifyData() {
+        try {
+            const response = await fetch("/spotify");
+            if (!response.ok) {
+                throw new Error("API Error");
+            }
+
+            const rawData = await response.json();
+            const isPlaying =
+                rawData?.isPlaying || rawData?.is_playing || false;
+
+            const newData = {
+                ...rawData,
+                title: rawData?.title || rawData?.item?.name,
+                isPlaying: isPlaying,
+                artist:
+                    rawData?.artist ||
+                    rawData?.item?.artists?.[0]?.name ||
+                    "N/A",
+            };
+
+            handleDataUpdate(newData);
+        } catch (error) {
+            handleDataUpdate(offlineData);
+        }
+    }
+
+    function handleDataUpdate(newData: SpotifyData) {
+        spotifyData = newData;
+
+        // if initial load, set full code
+        // if not only modify the activity block
+        if (isInitialLoad) {
+            code = getCode(newData);
+            isInitialLoad = false;
+            isLoading = false;
+        } else {
+            updateSpotify(newData);
+        }
+    }
+
+    function getSpotify(data: Partial<SpotifyData>) {
+        const safeTitle = JSON.stringify(data.title || "N/A");
+        const safeArtist = JSON.stringify(data.artist || "N/A");
+        const safeAlbumImageURL = JSON.stringify(data.albumImageURL || "N/A");
+        const statusText = data.isPlaying ? "Online" : "Offline";
+
+        return `const Activity = {
+    status: "${statusText}",
+    music: {
+        isPlaying: ${data.isPlaying},
+        albumImageURL: ${safeAlbumImageURL},
+        track: ${safeTitle},
+        artist: ${safeArtist},
+    }
+};`;
+    }
+
+    function updateSpotify(data: Partial<SpotifyData>) {
+        const newBlock = getSpotify(data);
+
+        // const Activity    // the variable name
+        // \s*=\s*\{         // " = {" with any whitespace
+        // [\s\S]*?          // content inside
+        // \};               // closing "};"
+        const activityRegex = /const Activity\s*=\s*\{[\s\S]*?\};/;
+
+        const match = code.match(activityRegex);
+
+        if (match) {
+            const currentBlock = match[0];
+            // string should be normalized to avoid whitespace differences
+            // this is to only update when there's an actual content change
+            const normalize = (str: string) => str.replace(/\s/g, "");
+
+            if (normalize(currentBlock) !== normalize(newBlock)) {
+                code = code.replace(activityRegex, newBlock);
+
+                // forcing value update in editor
+                if (editorRef) {
+                    editorRef.updateContent(code);
+                }
+            }
+        } else {
+            // if the "const Activity" is deleted, can't update anymore
+            // so just log a warning silently
+            console.warn("activity block not found");
+        }
+    }
+
+    function getCode(data: Partial<SpotifyData>) {
+        return `const Profile = {
+    name: "Juhun Park",
+    koreanName: "박주훈",
+    titles: [
+        "Software Engineer", 
+        "Racing Enthusiast", 
+        "Korean BBQ Lover"
+    ],
+    contacts: [
+        { 
+            label: "Email", 
+            value: "juhunpark32@gmail.com", 
+            link: "mailto:juhunpark32@gmail.com" 
+        },
+        { 
+            label: "LinkedIn", 
+            value: "juhun-park", 
+            link: "https://www.linkedin.com/in/juhun-park/" 
+        },
+        { 
+            label: "GitHub", 
+            value: "juhun32", 
+            link: "https://www.github.com/juhun32" 
+        }
+    ]
+};
+
+const Experience = [
+    {
+        role: "Lead Developer",
+        company: "Google Developer Groups (GMU)",
+        period: "Aug 2025 - Present",
+        description: "Architected a Go/PostgreSQL course scheduler for 10k+ sections and scaled a Python scraping pipeline with RabbitMQ/Redis to support 100+ concurrent users."
+    },
+    {
+        role: "Software Engineer Intern",
+        company: "Northwestern University",
+        period: "Jun 2025 - Aug 2025",
+        description: "Built an alumni platform with SvelteKit/.NET serving 150 users; optimized Supabase SQL queries to sub-5ms latency and offloaded 95% of reads via Redis caching."
+    }
+];
+
+const Projects = [
+    { 
+        name: "Revive.fyi", 
+        description: "Internship platform processing 2k+ apps/week; reduced analytics latency by 80% via CQRS and eliminated AWS egress fees using Cloudflare R2.",
+        link: "https://copium.dev" 
+    },
+    { 
+        name: "Castle Postdate", 
+        description: "Real-time distributed scheduler; achieved sub-100ms sync latency using Go microservices, GCP Pub/Sub, and unified Firestore state models.",
+        link: "https://calple.date" 
+    },
+    { 
+        name: "Sequential", 
+        description: "High-performance Assetto Corsa telemetry pipeline using Go and zero-copy shared memory with sub-10ms WebSocket synchronization.",
+        link: "https://github.com/juhun32/sequential" 
+    }
+];
+
+${getSpotify(data)}
+
+return { Profile, Experience, Projects, Activity };
+`;
+    }
+
+    // parsing the code to data object
+    let parsedData = $derived.by(() => {
+        try {
+            return new Function(code)();
+        } catch (e) {
+            console.error("parsing error:", e);
+            return null;
+        }
     });
 
-    const projects = [
-        {
-            id: "copium_project",
-            title: "copium.dev",
-            github: "https://github.com/copium-dev/copium",
-            link: "https://copium.dev",
-            description: "Tech internship management platform",
-            date: "Now",
+    const fallbackData = {
+        Profile: {
+            name: "parsing error",
+            titles: ["N/A"],
+            contacts: [
+                {
+                    label: "Email",
+                    value: "juhunpark32@gmail.com",
+                    link: "mailto:juhunpark32@gmail.com",
+                },
+                {
+                    label: "LinkedIn",
+                    value: "juhun-park",
+                    link: "https://www.linkedin.com/in/juhun-park/",
+                },
+                {
+                    label: "GitHub",
+                    value: "juhun32",
+                    link: "https://www.github.com/juhun32",
+                },
+            ],
         },
-        {
-            id: "calple",
-            title: "calple.date",
-            github: "https://github.com/juhun32/calple",
-            link: "https://calple.date",
-            description: "Couple schedule management platform",
-            date: "Now",
-            light_pictures: [calple_light1, calple_light2, calple_light3],
-            dark_pictures: [calple_dark1, calple_dark2, calple_dark3],
-        },
-        {
-            id: "formulaba",
-            title: "formulaba.dev",
-            github: "",
-            link: "",
-            description: "TBD",
-            date: "Now",
-        },
-        {
-            id: "ftrace",
-            title: "ftrace",
-            github: "https://github.com/juhun32/ftrace",
-            // link: "https://ftrace.dev",
-            description: "Racing simulator telemetry analysis tool",
-            date: "2025",
-        },
-    ];
+        Activity: { status: "Error", music: {} },
+        Experience: [],
+        Projects: [],
+    };
 
-    const experiences = [
-        {
-            id: "kellogg_collective",
-            title: "Northwestern Kellogg - Alumni Association",
-            logo: "",
-            date: "Jul '25 - Aug '25",
-            description:
-                "Northwestern Kellogg Alumni Connection Platform, KCMS",
-        },
-        {
-            id: "copium_experience",
-            title: "Copium",
-            github: "https://github.com/copium-dev",
-            link: "https://copium.dev",
-            date: "Jan '25 - Now",
-            description: "Tech internship management platform",
-            light_pictures: [copium_light2, copium_light3],
-            dark_pictures: [copium_dark2, copium_dark3],
-        },
-        {
-            id: "insightlegi",
-            title: "George Mason University - Insightlegi",
-            date: "Jan '25 - Mar '25",
-            description:
-                "Data driven legal insights platform, product and hackathon",
-        },
-        {
-            id: "eduverse",
-            title: "George Mason University - Eduverse",
-            date: "Dec '24 - Jan '25",
-            description: "Personalized learning platform, computer science",
-        },
-        {
-            id: "himedia",
-            title: "Himedia",
-            date: "Jan '23 - Apr '23",
-            description: "Coding bootcamp, backend development",
-        },
-    ];
+    onMount(() => {
+        fetchSpotifyData();
+        spotifyInterval = setInterval(fetchSpotifyData, 30 * 1000);
+    });
 
-    let currentView = $state("list");
-
-    function showProjectDetails(projectId: string) {
-        currentView = projectId;
-    }
-
-    function backToList() {
-        currentView = "list";
-    }
-
-    function getProjectComponent(projectId: string) {
-        switch (projectId) {
-            case "copium_project":
-                return Copium_project;
-            case "calple":
-                return Calple;
-            case "formulaba":
-                return Formulaba;
-            case "ftrace":
-                return Ftrace;
-            default:
-                return null;
-        }
-    }
-
-    function getExperienceComponent(experienceId: string) {
-        switch (experienceId) {
-            case "copium_experience":
-                return Copium_experience;
-            case "insightlegi":
-                return Insightlegi;
-            case "eduverse":
-                return Eduverse;
-            case "himedia":
-                return Himedia;
-            default:
-                return null;
-        }
-    }
-
-    import * as Dialog from "$lib/components/ui/dialog";
-    import Button from "$lib/components/ui/button/button.svelte";
-
-    let popupImage = $state<string | null>(null);
-    function openImage(src: string) {
-        popupImage = src;
-    }
-    function closeImage() {
-        popupImage = null;
-    }
+    onDestroy(() => {
+        clearInterval(spotifyInterval);
+    });
 </script>
 
 <div
-    class="w-full h-full bg-background dark:bg-secondary flex flex-col items-center justify-center gap-16 my-8"
+    class="container w-full h-full grid grid-cols-1 lg:grid-cols-2 overflow-hidden gap-3"
 >
-    <div class="w-full">
-        <Badge
-            class="h-5 font-normal tracking-tight text-sm mb-2 dark:border-muted-foreground"
-            variant="secondary"
+    <div class="w-full flex flex-col border">
+        <span
+            class="px-5 py-1 border-b bg-muted text-xs font-mono text-muted-foreground flex items-center"
         >
-            Projects
-        </Badge>
-        <div class="w-full grid grid-cols-[1fr_3fr] items-start text-sm px-3">
-            {#each projects as project}
+            profile.config.js
+        </span>
+        <div class="flex-1 w-full relative bg-background dark:bg-secondary">
+            {#if isLoading}
                 <div
-                    class="flex items-start gap-2 text-muted-foreground text-sm py-4"
+                    class="w-full h-full flex items-center justify-center flex-col gap-2"
                 >
-                    {project.date}
+                    <Spinner />
                 </div>
-                <div class="flex flex-col items-start px-3 py-4">
-                    <div class="flex items-center gap-1">
-                        {#if project.link}
-                            <a
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="hover:text-primary flex items-start gap-1 hover:underline"
-                            >
-                                <span class="font-normal text-sm">
-                                    {project.title}
-                                </span>
-                                <ArrowUpRight class="h-3 w-3" />
-                            </a>
-                        {:else}
-                            <span class="font-normal text-sm">
-                                {project.title}
-                            </span>
-                        {/if}
-                        {#if project.github}
-                            <a
-                                href={project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="hover:text-primary text-muted-foreground flex items-center justify-end gap-1 border dark:border-muted-foreground rounded-full px-1 h-5"
-                            >
-                                <Github /> Github
-                            </a>
-                        {/if}
-                    </div>
-                    <div class="text-muted-foreground text-sm">
-                        {project.description}
-                    </div>
-                    {#if project.light_pictures}
-                        <div
-                            class="flex flex-col sm:flex-row items-center gap-2 mt-1"
-                        >
-                            {#if !isDarkMode}
-                                {#each project.light_pictures as picture}
-                                    <Button
-                                        variant="ghost"
-                                        onclick={() => openImage(picture)}
-                                        class="h-fit w-fit rounded cursor-pointer px-0 py-0"
-                                    >
-                                        <img
-                                            src={picture}
-                                            alt={project.title}
-                                            class="sm:h-20 rounded cursor-pointer border"
-                                        /></Button
-                                    >
-                                {/each}
-                            {:else}
-                                {#each project.dark_pictures as picture}
-                                    <Button
-                                        variant="ghost"
-                                        onclick={() => openImage(picture)}
-                                        class="h-fit w-fit rounded cursor-pointer px-0 py-0"
-                                    >
-                                        <img
-                                            src={picture}
-                                            alt={project.title}
-                                            class="sm:h-20 rounded cursor-pointer border"
-                                        /></Button
-                                    >
-                                {/each}
-                            {/if}
-                        </div>
-                    {/if}
-                </div>
-            {/each}
-        </div>
-    </div>
-    <!-- {#if currentView !== "list"}
-        {@const ProjectComponent = getProjectComponent(currentView)}
-        {#if ProjectComponent}
-            <ProjectComponent />
-        {/if}
-    {/if} -->
-
-    <div class="w-full">
-        <Badge
-            class="h-5 font-normal tracking-tight text-sm mb-2 dark:border-muted-foreground"
-            variant="secondary"
-        >
-            Experiences
-        </Badge>
-        <div class="w-full grid grid-cols-[1fr_3fr] items-start text-sm px-3">
-            {#each experiences as experience}
-                <div
-                    class="flex items-start gap-2 text-muted-foreground text-sm py-4"
-                >
-                    {experience.date}
-                </div>
-                <div class="flex items-center gap-2 py-4">
-                    <!-- {#if experience.logo}
-                            <img
-                                src={experience.logo}
-                                alt={experience.title}
-                                class="h-5 w-5 rounded-full"
-                            />
-                        {/if} -->
-                    <div class="flex flex-col items-start px-3">
-                        <div class="flex items-center gap-1">
-                            {#if experience.link}
-                                <a
-                                    href={experience.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="hover:text-primary flex items-start gap-1 hover:underline"
-                                >
-                                    <span class="font-normal text-sm">
-                                        {experience.title}
-                                    </span>
-                                    <ArrowUpRight class="h-3 w-3" />
-                                </a>
-                            {:else}
-                                <span class="font-normal text-sm">
-                                    {experience.title}
-                                </span>
-                            {/if}
-                            {#if experience.github}
-                                <a
-                                    href={experience.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="hover:text-primary text-muted-foreground flex items-center justify-end gap-1 border dark:border-muted-foreground rounded-full px-1 h-5"
-                                >
-                                    <Github /> Github
-                                </a>
-                            {/if}
-                        </div>
-                        <div class="text-muted-foreground text-sm">
-                            {experience.description}
-                        </div>
-                        {#if experience.light_pictures}
-                            <div
-                                class="flex flex-col sm:flex-row items-center gap-2 mt-1"
-                            >
-                                {#if !isDarkMode}
-                                    {#each experience.light_pictures as picture}
-                                        <Button
-                                            variant="ghost"
-                                            onclick={() => openImage(picture)}
-                                            class="h-fit w-fit rounded cursor-pointer px-0 py-0 border"
-                                        >
-                                            <img
-                                                src={picture}
-                                                alt={experience.title}
-                                                class="sm:h-20 rounded cursor-pointer"
-                                            />
-                                        </Button>
-                                    {/each}
-                                {:else}
-                                    {#each experience.dark_pictures as picture}
-                                        <Button
-                                            variant="ghost"
-                                            onclick={() => openImage(picture)}
-                                            class="h-fit w-fit rounded cursor-pointer px-0 py-0"
-                                        >
-                                            <img
-                                                src={picture}
-                                                alt={experience.title}
-                                                class="sm:h-20 rounded cursor-pointer"
-                                            />
-                                        </Button>
-                                    {/each}
-                                {/if}
-                            </div>
-                        {/if}
-                    </div>
-                </div>
-            {/each}
+            {:else}
+                <Editor bind:this={editorRef} bind:value={code} />
+            {/if}
         </div>
     </div>
 
-    <!-- {#if currentView !== "list"}
-        <div class="flex items-center mt-4">
-            <Button
-                variant="ghost"
-                size="sm"
-                onclick={backToList}
-                class="flex items-center gap-2"
-            >
-                <ArrowLeft class="h-4 w-4" />
-                Back
-            </Button>
-        </div>
-        {@const ExperienceComponent = getExperienceComponent(currentView)}
-        {#if ExperienceComponent}
-            <ExperienceComponent />
-        {/if}
-    {/if} -->
-
-    {#if popupImage}
-        <Dialog.Root open={true} onOpenChange={closeImage}>
-            <Dialog.Content
-                class="w-[90vw] sm:w-[70vw] z-50 p-2 bg-background rounded shadow-lg flex flex-col items-center"
-            >
-                <img
-                    src={popupImage}
-                    alt="Full preview"
-                    class="rounded aspect-[16/9]"
-                />
-            </Dialog.Content>
-        </Dialog.Root>
-    {/if}
+    <div
+        class="w-full h-full overflow-y-auto bg-card dark:bg-secondary/20 flex items-start justify-center p-4 border"
+    >
+        <Profile data={parsedData ?? fallbackData} spotify={spotifyData} />
+    </div>
 </div>
