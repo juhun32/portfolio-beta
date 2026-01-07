@@ -44,7 +44,7 @@
 </script>
 
 <div
-    class="max-w-2xl w-full min-h-full flex flex-col gap-6 items-center justify-start mx-auto py-3 px-3"
+    class="max-w-2xl w-full min-h-full flex flex-col gap-6 items-center justify-start mx-auto sm:p-3"
 >
     <div
         class="w-full flex flex-col sm:grid sm:grid-cols-[25%_75%] items-center gap-3"
@@ -91,6 +91,7 @@
             </a>
         </div>
     </div>
+    <Separator class="my-2 sm:hidden" />
 
     <div class="w-full">
         <Badge
@@ -100,11 +101,13 @@
             <Phone class="h-3 w-3" strokeWidth={1.5} />
             Contact
         </Badge>
-        <div class="w-full grid grid-cols-[25%_75%] items-center text-sm px-3">
+        <div
+            class="w-full flex flex-col sm:grid sm:grid-cols-[25%_75%] text-sm sm:px-3"
+        >
             {#each contacts as contact}
                 <a
                     href={contact.link}
-                    class="flex text-muted-foreground py-1 text-xs"
+                    class="hidden sm:flex text-muted-foreground py-1 text-xs"
                 >
                     {contact.label}
                 </a>
@@ -130,7 +133,9 @@
             </Badge>
             <div class="w-full flex flex-col gap-6 px-3">
                 {#each experiences as exp}
-                    <div class="grid grid-cols-[25%_75%] gap-2 text-sm">
+                    <div
+                        class="flex flex-col sm:grid sm:grid-cols-[25%_75%] gap-2 text-sm"
+                    >
                         <div class="text-muted-foreground text-xs pt-0.5">
                             {exp.period}
                         </div>

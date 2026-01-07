@@ -29,7 +29,7 @@
 <div
     class="h-dvh w-full flex flex-col overflow-hidden sm:bg-secondary dark:bg-secondary sm:dark:bg-card"
 >
-    <header class="container flex justify-end py-3 rounded-full flex-none">
+    <header class="container flex justify-end py-2 rounded-full flex-none">
         <Button
             onclick={toggleMode}
             variant="ghost"

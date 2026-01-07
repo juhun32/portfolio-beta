@@ -236,7 +236,7 @@ return { Profile, Experience, Projects, Activity };
 <div
     class="container w-full h-full grid grid-cols-1 lg:grid-cols-2 overflow-hidden gap-3"
 >
-    <div class="w-full flex flex-col border">
+    <div class="w-full hidden lg:flex flex-col border">
         <span
             class="px-5 py-1 border-b bg-muted text-xs font-mono text-muted-foreground flex items-center"
         >
@@ -256,7 +256,7 @@ return { Profile, Experience, Projects, Activity };
     </div>
 
     <div
-        class="w-full h-full overflow-y-auto bg-card dark:bg-secondary/20 flex items-start justify-center p-4 border"
+        class="w-full h-full overflow-y-auto bg-card dark:bg-secondary/20 flex items-start justify-center p-3 border"
     >
         <Profile data={parsedData ?? fallbackData} spotify={spotifyData} />
     </div>
