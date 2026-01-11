@@ -152,7 +152,8 @@ const Experience = [
         role: "Lead Developer",
         company: "Google Developer Groups (GMU)",
         period: "Aug 2025 - Present",
-        description: "Architected a Go/PostgreSQL course scheduler for 10k+ sections and scaled a Python scraping pipeline with RabbitMQ/Redis to support 100+ concurrent users."
+        description: "Architected a Go/PostgreSQL course scheduler for 10k+ sections and scaled a Python scraping pipeline with RabbitMQ/Redis to support 100+ concurrent users.",
+        link: "https://github.com/google-dev-groups-gmu"
     },
     {
         role: "Software Engineer Intern",

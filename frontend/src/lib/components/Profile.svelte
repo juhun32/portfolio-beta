@@ -52,7 +52,7 @@
         <img
             src={ProfileImg}
             alt="Profile"
-            class="h-[94px] aspect-[1/1] object-cover rounded-full"
+            class="h-[128px] aspect-[1/1] object-cover rounded-full border p-0.5"
         />
         <div class="w-full grid grid-rows-[1fr_auto] items-center">
             <div>
@@ -83,10 +83,13 @@
                     <Paperclip class="h-3 w-3" strokeWidth={1.5} />Resume
                 </Badge>
                 <p
-                    class="flex items-start gap-1 text-sm text-start hover:underline"
+                    class="flex items-center gap-1 text-sm text-start hover:underline group"
                 >
                     Latest: {new Date().toLocaleDateString()}
-                    <ArrowUpRight class="h-3 w-3" strokeWidth={1.5} />
+                    <ArrowUpRight
+                        class="h-3 w-3 opacity-50 group-hover:opacity-100"
+                        strokeWidth={1.5}
+                    />
                 </p>
             </a>
         </div>
@@ -107,16 +110,19 @@
             {#each contacts as contact}
                 <a
                     href={contact.link}
-                    class="hidden sm:flex text-muted-foreground py-1 text-xs"
+                    class="hidden sm:flex text-muted-foreground py-1 text-xs items-center"
                 >
                     {contact.label}
                 </a>
                 <a
                     href={contact.link}
-                    class="px-3 flex items-start gap-1 hover:underline py-1"
+                    class="px-3 flex items-center gap-1 hover:underline py-1 group"
                 >
                     {contact.value}
-                    <ArrowUpRight class="h-3 w-3" strokeWidth={1.5} />
+                    <ArrowUpRight
+                        class="h-3 w-3 opacity-50 group-hover:opacity-100"
+                        strokeWidth={1.5}
+                    />
                 </a>
             {/each}
         </div>
@@ -140,7 +146,27 @@
                             {exp.period}
                         </div>
                         <div>
-                            <div class="font-medium">{exp.role}</div>
+                            {#if exp.link}
+                                <div
+                                    class="font-medium hover:cursor-pointer hover:underline group"
+                                >
+                                    {exp.role}
+
+                                    <a
+                                        href={exp.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-block ml-1"
+                                    >
+                                        <ArrowUpRight
+                                            class="h-3 w-3 opacity-50 group-hover:opacity-100 inline-block"
+                                            strokeWidth={1.5}
+                                        />
+                                    </a>
+                                </div>
+                            {:else}
+                                <div class="font-medium">{exp.role}</div>
+                            {/if}
                             <div
                                 class="text-muted-foreground text-xs mt-1 mb-3"
                             >
