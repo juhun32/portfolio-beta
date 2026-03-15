@@ -149,10 +149,20 @@
 
 const Experience = [
     {
+        role: "Sergeant, Network Operations Specialist",
+        company: "ROK Army",
+        period: "Jun 2026 - Feb 2028"
+    },
+    {
+        role: "Teaching Assistant, Data Structures (CS310)",
+        company: "George Mason University",
+        period: "Jan 2025 - May 2025",
+    },
+    {
         role: "Lead Developer",
         company: "Google Developer Groups (GMU)",
         period: "Aug 2025 - Present",
-        description: "Architected a Go/PostgreSQL course scheduler for 10k+ sections and scaled a Python scraping pipeline with RabbitMQ/Redis to support 100+ concurrent users.",
+        description: "Architected a Go/PostgreSQL course scheduler for 10k+ sections and scaled a Python scraping pipeline. Directed 2 open-source projects, established standard CI/CD workflow, contribution guidelines & code review processes.",
         link: "https://github.com/google-dev-groups-gmu"
     },
     {
@@ -165,19 +175,24 @@ const Experience = [
 
 const Projects = [
     { 
+        name: "Sequential", 
+        description: "High-performance Assetto Corsa telemetry pipeline using Go and zero-copy shared memory with sub-10ms WebSocket synchronization.",
+        link: "https://github.com/juhun32/sequential" 
+    },
+    {
+        name: "Echo",
+        description: "Semantic caching system for LLMs. Performs edge-based vectorization in the browser and uses a go backend synchronized with S3 to serve cached AI responses, cutting API costs, latency, and potential carbon emissions.",
+        link: "https://echo-lac-gamma.vercel.app/"
+    },
+    { 
         name: "Revive.fyi", 
         description: "Internship platform processing 2k+ apps/week; reduced analytics latency by 80% via CQRS and eliminated AWS egress fees using Cloudflare R2.",
         link: "https://copium.dev" 
     },
     { 
         name: "Castle Postdate", 
-        description: "Real-time distributed scheduler; achieved sub-100ms sync latency using Go microservices, GCP Pub/Sub, and unified Firestore state models.",
+        description: "Real-time distributed scheduler; sub-100ms sync latency using Go microservices, GCP Pub/Sub, and unified Firestore state models.",
         link: "https://calple.date" 
-    },
-    { 
-        name: "Sequential", 
-        description: "High-performance Assetto Corsa telemetry pipeline using Go and zero-copy shared memory with sub-10ms WebSocket synchronization.",
-        link: "https://github.com/juhun32/sequential" 
     }
 ];
 
