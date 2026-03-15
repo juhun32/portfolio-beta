@@ -156,12 +156,12 @@ const Experience = [
     {
         role: "Teaching Assistant, Data Structures (CS310)",
         company: "George Mason University",
-        period: "Jan 2025 - May 2025",
+        period: "Jan 2026 - May 2026",
     },
     {
         role: "Lead Developer",
         company: "Google Developer Groups (GMU)",
-        period: "Aug 2025 - Present",
+        period: "Aug 2025 - May 2026",
         description: "Architected a Go/PostgreSQL course scheduler for 10k+ sections and scaled a Python scraping pipeline. Directed 2 open-source projects, established standard CI/CD workflow, contribution guidelines & code review processes.",
         link: "https://github.com/google-dev-groups-gmu"
     },
