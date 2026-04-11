@@ -272,7 +272,7 @@ return { Profile, Experience, Projects, Activity };
     </div>
 
     <div
-        class="w-full h-full overflow-y-auto bg-card dark:bg-secondary/20 flex items-start justify-center p-3 border"
+        class="w-full h-full overflow-y-auto bg-card dark:bg-secondary flex items-start justify-center p-3 border"
     >
         <Profile data={parsedData ?? fallbackData} spotify={spotifyData} />
     </div>

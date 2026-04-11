@@ -28,7 +28,7 @@
             { token: "number", foreground: "000000" },
         ],
         colors: {
-            "editor.background": "#f5f1e6",
+            "editor.background": "#f0f0ef",
             "editor.foreground": "#2b2623",
             "editorLineNumber.foreground": "#d4d4d4",
             "editor.lineHighlightBackground": "#ece8de",
@@ -75,7 +75,7 @@
         mode.subscribe((val) => {
             if (editorInstance) {
                 monaco.editor.setTheme(
-                    val === "dark" ? "vs-dark" : "typewriter"
+                    val === "dark" ? "vs-dark" : "typewriter",
                 );
             }
         });
