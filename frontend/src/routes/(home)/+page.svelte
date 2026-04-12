@@ -124,9 +124,9 @@
     name: "Juhun Park",
     koreanName: "박주훈",
     titles: [
-        "Software Engineer", 
-        "Racing Enthusiast", 
-        "Korean BBQ Lover"
+        "I'll come back, I promise",
+        "Be happy and be free",
+        "Always in my heart",
     ],
     contacts: [
         { 
@@ -162,36 +162,34 @@ const Experience = [
         role: "Lead Developer",
         company: "Google Developer Groups (GMU)",
         period: "Aug 2025 - May 2026",
-        description: "Architected a Go/PostgreSQL course scheduler for 10k+ sections and scaled a Python scraping pipeline. Directed 2 open-source projects, established standard CI/CD workflow, contribution guidelines & code review processes.",
         link: "https://github.com/google-dev-groups-gmu"
     },
     {
         role: "Software Engineer Intern",
         company: "Northwestern University",
         period: "Jun 2025 - Aug 2025",
-        description: "Built an alumni platform with SvelteKit/.NET serving 150 users; optimized Supabase SQL queries to sub-5ms latency and offloaded 95% of reads via Redis caching."
-    }
+        }
 ];
 
 const Projects = [
     { 
         name: "Sequential", 
-        description: "High-performance Assetto Corsa telemetry pipeline using Go and zero-copy shared memory with sub-10ms WebSocket synchronization.",
+        description: "Assetto Corsa telemetry WebSocket pipeline",
         link: "https://github.com/juhun32/sequential" 
     },
     {
         name: "Echo",
-        description: "Semantic caching system for LLMs. Performs edge-based vectorization in the browser and uses a go backend synchronized with S3 to serve cached AI responses, cutting API costs, latency, and potential carbon emissions.",
+        description: "Semantic caching system for LLMs with edge-based vectorization",
         link: "https://echo-lac-gamma.vercel.app/"
     },
     { 
         name: "Revive.fyi", 
-        description: "Internship platform processing 2k+ apps/week; reduced analytics latency by 80% via CQRS and eliminated AWS egress fees using Cloudflare R2.",
+        description: "Tech internship platform",
         link: "https://copium.dev" 
     },
     { 
         name: "Castle Postdate", 
-        description: "Real-time distributed scheduler; sub-100ms sync latency using Go microservices, GCP Pub/Sub, and unified Firestore state models.",
+        description: "Distributed team scheduler",
         link: "https://calple.date" 
     }
 ];
@@ -250,9 +248,9 @@ return { Profile, Experience, Projects, Activity };
 </script>
 
 <div
-    class="container w-full h-full grid grid-cols-1 lg:grid-cols-2 overflow-hidden gap-3"
+    class="container w-full h-full grid grid-cols-1 lg:grid-cols-2 overflow-hidden gap-6"
 >
-    <div class="w-full hidden lg:flex flex-col border">
+    <div class="w-full hidden lg:flex flex-col rounded-lg overflow-hidden">
         <span
             class="px-5 py-1 border-b bg-muted text-xs font-mono text-muted-foreground flex items-center"
         >
@@ -272,7 +270,7 @@ return { Profile, Experience, Projects, Activity };
     </div>
 
     <div
-        class="w-full h-full overflow-y-auto bg-card dark:bg-secondary flex items-start justify-center p-3 border"
+        class="w-full h-full overflow-y-auto flex items-start justify-center p-3 rounded-lg"
     >
         <Profile data={parsedData ?? fallbackData} spotify={spotifyData} />
     </div>

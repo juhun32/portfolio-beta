@@ -20,21 +20,23 @@
     <title>Juhun Park</title>
     <meta name="description" content="Juhun Park Portfolio" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Actor&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet"
     />
 </svelte:head>
 
 <ModeWatcher />
 <div
-    class="h-dvh w-full flex flex-col overflow-hidden sm:bg-secondary dark:bg-secondary sm:dark:bg-card"
+    class="h-dvh w-full flex flex-col px-3 sm:px-0 overflow-hidden bg-secondary dark:bg-secondary"
 >
-    <header class="container flex justify-end py-2 rounded-full flex-none">
+    <header
+        class="mx-auto container flex justify-start py-2 rounded-full flex-none"
+    >
         <Button
             onclick={toggleMode}
             variant="ghost"
             size="icon"
-            class="w-8 h-8 rounded-full"
+            class="w-8 h-8 rounded-full hover:cursor-pointer"
             aria-label="Toggle theme"
         >
             <SunMedium class="dark:hidden" />
@@ -43,7 +45,9 @@
         </Button>
     </header>
 
-    <main class="flex-1 min-h-0 w-full relative">
+    <main
+        class="flex-1 min-h-0 w-full relative mx-auto container rounded-lg overflow-hidden"
+    >
         {@render children?.()}
     </main>
 
@@ -64,6 +68,6 @@
 
 <style>
     :global(body) {
-        font-family: "Inter", sans-serif;
+        font-family: "Actor", sans-serif;
     }
 </style>

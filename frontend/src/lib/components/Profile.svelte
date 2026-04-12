@@ -44,23 +44,18 @@
 </script>
 
 <div
-    class="max-w-2xl w-full min-h-full flex flex-col gap-6 items-center justify-start mx-auto sm:p-3"
+    class="max-w-2xl w-full min-h-full flex flex-col gap-6 items-center justify-start mx-auto"
 >
     <div
-        class="w-full flex flex-col sm:grid sm:grid-cols-[25%_75%] items-center gap-3"
+        class="w-full flex flex-col sm:grid sm:grid-cols-[1fr_auto] items-center gap-3 mdbg-gradient-to-l from-foreground/5 via-secondary dark:to-secondary rounded-r-full pr-5 py-4"
     >
-        <img
-            src={ProfileImg}
-            alt="Profile"
-            class="h-[128px] aspect-[1/1] object-cover rounded-full border p-0.5"
-        />
         <div class="w-full grid grid-rows-[1fr_auto] items-center">
             <div>
                 <h1
-                    class="w-full flex items-baseline justify-center sm:justify-start gap-2 text-xl font-light px-1"
+                    class="w-full flex items-baseline justify-center sm:justify-start gap-2 text-3xl font-light px-1"
                 >
                     {data?.Profile?.name || "Juhun Park"}
-                    <p class="text-xs">{data?.Profile?.koreanName || ""}</p>
+                    <p class="text-sm">{data?.Profile?.koreanName || ""}</p>
                 </h1>
                 {#key currentText}
                     <span
@@ -93,8 +88,12 @@
                 </p>
             </a>
         </div>
+        <img
+            src={ProfileImg}
+            alt="Profile"
+            class="h-[128px] aspect-[1/1] object-cover rounded-full border p-0.5"
+        />
     </div>
-    <Separator class="my-2 sm:hidden" />
 
     <div class="w-full">
         <Badge
@@ -110,13 +109,13 @@
             {#each contacts as contact}
                 <a
                     href={contact.link}
-                    class="hidden sm:flex text-muted-foreground py-1 text-xs items-center"
+                    class="hidden sm:flex text-muted-foreground py-0.5 text-xs items-center"
                 >
                     {contact.label}
                 </a>
                 <a
                     href={contact.link}
-                    class="px-3 flex items-center gap-1 hover:underline py-1 group"
+                    class="px-3 flex items-center gap-1 hover:underline py-0.5 group"
                 >
                     {contact.value}
                     <ArrowUpRight
@@ -127,7 +126,6 @@
             {/each}
         </div>
     </div>
-    <Separator class="my-2" />
 
     {#if experiences.length > 0}
         <div class="w-full">
@@ -137,7 +135,7 @@
             >
                 <Briefcase class="h-3 w-3" strokeWidth={1.5} /> Experience
             </Badge>
-            <div class="w-full flex flex-col gap-6 px-3">
+            <div class="w-full flex flex-col gap-3 px-3">
                 {#each experiences as exp}
                     <div
                         class="flex flex-col sm:grid sm:grid-cols-[25%_75%] gap-2 text-sm"
@@ -145,7 +143,7 @@
                         <div class="text-muted-foreground text-xs pt-0.5">
                             {exp.period}
                         </div>
-                        <div>
+                        <div class="flex flex-col text-sm group items-start">
                             {#if exp.link}
                                 <div
                                     class="font-medium hover:cursor-pointer hover:underline group"
@@ -167,12 +165,14 @@
                             {:else}
                                 <div class="font-medium">{exp.role}</div>
                             {/if}
-                            <div
-                                class="text-muted-foreground text-xs mt-1 mb-3"
+                            <p
+                                class="text-muted-foreground text-xs leading-relaxed"
                             >
                                 {exp.company}
-                            </div>
-                            <p class="text-muted-foreground leading-relaxed">
+                            </p>
+                            <p
+                                class="text-muted-foreground text-xs leading-relaxed"
+                            >
                                 {exp.description}
                             </p>
                         </div>
@@ -180,7 +180,6 @@
                 {/each}
             </div>
         </div>
-        <Separator class="my-2" />
     {/if}
 
     {#if projects.length > 0}
@@ -191,12 +190,12 @@
             >
                 <FolderGit2 class="h-3 w-3" /> Projects
             </Badge>
-            <div class="w-full flex flex-col gap-6 px-3">
+            <div class="w-full flex flex-col gap-3 px-3">
                 {#each projects as project}
                     <a
                         href={project.link || "#"}
                         target="_blank"
-                        class="flex flex-col gap-2 text-sm group items-start"
+                        class="flex flex-col text-sm group items-start"
                     >
                         <div
                             class="font-medium flex items-center gap-1 group-hover:underline"
@@ -206,14 +205,15 @@
                                 class="h-3 w-3 opacity-50 group-hover:opacity-100"
                             />
                         </div>
-                        <p class="text-muted-foreground leading-relaxed">
+                        <p
+                            class="text-xs text-muted-foreground leading-relaxed"
+                        >
                             {project.description}
                         </p>
                     </a>
                 {/each}
             </div>
         </div>
-        <Separator class="my-2" />
     {/if}
 
     <div
@@ -267,12 +267,12 @@
             </a>
         {:else}
             <div
-                class="grid grid-cols-[25%_75%] sm:grid-cols-[15%_10%_75%] items-center w-full px-3"
+                class="grid sm:grid-cols-[15%_10%_75%] items-center w-full sm:px-3"
             >
                 <p class="text-xs text-muted-foreground hidden sm:flex">
                     Status
                 </p>
-                <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-3">
                     <ChevronsRight
                         class="h-4 w-4 text-muted-foreground"
                         strokeWidth={1.5}
