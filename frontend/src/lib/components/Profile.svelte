@@ -1,7 +1,7 @@
 <script lang="ts">
     import { fade } from "svelte/transition";
+    import { onMount, onDestroy } from "svelte";
 
-    import { Separator } from "$lib/components/ui/separator";
     import { buttonVariants } from "$lib/components/ui/button/index.js";
     import * as Collapsible from "$lib/components/ui/collapsible/index.js";
     import Badge from "$lib/components/ui/badge/badge.svelte";
@@ -17,6 +17,7 @@
         FolderGit2,
         Paperclip,
         Phone,
+        Notebook,
     } from "lucide-svelte";
 
     import type { SpotifyData } from "$lib/types/spotify";
@@ -24,10 +25,31 @@
 
     let { data, spotify } = $props<{ data: any; spotify: SpotifyData }>();
 
+    // age calculation
+    // 10 decimal places age in years unit
+    let currentAge = $state<number>(0);
+    let ageInterval: number;
+
+    function calculatePreciseAge() {
+        const birthDate = new Date(2004, 2, 20);
+        const now = new Date();
+        const ageMs = now.getTime() - birthDate.getTime();
+        
+        // converting into years
+        const ageYears = ageMs / (365.25 * 24 * 60 * 60 * 1000);
+        
+        return parseFloat(ageYears.toFixed(10));
+    }
+
+    function getAge() {
+        return currentAge.toFixed(10);
+    }
+
     let contacts = $derived(data?.Profile?.contacts || []);
     let titles = $derived(data?.Profile?.titles || ["Developer"]);
     let experiences = $derived(data?.Experience || []);
     let projects = $derived(data?.Projects || []);
+    let notes = $derived(data?.Notes || []);
 
     // rotating texts
     let index = $state(0);
@@ -40,6 +62,17 @@
             }
         }, 5000);
         return () => clearInterval(interval);
+    });
+
+    onMount(() => {
+        currentAge = calculatePreciseAge();
+        ageInterval = setInterval(() => {
+            currentAge = calculatePreciseAge();
+        }, 50);
+    });
+
+    onDestroy(() => {
+        clearInterval(ageInterval);
     });
 </script>
 
@@ -125,6 +158,24 @@
                 </a>
             {/each}
         </div>
+    </div>
+
+    <div class="flex flex-col items-start justify-center gap-4 w-full">
+        <Badge
+            variant="secondary"
+            class="h-5 gap-1 dark:border-muted-foreground"
+        >
+            <Notebook class="h-3 w-3" strokeWidth={1.5} />
+            Notes
+        </Badge>
+        <ul class="list-disc px-8">
+            <li class="text-sm">
+                i am {getAge()} years old
+            </li>
+            {#each notes as note}
+                <li class="text-sm">{note}</li>
+            {/each}
+        </ul>
     </div>
 
     {#if experiences.length > 0}

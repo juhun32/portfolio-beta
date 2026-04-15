@@ -173,30 +173,35 @@ const Experience = [
 
 const Projects = [
     { 
-        name: "Sequential", 
+        name: "sequential", 
         description: "Assetto Corsa telemetry WebSocket pipeline",
         link: "https://github.com/juhun32/sequential" 
     },
     {
-        name: "Echo",
+        name: "bucket",
         description: "Semantic caching system for LLMs with edge-based vectorization",
         link: "https://echo-lac-gamma.vercel.app/"
     },
     { 
-        name: "Revive.fyi", 
+        name: "revive.fyi", 
         description: "Tech internship platform",
         link: "https://copium.dev" 
     },
     { 
-        name: "Castle Postdate", 
-        description: "Distributed team scheduler",
+        name: "distributed-task-queue", 
+        description: "Distributed task queue system built with Go and RabbitMQ",
         link: "https://calple.date" 
     }
 ];
 
 ${getSpotify(data)}
 
-return { Profile, Experience, Projects, Activity };
+const Notes = [
+    "serving in the army starting June 2026, so don't expect github dots to appear after that",
+    "im working as a network operations specialist",
+];
+
+return { Profile, Experience, Projects, Activity, Notes };
 `;
     }
 
@@ -235,6 +240,7 @@ return { Profile, Experience, Projects, Activity };
         Activity: { status: "Error", music: {} },
         Experience: [],
         Projects: [],
+        Notes: [],
     };
 
     onMount(() => {
