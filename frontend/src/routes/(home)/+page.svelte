@@ -124,9 +124,12 @@
     name: "Juhun Park",
     koreanName: "박주훈",
     titles: [
-        "I'll come back, I promise",
-        "Be happy and be free",
-        "Always in my heart",
+        "Figuring out",
+        "Studying",
+        "Surviving",
+        "Missing",
+        "Planning",
+        "Should be fine"
     ],
     contacts: [
         { 
